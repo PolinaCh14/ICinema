@@ -1,0 +1,34 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+* {
+    color: white;
+    font-family: "Open Sans", Impact;
+}
+
+body {
+    background: linear-gradient(to right, black, #3797EF);
+}
+
+.nav {
+    background: #000000;
+    height: 60px;
+    color: white;
+}
+
+.nav-link, .navbar-brand {
+    color: white;
+}
+
+    .nav-link:hover {
+        color: #3797EF;
+    }
+
+.navbar-title {
+    color: white;
+    font-family: Impact;
+    font-size: 36px;
+}
+
+.navbar-title:hover {
+    color: white;
+}

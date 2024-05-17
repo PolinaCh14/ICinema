@@ -1,0 +1,11 @@
+﻿.movie-catalog {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-content: center;
+}
+
+.movie-card {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}

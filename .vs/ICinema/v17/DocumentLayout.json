@@ -1,0 +1,65 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\C# Projects\\Self study\\ICinema\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C1C376A3-7FE7-4866-B21F-3FC8214B40B6}|ICinema\\ICinema.csproj|d:\\c# projects\\self study\\icinema\\icinema\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C1C376A3-7FE7-4866-B21F-3FC8214B40B6}|ICinema\\ICinema.csproj|solutionrelative:icinema\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C1C376A3-7FE7-4866-B21F-3FC8214B40B6}|ICinema\\ICinema.csproj|d:\\c# projects\\self study\\icinema\\icinema\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C1C376A3-7FE7-4866-B21F-3FC8214B40B6}|ICinema\\ICinema.csproj|solutionrelative:icinema\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 205,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "D:\\C# Projects\\Self study\\ICinema\\ICinema\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "ICinema\\Controllers\\HomeController.cs",
+              "ToolTip": "D:\\C# Projects\\Self study\\ICinema\\ICinema\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "ICinema\\Controllers\\HomeController.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAQwA4AAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-17T17:46:35.295Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\C# Projects\\Self study\\ICinema\\ICinema\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "ICinema\\Views\\Home\\Index.cshtml",
+              "ToolTip": "D:\\C# Projects\\Self study\\ICinema\\ICinema\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "ICinema\\Views\\Home\\Index.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-17T16:59:24.28Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
