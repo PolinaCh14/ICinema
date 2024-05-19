@@ -10,10 +10,16 @@
         {
             <div class="schedule-movie">
                 <div class="poster-container">
-                    <img src="@scheduleItem.Movie.PosterPath" alt="@scheduleItem.Movie.MovieName poster" />
+                    <a asp-controller="home" asp-action="moviedetails" asp-route-id="@scheduleItem.Movie.MovieId">
+                        <img src="@scheduleItem.Movie.PosterPath" alt="@scheduleItem.Movie.MovieName poster" />
+                    </a>
                 </div>
                 <div class="schedule-movie__info">
-                    <h3 class="schedule-movie__title">@scheduleItem.Movie.MovieName</h3>
+                    <h3 class="schedule-movie__title">
+                        <a asp-controller="home" asp-action="moviedetails" asp-route-id="@scheduleItem.Movie.MovieId">
+                            @scheduleItem.Movie.MovieName
+                        </a>
+                    </h3>
                     @foreach (var date in scheduleItem.SessionDates)
                     {
                         @if (scheduleItem.Movie.Sessions.Any(s => s.Date == date && (s.Format == "2D" || s.Format == "3D")))
@@ -67,9 +73,9 @@
                                         <div class="technology">
                                             <div class="technology__name">IMAX, 2D</div>
                                             <div class="technology__sessions-list">
-                                                @foreach (var session in scheduleItem.SessionsIMAX.Where(s => s.Date == date))
+                                                @foreach (var session in scheduleItem.SessionsIMAX.Where(s => s.Date == date && s.Format == "2D"))
                                                 {
-                                                    if (@session.Date <= DateOnly.FromDateTime(DateTime.Now)
+                                                    if (@session.Date <= scheduleItem.CurrentDate
                                                     && @session.Time < TimeOnly.FromDateTime(DateTime.Now))
                                                     {
                                                         <a href="#" class="button button-inactive inactive">@session.Time</a>
@@ -78,6 +84,7 @@
                                                     {
                                                         <a href="#" class="button button-primary">@session.Time</a>
                                                     }
+                                                    
                                                 }
                                             </div>
                                         </div>
@@ -107,9 +114,9 @@
                                         <div class="technology">
                                             <div class="technology__name">4DX, 2D</div>
                                             <div class="technology__sessions-list">
-                                                @foreach (var session in scheduleItem.Sessions4DX.Where(s => s.Date == date))
+                                                @foreach (var session in scheduleItem.Sessions4DX.Where(s => s.Date == date && s.Format == "2D"))
                                                 {
-                                                    if (@session.Date <= DateOnly.FromDateTime(DateTime.Now)
+                                                    if (@session.Date <= scheduleItem.CurrentDate
                                                     && @session.Time < TimeOnly.FromDateTime(DateTime.Now))
                                                     {
                                                         <a href="#" class="button button-inactive inactive">@session.Time</a>

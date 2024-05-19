@@ -17,7 +17,7 @@ namespace ICinema.Controllers
             Expression<Func<Session, bool>> predicate;
 
             if (interval == SessionScheduleDates.Tomorrow)
-                predicate = s => s.Date == currentDate.AddDays(((int)interval));
+                predicate = s => s.Date == currentDate.AddDays((int)interval);
             else
                 predicate = s => s.Date >= currentDate && s.Date <= currentDate.AddDays((int)interval);
 
