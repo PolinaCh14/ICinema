@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<CinemaContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("JacksonConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("PolinaServerConnection")));
 
 var app = builder.Build();
 
