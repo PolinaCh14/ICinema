@@ -1,0 +1,188 @@
+﻿.session-schedule {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 50px;
+}
+
+@media (min-width: 992px) {
+    .session-schedule {
+        flex-direction: row;
+    }
+}
+
+.schedule-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+}
+
+@media (min-width: 768px) {
+    .schedule-header {
+        justify-content: start;
+    }
+}
+
+.schedule-header h2 {
+    font-weight: 700;
+}
+
+.schedule-movie {
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    margin: 0 0 20px;
+    padding: 30px 0;
+    max-width: 900px;
+    align-items: center;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+}
+
+@media (min-width: 768px) {
+    .schedule-movie {
+        flex-direction: row;
+    }
+}
+
+.poster-container {
+    display: flex;
+    position: relative;
+    max-height: 390px;
+}
+
+@media (min-width: 768px) {
+    .poster-container {
+        align-items: start;
+        align-self: start;
+    }
+}
+
+.poster-container img {
+    width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.schedule-movie__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 10px 20px 0;
+}
+
+@media (min-width: 768px) {
+    .schedule-movie__info {
+        align-self: start;
+        align-items: start;
+        padding: 0 50px;
+    }
+}
+
+.schedule-movie__title {
+    font-size:24px;
+    font-weight:600;
+    margin: 0 0 40px;
+}
+
+@media (min-width: 768px) {
+    .schedule-movie__title {
+        font-size: 26px;
+        margin: 0 0 50px;
+    }
+}
+
+.schedule-movie__date {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 0 30px;
+}
+
+.schedule-movie__day {
+    font-size: inherit;
+    font-style: italic;
+    font-weight: 600;
+}
+
+@media (min-width: 768px) {
+    .schedule-movie__day {
+        font-size: 16px;
+    }
+}
+
+.session-date-divider {
+    width: 100%;
+    height: 1.5px;
+    background-color: white;
+    opacity: 1;
+    margin: 0 0 20px 0;
+}
+
+.session-technologies {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.technology {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+@media (min-width: 992px) {
+    .technology {
+        flex-direction: row;
+        gap: 0;
+    }
+}
+
+.technology__name {
+    display: flex;
+    align-items: center;
+}
+
+@media (min-width: 992px) {
+    .technology__name {
+        width: 200px;
+    }
+}
+
+.technology__sessions-list {
+    margin: 12px 0;
+    max-width: 340px;
+    display: flex;
+    gap: 20px;
+}
+
+@media (min-width: 992px) {
+    .technology__sessions-list {
+        margin: 0;
+        gap: 40px;
+    }
+}
+
+.schedule-filters {
+    display: flex;
+    flex-direction: column;
+    padding: 0 30px;
+}
+
+.schedule-filters__filter {
+    display: flex;
+    flex-direction: column;
+}
+
+.schedule-filter__name {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.schedule-filter__options {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+

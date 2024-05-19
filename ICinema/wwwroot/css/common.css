@@ -2,26 +2,39 @@
 
 * {
     color: white;
-    font-family: "Open Sans", Impact;
+    font-family: "Open Sans", sans-serif;
+}
+
+:root {
+    --text-main-color: #fff;
+    --primary-color: #3797EF;
+    --background-color: black;
+    --background-color-second: #3797EF;
+    font-family: "Poppins", sans-serif;
+    scroll-behavior: smooth;
+}
+
+a, li {
+    text-decoration: none;
 }
 
 body {
-    background: linear-gradient(to right, black, #3797EF);
+    background: linear-gradient(to right, black 5%, #3797EF);
 }
 
 .nav {
     background: #000000;
     height: 60px;
-    color: white;
+    color: var(--text-main-color);
 }
 
 .nav-link, .navbar-brand {
-    color: white;
+    color: var(--text-main-color);
 }
 
-    .nav-link:hover {
-        color: #3797EF;
-    }
+.nav-link:hover {
+    color: #3797EF;
+}
 
 .navbar-title {
     color: white;
@@ -31,4 +44,13 @@ body {
 
 .navbar-title:hover {
     color: white;
+}
+
+.inactive {
+    cursor: default;
+}
+
+.inactive:hover {
+    cursor: default;
+    pointer-events: none;
 }

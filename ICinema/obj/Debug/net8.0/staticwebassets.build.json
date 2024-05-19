@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "9f3WXMAksmZ4mfIXE+yskkk20rDj203edG5w88MVYfs=",
+  "Hash": "dHzBIAkbMXBvKD+Feho4a4qU43WCyzFf9ftuYJpiMFw=",
   "Source": "ICinema",
   "BasePath": "_content/ICinema",
   "Mode": "Default",
@@ -34,6 +34,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\common.css"
+    },
+    {
+      "Identity": "D:\\C# Projects\\Self study\\ICinema\\ICinema\\wwwroot\\css\\controls.css",
+      "SourceId": "ICinema",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\C# Projects\\Self study\\ICinema\\ICinema\\wwwroot\\",
+      "BasePath": "_content/ICinema",
+      "RelativePath": "css/controls.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\controls.css"
     },
     {
       "Identity": "D:\\C# Projects\\Self study\\ICinema\\ICinema\\wwwroot\\css\\index.css",
@@ -72,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\movie-catalog.css"
+    },
+    {
+      "Identity": "D:\\C# Projects\\Self study\\ICinema\\ICinema\\wwwroot\\css\\schedule.css",
+      "SourceId": "ICinema",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\C# Projects\\Self study\\ICinema\\ICinema\\wwwroot\\",
+      "BasePath": "_content/ICinema",
+      "RelativePath": "css/schedule.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\schedule.css"
     },
     {
       "Identity": "D:\\C# Projects\\Self study\\ICinema\\ICinema\\wwwroot\\images\\posters\\10livesPoster.png",

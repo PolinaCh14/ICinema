@@ -5,12 +5,20 @@
       "PackagePath": "staticwebassets\\css\\common.css"
     },
     {
+      "Id": "D:\\C# Projects\\Self study\\ICinema\\ICinema\\wwwroot\\css\\controls.css",
+      "PackagePath": "staticwebassets\\css\\controls.css"
+    },
+    {
       "Id": "D:\\C# Projects\\Self study\\ICinema\\ICinema\\wwwroot\\css\\index.css",
       "PackagePath": "staticwebassets\\css\\index.css"
     },
     {
       "Id": "D:\\C# Projects\\Self study\\ICinema\\ICinema\\wwwroot\\css\\movie-catalog.css",
       "PackagePath": "staticwebassets\\css\\movie-catalog.css"
+    },
+    {
+      "Id": "D:\\C# Projects\\Self study\\ICinema\\ICinema\\wwwroot\\css\\schedule.css",
+      "PackagePath": "staticwebassets\\css\\schedule.css"
     },
     {
       "Id": "D:\\C# Projects\\Self study\\ICinema\\ICinema\\wwwroot\\images\\posters\\10livesPoster.png",
