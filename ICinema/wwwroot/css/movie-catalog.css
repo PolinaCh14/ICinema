@@ -2,10 +2,22 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     justify-content: center;
+    margin-top: 20px;
 }
 
 .movie-card {
     display: flex;
     flex-direction: column;
-    margin: 10px;
+    margin: 20px;
 }
+
+.movie-title {
+    color: white;
+    font-size: 28px;
+    text-align: center;
+    text-decoration: none;
+}
+
+    .movie-title:hover {
+        color: #3797EF;
+    }

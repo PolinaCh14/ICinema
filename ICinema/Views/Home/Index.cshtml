@@ -1,1 +1,15 @@
-﻿<h1>Welcome to Home Page!</h1>
+﻿@using ICinema.Models
+@model List<Movie>
+
+<div class="movie-catalog">
+
+    @foreach (var movie in Model)
+    {
+        <div class="movie-card">
+            <a asp-controller="Home" asp-action="MovieDetails" asp-route-id="@movie.MovieId" class="movie-title">
+                <img src="@movie.PosterPath" alt="@movie.PosterPath">
+                @movie.MovieName
+            </a>
+        </div>
+    }
+</div>
