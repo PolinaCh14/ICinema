@@ -3,7 +3,6 @@ using ICinema.Models;
 using ICinema.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Linq.Expressions;
 
 namespace ICinema.Controllers
@@ -23,7 +22,10 @@ namespace ICinema.Controllers
                 predicate = s => s.Date >= currentDate && s.Date <= currentDate.AddDays((int)interval);
 
             var scheduleItems = new List<SessionScheduleViewModel>();
-            var movies = await _context.Movies.ToListAsync();
+            var movies = await _context.Movies
+                .Include(m => m.Sessions)
+                .Where(m => m.Sessions.Any(s => s.Date >= currentDate && s.Date <= currentDate.AddDays((int)interval)))
+                .ToListAsync();
 
             foreach (var movie in movies)
             {

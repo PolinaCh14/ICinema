@@ -1,6 +1,6 @@
 ﻿@model List<SessionScheduleViewModel>
 
-<div class="schedule-header">
+<div class="session-schedule-header">
     <h2>Розклад сеансів</h2>
 </div>
 
@@ -16,72 +16,135 @@
                     <h3 class="schedule-movie__title">@scheduleItem.Movie.MovieName</h3>
                     @foreach (var date in scheduleItem.SessionDates)
                     {
-                        <div class="schedule-movie__date">
-                            <h4 class="schedule-movie__day">@date, @date.DayOfWeek</h4>
-                            <hr class="session-date-divider" />
-                            <div class="session-technologies">
-                                @if (scheduleItem.SessionsCinetech?.Where(s => s.Date == date).Count() > 0)
-                                {
-                                    <div class="technology">
-                                        <div class="technology__name">CINETECH+</div>
-                                        <div class="technology__sessions-list">
-                                            @foreach (var session in scheduleItem.SessionsCinetech.Where(s => s.Date == date))
-                                            {
-                                                if (@session.Date <= scheduleItem.CurrentDate
-                                                && @session.Time < TimeOnly.FromDateTime(DateTime.Now))
+                        @if (scheduleItem.Movie.Sessions.Any(s => s.Date == date && (s.Format == "2D" || s.Format == "3D")))
+                        {
+                            <div class="schedule-movie__date">
+                                <h4 class="schedule-movie__day">@date, @date.DayOfWeek</h4>
+                                <hr class="session-date-divider" />
+                                <div class="session-technologies">
+                                    @if (scheduleItem.SessionsCinetech?.Where(s => s.Date == date && s.Format == "2D").Count() > 0)
+                                    {
+                                        <div class="technology">
+                                            <div class="technology__name">CINETECH+, 2D</div>
+                                            <div class="technology__sessions-list">
+                                                @foreach (var session in scheduleItem.SessionsCinetech.Where(s => s.Date == date && s.Format == "2D"))
                                                 {
-                                                    <a href="#" class="button button-inactive inactive">@session.Time</a>
+                                                    if (@session.Date <= scheduleItem.CurrentDate
+                                                    && @session.Time < TimeOnly.FromDateTime(DateTime.Now))
+                                                    {
+                                                        <a href="#" class="button button-inactive inactive">@session.Time</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="#" class="button button-primary">@session.Time</a>
+                                                    }
                                                 }
-                                                else
-                                                {
-                                                    <a href="#" class="button button-primary">@session.Time</a>
-                                                }
-                                            }
+                                            </div>
                                         </div>
-                                    </div>
-                                }
-                                @if (scheduleItem.SessionsIMAX?.Where(s => s.Date == date).Count() > 0)
-                                {
-                                    <div class="technology">
-                                        <div class="technology__name">IMAX</div>
-                                        <div class="technology__sessions-list">
-                                            @foreach (var session in scheduleItem.SessionsIMAX.Where(s => s.Date == date))
-                                            {
-                                                if (@session.Date <= DateOnly.FromDateTime(DateTime.Now)
-                                                && @session.Time < TimeOnly.FromDateTime(DateTime.Now))
+                                    }
+                                    @if (scheduleItem.SessionsCinetech?.Where(s => s.Date == date && s.Format == "3D").Count() > 0)
+                                    {
+                                        <div class="technology">
+                                            <div class="technology__name">CINETECH+, 3D</div>
+                                            <div class="technology__sessions-list">
+                                                @foreach (var session in scheduleItem.SessionsCinetech.Where(s => s.Date == date && s.Format == "3D"))
                                                 {
-                                                    <a href="#" class="button button-inactive inactive">@session.Time</a>
+                                                    if (@session.Date <= scheduleItem.CurrentDate 
+                                                    && @session.Time < TimeOnly.FromDateTime(DateTime.Now))
+                                                    {
+                                                        <a href="#" class="button button-inactive inactive">@session.Time</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="#" class="button button-primary">@session.Time</a>
+                                                    }
                                                 }
-                                                else
-                                                {
-                                                    <a href="#" class="button button-primary">@session.Time</a>
-                                                }
-                                            }
+                                            </div>
                                         </div>
-                                    </div>
-                                }
-                                @if (scheduleItem.Sessions4DX?.Where(s => s.Date == date).Count() > 0)
-                                {
-                                    <div class="technology">
-                                        <div class="technology__name">4DX</div>
-                                        <div class="technology__sessions-list">
-                                            @foreach (var session in scheduleItem.Sessions4DX.Where(s => s.Date == date))
-                                            {
-                                                if (@session.Date <= DateOnly.FromDateTime(DateTime.Now)
-                                                && @session.Time < TimeOnly.FromDateTime(DateTime.Now))
+                                    }
+                                    @if (scheduleItem.SessionsIMAX?.Where(s => s.Date == date && s.Format == "2D").Count() > 0)
+                                    {
+                                        <div class="technology">
+                                            <div class="technology__name">IMAX, 2D</div>
+                                            <div class="technology__sessions-list">
+                                                @foreach (var session in scheduleItem.SessionsIMAX.Where(s => s.Date == date))
                                                 {
-                                                    <a href="#" class="button button-inactive inactive">@session.Time</a>
+                                                    if (@session.Date <= DateOnly.FromDateTime(DateTime.Now)
+                                                    && @session.Time < TimeOnly.FromDateTime(DateTime.Now))
+                                                    {
+                                                        <a href="#" class="button button-inactive inactive">@session.Time</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="#" class="button button-primary">@session.Time</a>
+                                                    }
                                                 }
-                                                else
-                                                {
-                                                    <a href="#" class="button button-primary">@session.Time</a>
-                                                }
-                                            }
+                                            </div>
                                         </div>
-                                    </div>
-                                }
+                                    }
+                                    @if (scheduleItem.SessionsIMAX?.Where(s => s.Date == date && s.Format == "3D").Count() > 0)
+                                    {
+                                        <div class="technology">
+                                            <div class="technology__name">IMAX, 3D</div>
+                                            <div class="technology__sessions-list">
+                                                @foreach (var session in scheduleItem.SessionsIMAX.Where(s => s.Date == date && s.Format == "3D"))
+                                                {
+                                                    if (@session.Date <= scheduleItem.CurrentDate
+                                                        && @session.Time < TimeOnly.FromDateTime(DateTime.Now))
+                                                    {
+                                                        <a href="#" class="button button-inactive inactive">@session.Time</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="#" class="button button-primary">@session.Time</a>
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                    @if (scheduleItem.Sessions4DX?.Where(s => s.Date == date && s.Format == "2D").Count() > 0)
+                                    {
+                                        <div class="technology">
+                                            <div class="technology__name">4DX, 2D</div>
+                                            <div class="technology__sessions-list">
+                                                @foreach (var session in scheduleItem.Sessions4DX.Where(s => s.Date == date))
+                                                {
+                                                    if (@session.Date <= DateOnly.FromDateTime(DateTime.Now)
+                                                    && @session.Time < TimeOnly.FromDateTime(DateTime.Now))
+                                                    {
+                                                        <a href="#" class="button button-inactive inactive">@session.Time</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="#" class="button button-primary">@session.Time</a>
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                    @if (scheduleItem.Sessions4DX?.Where(s => s.Date == date && s.Format == "3D").Count() > 0)
+                                    {
+                                        <div class="technology">
+                                            <div class="technology__name">4DX, 3D</div>
+                                            <div class="technology__sessions-list">
+                                                @foreach (var session in scheduleItem.Sessions4DX.Where(s => s.Date == date && s.Format == "3D"))
+                                                {
+                                                    if (@session.Date <= scheduleItem.CurrentDate
+                                                    && @session.Time < TimeOnly.FromDateTime(DateTime.Now))
+                                                    {
+                                                        <a href="#" class="button button-inactive inactive">@session.Time</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="#" class="button button-primary">@session.Time</a>
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
                             </div>
-                        </div>
+                        }
                     }
                 </div>
             </div>
