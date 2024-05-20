@@ -1,23 +1,70 @@
-﻿.movie-catalog {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+﻿.movie-catalog__title {
+    display: flex;
+    align-items: center;
     justify-content: center;
-    margin-top: 20px;
+    height: 100px;
+}
+
+@media (min-width: 768px) {
+    .movie-catalog__title {
+        justify-content: start;
+    }
+}
+
+.movie-catalog__title h2 {
+    font-weight: 700;
+}
+.movie-catalog {
+    display: grid;
+}
+
+@media (min-width: 768px) {
+    .movie-catalog {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (min-width: 992px) {
+    .movie-catalog {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
 }
 
 .movie-card {
+    padding: 15px;
+    font-size: 20px;
+    font-weight: 600;
     display: flex;
     flex-direction: column;
-    margin: 20px;
+    align-items: center;
+    gap: 20px;
+    
+}
+
+@media (min-width: 768px) {
+    .movie-card {
+        font-size: 22px;
+    }
+}
+
+@media (min-width: 992px) {
+    .movie-card {
+        font-size: 26px;
+        letter-spacing: 1px;
+    }
+}
+
+.movie-poster {
+    transition: transform 0.3s ease;
+    box-shadow: -10px 10px 15px rgba(0, 0, 0, 0.2), /* тінь зліва і знизу */
+    -10px -10px 15px rgba(0, 0, 0, 0.2), /* тінь зліва і зверху */
+    0 10px 15px rgba(0, 0, 0, 0.2); /* тінь прямо знизу */
+}
+
+.movie-poster:hover {
+    transform: scale(1.03);
 }
 
 .movie-title {
-    color: white;
-    font-size: 28px;
     text-align: center;
-    text-decoration: none;
-}
-
-.movie-title:hover {
-    color: #3797EF;
 }

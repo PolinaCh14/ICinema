@@ -1,7 +1,9 @@
 ﻿using ICinema.Data;
 using ICinema.Models;
+using ICinema.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace WebApp.Controllers
 {
@@ -16,17 +18,52 @@ namespace WebApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult MovieDetails(int id)
+        public async Task<IActionResult> MovieDetails(int id, SessionScheduleDates interval = SessionScheduleDates.Today)
         {
             ArgumentOutOfRangeException.ThrowIfLessThan(id, 1, nameof(id));
 
-            Movie? movie = _context.Movies.Find(id);
-            if (movie is not null)
+            Movie? movie = await _context.Movies.FindAsync(id);
+            if (movie is null)
             {
-                return View(movie);
+                return Redirect("/");
             }
 
-            return Redirect("/");
+            // to emulate current date as first date that has sessions in DB
+            var currentDate = new DateOnly(2024, 7, 10);
+            Expression<Func<Session, bool>> predicate;
+
+            //condition to retrieve sessions of specified by user time interval (for today, tomorrow or whole week)
+            if (interval == SessionScheduleDates.Tomorrow)
+                predicate = s => s.Date == currentDate.AddDays((int)interval);
+            else
+                predicate = s => s.Date >= currentDate && s.Date <= currentDate.AddDays((int)interval);
+
+            // retrive all sessions for movie that satisfies condition above with inner entities
+            movie.Sessions = await _context.Sessions
+                    .Where(s => s.MovieId == movie.MovieId)
+                    .Where(predicate)
+                    .Include(s => s.SessionType)
+                    .Include(s => s.Hall)
+                        .ThenInclude(h => h.Technology)
+                    .ToListAsync();
+
+            // initializing view model that has all info needed for schedule display (Movie, list of sessions, available dates etc.)
+            var scheduleItem = new SessionScheduleViewModel()
+            {
+                Movie = movie,
+                SessionDates = movie.Sessions.Select(s => s.Date).Distinct(),
+                Technologies = movie.Sessions.Select(s => s.Hall.Technology).Distinct(),
+                SessionsCinetech = movie.Sessions.Where(s => s.Hall.TechnologyId == ((int)Technologies.Cinetech)),
+                SessionsIMAX = movie.Sessions.Where(s => s.Hall.TechnologyId == ((int)Technologies.IMAX)),
+                Sessions4DX = movie.Sessions.Where(s => s.Hall.TechnologyId == ((int)Technologies._4DX)),
+                CurrentDate = currentDate
+            };
+
+            // just to display date filter as selected (highlighted with white)
+            int idx = interval == SessionScheduleDates.Week ? 2 : ((int)interval);
+            scheduleItem.IntervalButtonClasses[idx] = "button-selected";
+
+            return View(scheduleItem);
         }
     }
 }

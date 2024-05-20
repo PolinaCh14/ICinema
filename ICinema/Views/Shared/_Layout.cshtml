@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="~/css/index.css" />
 </head>
 <body>
-    <header>
+   @*  <header>
         <nav class="navbar navbar-expand-lg nav">
             <div class="container-fluid">
                 <h1 class="navbar-title">ICinema</h1>
@@ -18,10 +18,10 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/home/index">Home</a>
+                        <li class="nav-item me-4">
+                            <a class="nav-link" asp-controller="home" asp-action="index" >Home</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item me-4">
                             <a class="nav-link" asp-controller="sessions" asp-action="schedule">Розклад</a>
                         </li>
                     </ul>
@@ -32,10 +32,31 @@
                 </div>
             </div>
         </nav>
+    </header> *@
+    <header class="header">
+        <div class="header-nav">
+            <div class="header-nav__logo">
+                <h1 class="navbar-title">ICinema</h1>
+            </div>
+            <a href="#" class="header-nav__menu-button">
+                <span class="header__navicon"></span>
+            </a>
+            <nav class="header-nav__menu">
+                <div class="header-nav__links">
+                    <a class="nav-link" asp-controller="home" asp-action="index">Home</a>
+                    <a class="nav-link" asp-controller="sessions" asp-action="schedule">Розклад</a>
+                </div>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2 " type="search" placeholder="Пошук" aria-label="Search">
+                    <button class="btn btn-outline-primary" type="submit">Пошук</button>
+                </form>
+            </nav>
+        </div>
     </header>
     <div class="container">
         @RenderBody()
     </div>
+    <script src="~/js/header.js"></script>
     <script src="~/lib/bootstrap/js/bootstrap.js"></script>
 </body>
 </html>

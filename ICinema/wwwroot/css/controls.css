@@ -49,11 +49,23 @@
 .button-filter-option {
     width: 90px;
     border-width: 2px;
-    font-weight:600;
+    font-weight: 600;
+    box-shadow: -10px 10px 15px rgba(0, 0, 0, 0.1), /* тінь зліва і знизу */
+    -10px -10px 15px rgba(0, 0, 0, 0.1), /* тінь зліва і зверху */
+    0 10px 15px rgba(0, 0, 0, 0.1); /* тінь прямо знизу */
 }
 
 .button-selected {
     background: white;
     border-color:black;
     color: black;
+}
+
+.header .form-control {
+    border-radius: 30px;
+}
+
+.header .btn .btn-outline-primary {
+    height: 100%;
+    color: red;
 }
