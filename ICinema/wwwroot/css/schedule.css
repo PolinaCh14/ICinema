@@ -21,7 +21,7 @@
     gap: 50px;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1440px) {
     .session-schedule {
         flex-direction: row;
     }
@@ -39,7 +39,10 @@
     padding: 30px 0;
     max-width: 900px;
     align-items: center;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    /*    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);*/
+    box-shadow: -10px 10px 15px rgba(0, 0, 0, 0.2), /* тінь зліва і знизу */
+    -10px -10px 15px rgba(0, 0, 0, 0.2), /* тінь зліва і зверху */
+    0 10px 15px rgba(0, 0, 0, 0.2); /* тінь прямо знизу */
 }
 
 @media (min-width: 768px) {
@@ -49,7 +52,6 @@
 }
 
 .poster-container {
-
     display: flex;
     position: relative;
     max-height: 390px;
@@ -151,7 +153,7 @@
 
 @media (min-width: 992px) {
     .technology__name {
-        width: 200px;
+        width: 190px;
     }
 }
 
@@ -165,7 +167,7 @@
 @media (min-width: 992px) {
     .technology__sessions-list {
         margin: 0;
-        gap: 40px;
+        gap: 30px;
     }
 }
 
@@ -191,3 +193,14 @@
     gap: 10px;
 }
 
+/*@media (min-width: 992px) {
+    .schedule-filter__options {
+        flex-direction: column;
+    }
+}
+
+@media (min-width: 1440px) {
+    .schedule-filter__options {
+        flex-direction: row;
+    }
+}*/

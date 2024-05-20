@@ -1,1 +1,226 @@
-﻿@Model.MovieName
+﻿@model SessionScheduleViewModel
+
+<h2 class="session-schedule-header">Розклад: "@Model.Movie.MovieName"</h2>
+
+<div class="session-schedule">
+    <div class="schedule">
+        <div class="schedule-movie">
+            <div class="poster-container">
+                <img src="@Model.Movie.PosterPath" alt="@Model.Movie.MovieName poster" />
+            </div>
+            <div class="schedule-movie__info">
+                <h3 class="schedule-movie__title">
+                    @Model.Movie.MovieName
+                </h3>
+                @foreach (var date in Model.SessionDates)
+                {
+                    @if (Model.Movie.Sessions.Any(s => s.Date == date && (s.Format == "2D" || s.Format == "3D")))
+                    {
+                        <div class="schedule-movie__date">
+                            <h4 class="schedule-movie__day">@date, @date.DayOfWeek</h4>
+                            <hr class="session-date-divider" />
+                            <div class="session-technologies">
+                                @if (Model.SessionsCinetech?.Where(s => s.Date == date && s.Format == "2D").Count() > 0)
+                                {
+                                    <div class="technology">
+                                        <div class="technology__name">CINETECH+, 2D</div>
+                                        <div class="technology__sessions-list">
+                                            @foreach (var session in Model.SessionsCinetech.Where(s => s.Date == date && s.Format == "2D"))
+                                            {
+                                                if (@session.Date <= Model.CurrentDate
+                                                && @session.Time < TimeOnly.FromDateTime(DateTime.Now))
+                                                {
+                                                    <a href="#" class="button button-inactive inactive">@session.Time</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="#" class="button button-primary">@session.Time</a>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                                @if (Model.SessionsCinetech?.Where(s => s.Date == date && s.Format == "3D").Count() > 0)
+                                {
+                                    <div class="technology">
+                                        <div class="technology__name">CINETECH+, 3D</div>
+                                        <div class="technology__sessions-list">
+                                            @foreach (var session in Model.SessionsCinetech.Where(s => s.Date == date && s.Format == "3D"))
+                                            {
+                                                if (@session.Date <= Model.CurrentDate
+                                                && @session.Time < TimeOnly.FromDateTime(DateTime.Now))
+                                                {
+                                                    <a href="#" class="button button-inactive inactive">@session.Time</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="#" class="button button-primary">@session.Time</a>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                                @if (Model.SessionsIMAX?.Where(s => s.Date == date && s.Format == "2D").Count() > 0)
+                                {
+                                    <div class="technology">
+                                        <div class="technology__name">IMAX, 2D</div>
+                                        <div class="technology__sessions-list">
+                                            @foreach (var session in Model.SessionsIMAX.Where(s => s.Date == date && s.Format == "2D"))
+                                            {
+                                                if (@session.Date <= Model.CurrentDate
+                                                && @session.Time < TimeOnly.FromDateTime(DateTime.Now))
+                                                {
+                                                    <a href="#" class="button button-inactive inactive">@session.Time</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="#" class="button button-primary">@session.Time</a>
+                                                }
+
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                                @if (Model.SessionsIMAX?.Where(s => s.Date == date && s.Format == "3D").Count() > 0)
+                                {
+                                    <div class="technology">
+                                        <div class="technology__name">IMAX, 3D</div>
+                                        <div class="technology__sessions-list">
+                                            @foreach (var session in Model.SessionsIMAX.Where(s => s.Date == date && s.Format == "3D"))
+                                            {
+                                                if (@session.Date <= Model.CurrentDate
+                                                && @session.Time < TimeOnly.FromDateTime(DateTime.Now))
+                                                {
+                                                    <a href="#" class="button button-inactive inactive">@session.Time</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="#" class="button button-primary">@session.Time</a>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                                @if (Model.Sessions4DX?.Where(s => s.Date == date && s.Format == "2D").Count() > 0)
+                                {
+                                    <div class="technology">
+                                        <div class="technology__name">4DX, 2D</div>
+                                        <div class="technology__sessions-list">
+                                            @foreach (var session in Model.Sessions4DX.Where(s => s.Date == date && s.Format == "2D"))
+                                            {
+                                                if (@session.Date <= Model.CurrentDate
+                                                && @session.Time < TimeOnly.FromDateTime(DateTime.Now))
+                                                {
+                                                    <a href="#" class="button button-inactive inactive">@session.Time</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="#" class="button button-primary">@session.Time</a>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                                @if (Model.Sessions4DX?.Where(s => s.Date == date && s.Format == "3D").Count() > 0)
+                                {
+                                    <div class="technology">
+                                        <div class="technology__name">4DX, 3D</div>
+                                        <div class="technology__sessions-list">
+                                            @foreach (var session in Model.Sessions4DX.Where(s => s.Date == date && s.Format == "3D"))
+                                            {
+                                                if (@session.Date <= Model.CurrentDate
+                                                && @session.Time < TimeOnly.FromDateTime(DateTime.Now))
+                                                {
+                                                    <a href="#" class="button button-inactive inactive">@session.Time</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="#" class="button button-primary">@session.Time</a>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    <div class="schedule-filters">
+        <div class="schedule-filters__filter">
+            <p class="schedule-filter__name">Період:</p>
+            <div class="schedule-filter__options">
+                <a class="button button-inactive button-filter-option @Model.IntervalButtonClasses[0]"
+                   asp-controller="home"
+                   asp-action="moviedetails"
+                   asp-route-id="@Model.Movie.MovieId"
+                   asp-route-interval="@SessionScheduleDates.Today">
+                    Сьогодні
+                </a>
+                <a class="button button-inactive button-filter-option @Model.IntervalButtonClasses[1]"
+                   asp-controller="home"
+                   asp-action="moviedetails"
+                   asp-route-id="@Model.Movie.MovieId"
+                   asp-route-interval="@SessionScheduleDates.Tomorrow">
+                    Завтра
+                </a>
+                <a class="button button-inactive button-filter-option @Model.IntervalButtonClasses[2]"
+                   asp-controller="home"
+                   asp-action="moviedetails"
+                   asp-route-id="@Model.Movie.MovieId"
+                   asp-route-interval="@SessionScheduleDates.Week">
+                    Тиждень
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="movie-details">
+    <div class="main-info">
+        <div class="main-info__attributes">
+            <div>
+                <p class="font-24-strong">Жанр:</p>
+                <p>@Model.Movie.Genres</p>
+            </div>
+            <div>
+                <p class="font-24-strong">Тривалість:</p>
+                <p>@Model.Movie.Duration хв.</p>
+            </div>
+            <div>
+                <p class="font-24-strong">Режисери:</p>
+                <p>@Model.Movie.Directors</p>
+            </div>
+            <div>
+                <p class="font-24-strong">Рейтинг IMDd:</p>
+                <p>@Model.Movie.IMDBRate</p>
+            </div>
+            <div>
+                <p class="font-24-strong">Сценарій:</p>
+                <p>@Model.Movie.Writers</p>
+            </div>
+            <div>
+                <p class="font-24-strong">Прем'єра:</p>
+                <p>@Model.Movie.ReleaseDate</p>
+            </div>
+            <div>
+                <p class="font-24-strong">В головних ролях:</p>
+                <p>@Model.Movie.Cast</p>
+            </div>
+            <div>
+                <p class="font-24-strong">Вікові обмеження:</p>
+                <p>@Model.Movie.AgeRestriction+</p>
+            </div>
+        </div>
+        <div class="main-info__poster">
+            <img src="@Model.Movie.PosterPath" alt="@Model.Movie.MovieName poster" />
+        </div>
+    </div>
+    <div class="movie-description">
+        <p class="font-24-strong">Опис фільму:</p>
+        <p>@Model.Movie.Description</p>
+    </div>
+</div>
+
