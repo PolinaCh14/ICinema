@@ -1,1 +1,49 @@
-﻿@Model.MovieName
+﻿@using ICinema.Models
+@model Movie
+
+<div class="movie-details">
+    <div class="poster">
+        <img src="@Model.PosterPath" alt="@Model.PosterPath">
+    </div>
+    <h1 class="title">@Model.MovieName</h1>
+    <div class="session">
+        sessions
+    </div>
+    <div class="description">
+        <div>
+            <p class="font-24-strong">Жанр:</p>
+            <p>@Model.Genres</p>
+        </div>
+        <div>
+            <p class="font-24-strong">Опис фільму:</p>
+            <p>@Model.Description</p>
+        </div>
+        <div>
+            <p class="font-24-strong">Режисери:</p>
+            <p>@Model.Directors</p>
+        </div>
+        <div>
+            <p class="font-24-strong">В головних ролях:</p>
+            <p>@Model.Cast</p>
+        </div>
+        <div>
+            <p class="font-24-strong">Сценарій:</p>
+            <p>@Model.Writers</p>
+        </div>
+        <div>
+            <p class="font-24-strong">Тривалість:</p>
+            <p>@Model.Duration хв.</p>
+        </div>
+        <div>
+            <p class="font-24-strong">Рейтинг IMDd:</p>
+            <p>@Model.IMDBRate</p>
+        </div>
+        <div>
+            <p class="font-24-strong">Прем'єра:</p>
+            <p>@Model.ReleaseDate</p>
+        </div>
+        <div>
+            <p class="font-24-strong">Вікові обмеження:</p>
+            <p>@Model.AgeRestriction+</p>
+        </div>
+    </div>

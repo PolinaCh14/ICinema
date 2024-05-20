@@ -1,0 +1,39 @@
+﻿.movie-details {
+    display: grid;
+    grid-template-areas:
+        'poster title title title title title'
+        'poster session session session session session'
+        'description description description description description description';
+    justify-content: left;
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.title {
+    grid-area: title;
+    margin: 20px 50px 0 0;
+}
+
+.poster {
+    grid-area: poster;
+    margin: 20px 50px 0 0;
+}
+
+.session {
+    grid-area: session;
+}
+
+.details {
+    grid-area: details;
+    padding: 10px;
+}
+
+.description {
+    grid-area: description;
+    padding-top: 30px;
+}
+
+.font-24-strong {
+    font-size: 24px;
+    font-weight: bold;
+}
