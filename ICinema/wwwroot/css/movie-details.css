@@ -1,11 +1,11 @@
 ﻿.movie-details {
-    display: grid;
-    grid-template-areas:
+    
+/*    grid-template-areas:
         'poster title title title title title'
         'poster session session session session session'
-        'description description description description description description';
-    justify-content: left;
-    font-size: 20px;
+        'description description description description description description';*/
+/*    justify-content: left;*/
+    font-size: 18px;
     margin-top: 20px;
 }
 
@@ -28,12 +28,35 @@
     padding: 10px;
 }
 
-.description {
-    grid-area: description;
+.main-info {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.main-info__attributes {
     padding-top: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    flex-grow: 1;
+}
+
+.main-info__poster {
+    height: 100%;
+    position: relative;
+}
+
+.main-info__poster img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    box-shadow: -10px 10px 15px rgba(0, 0, 0, 0.2), /* тінь зліва і знизу */
+    -10px -10px 15px rgba(0, 0, 0, 0.2), /* тінь зліва і зверху */
+    0 10px 15px rgba(0, 0, 0, 0.2); /* тінь прямо знизу */
 }
 
 .font-24-strong {
     font-size: 24px;
     font-weight: bold;
 }
+
+

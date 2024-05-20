@@ -1,0 +1,71 @@
+﻿.btn {
+    border-radius: 0;
+    width: 70px;
+    height: 33px;
+    padding: 3px;
+}
+
+.btn-outline-primary {
+    color: #3797EF;
+    border-color: #3797EF;
+}
+
+.btn-outline-primary:hover {
+    color: white;
+    border-color: white;
+    background: #3797EF;
+}
+
+.button {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    font-size: 16px;
+    justify-content: center;
+    height: 33px;
+    width: 70px;
+    text-decoration: none;
+    transition: all 200ms ease-in;
+}
+
+.button-primary {
+    background: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    color: var(--text-main-color);
+}
+
+.button-primary:hover {
+    background-color: #006cff;
+    border-color: #006cff;
+}
+
+.button-inactive {
+    background: transparent;
+    border: 2px solid var(--text-main-color);
+    color: var(--text-main-color);
+    cursor: default;
+}
+
+.button-filter-option {
+    width: 90px;
+    border-width: 2px;
+    font-weight: 600;
+    box-shadow: -10px 10px 15px rgba(0, 0, 0, 0.1), /* тінь зліва і знизу */
+    -10px -10px 15px rgba(0, 0, 0, 0.1), /* тінь зліва і зверху */
+    0 10px 15px rgba(0, 0, 0, 0.1); /* тінь прямо знизу */
+}
+
+.button-selected {
+    background: white;
+    border-color:black;
+    color: black;
+}
+
+.header .form-control {
+    border-radius: 30px;
+}
+
+.header .btn .btn-outline-primary {
+    height: 100%;
+    color: red;
+}

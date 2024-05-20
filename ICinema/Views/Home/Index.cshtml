@@ -1,13 +1,14 @@
-﻿@using ICinema.Models
-@model List<Movie>
+﻿@model List<Movie>
 
+<h1 class="movie-catalog__title">Афіша кінотеатру ICinema</h1>
 <div class="movie-catalog">
-
     @foreach (var movie in Model)
     {
         <div class="movie-card">
-            <a asp-controller="Home" asp-action="MovieDetails" asp-route-id="@movie.MovieId" class="movie-title">
+            <a asp-controller="Home" asp-action="MovieDetails" asp-route-id="@movie.MovieId" class="movie-poster">
                 <img src="@movie.PosterPath" alt="@movie.PosterPath">
+            </a>
+            <a asp-controller="Home" asp-action="MovieDetails" asp-route-id="@movie.MovieId" class="movie-title">
                 @movie.MovieName
             </a>
         </div>
