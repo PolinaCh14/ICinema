@@ -25,3 +25,5 @@ public partial class Session
 
     public virtual SessionType SessionType { get; set; } = null!;
 }
+
+public enum SessionScheduleDates { Today, Tomorrow, Week = 7};
