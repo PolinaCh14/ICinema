@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<CinemaContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("PolinaServerConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("JacksonConnection")));
 
 var app = builder.Build();
 
@@ -20,3 +20,4 @@ app.MapControllerRoute(
 
 app.Run();
 
+    

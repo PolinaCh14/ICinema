@@ -363,3 +363,7 @@ MigrationBackup/
 FodyWeavers.xsd
 ICinema/bin
 ICinema/obj
+bin/Degug
+obj/Debug
+bin
+obj
