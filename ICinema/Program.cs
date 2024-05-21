@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<CinemaContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("OlyaServerConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ZhenyaServerConnection")));
 
 var app = builder.Build();
 

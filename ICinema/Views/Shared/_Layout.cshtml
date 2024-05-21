@@ -9,30 +9,6 @@
     <link rel="stylesheet" href="~/css/index.css" />
 </head>
 <body>
-   @*  <header>
-        <nav class="navbar navbar-expand-lg nav">
-            <div class="container-fluid">
-                <h1 class="navbar-title">ICinema</h1>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item me-4">
-                            <a class="nav-link" asp-controller="home" asp-action="index" >Home</a>
-                        </li>
-                        <li class="nav-item me-4">
-                            <a class="nav-link" asp-controller="sessions" asp-action="schedule">Розклад</a>
-                        </li>
-                    </ul>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-primary" type="submit">Search</button>
-                    </form>
-                </div>
-            </div>
-        </nav>
-    </header> *@
     <header class="header">
         <div class="header-nav">
             <div class="header-nav__logo">
@@ -43,13 +19,13 @@
             </a>
             <nav class="header-nav__menu">
                 <div class="header-nav__links">
-                    <a class="nav-link" asp-controller="home" asp-action="index">Home</a>
+                    <a class="nav-link" asp-controller="home" asp-action="index">Фільми</a>
                     <a class="nav-link" asp-controller="sessions" asp-action="schedule">Розклад</a>
                 </div>
-                <form class="d-flex" role="search">
+@*                 <form class="d-flex" role="search">
                     <input class="form-control me-2 " type="search" placeholder="Пошук" aria-label="Search">
                     <button class="btn btn-outline-primary" type="submit">Пошук</button>
-                </form>
+                </form> *@
             </nav>
         </div>
     </header>

@@ -1,10 +1,4 @@
 ﻿.movie-details {
-    
-/*    grid-template-areas:
-        'poster title title title title title'
-        'poster session session session session session'
-        'description description description description description description';*/
-/*    justify-content: left;*/
     font-size: 18px;
     margin-top: 20px;
 }
@@ -37,6 +31,7 @@
     padding-top: 30px;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-column-gap: 30px;
     flex-grow: 1;
 }
 

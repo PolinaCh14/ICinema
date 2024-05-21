@@ -55,6 +55,13 @@
     0 10px 15px rgba(0, 0, 0, 0.1); /* тінь прямо знизу */
 }
 
+.button-filter-option:hover {
+    cursor: pointer;
+    background-color: #cbc9c9;
+    color: black;
+    border-color: black;
+}
+
 .button-selected {
     background: white;
     border-color:black;
