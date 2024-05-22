@@ -1,4 +1,4 @@
 ﻿namespace ICinema.Infrastructure.Enums
 {
-    public enum DateInterval { Today, Tomorrow, Week = 7 };
+    public enum DateIntervalEnum { Today, Tomorrow, Week = 7 };
 }

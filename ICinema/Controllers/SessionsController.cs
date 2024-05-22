@@ -12,12 +12,12 @@ namespace ICinema.Controllers
     {
         private readonly CinemaContext _context = context;
 
-        public async Task<IActionResult> Schedule(DateInterval interval = DateInterval.Today)
+        public async Task<IActionResult> Schedule(DateIntervalEnum interval = DateIntervalEnum.Today)
         {
             var currentDate = new DateOnly(2024, 7, 10);
             Expression<Func<Session, bool>> predicate;
 
-            if (interval == DateInterval.Tomorrow)
+            if (interval == DateIntervalEnum.Tomorrow)
                 predicate = s => s.Date == currentDate.AddDays((int)interval);
             else
                 predicate = s => s.Date >= currentDate && s.Date <= currentDate.AddDays((int)interval);
@@ -43,13 +43,13 @@ namespace ICinema.Controllers
                     Movie = movie,
                     SessionDates = movie.Sessions.Select(s => s.Date).Distinct(),
                     Technologies = movie.Sessions.Select(s => s.Hall.Technology).Distinct(),
-                    SessionsCinetech = movie.Sessions.Where(s => s.Hall.TechnologyId == ((int)Technologies.Cinetech)),
-                    SessionsIMAX = movie.Sessions.Where(s => s.Hall.TechnologyId == ((int)Technologies.IMAX)),
-                    Sessions4DX = movie.Sessions.Where(s => s.Hall.TechnologyId == ((int)Technologies._4DX)),
+                    SessionsCinetech = movie.Sessions.Where(s => s.Hall.TechnologyId == ((int)TechnologyEnum.Cinetech)),
+                    SessionsIMAX = movie.Sessions.Where(s => s.Hall.TechnologyId == ((int)TechnologyEnum.IMAX)),
+                    Sessions4DX = movie.Sessions.Where(s => s.Hall.TechnologyId == ((int)TechnologyEnum._4DX)),
                     CurrentDate = currentDate
                 });
 
-                int idx = interval == DateInterval.Week ? 2 : ((int)interval);
+                int idx = interval == DateIntervalEnum.Week ? 2 : ((int)interval);
                 scheduleItems.Last().IntervalButtonClasses[idx] = "button-selected";
             }
             return View(scheduleItems);
@@ -78,7 +78,7 @@ namespace ICinema.Controllers
                     var seatViewModel = new SeatViewModel
                     {
                         Seat = seat,
-                        StyleType = seat.SeatType.SeatTypeId == (int)SeatTypes.Default ? "button-seat-default" : "button-seat-vip",
+                        StyleType = seat.SeatType.SeatTypeId == (int)SeatTypeEnum.Default ? "button-seat-default" : "button-seat-vip",
                         //StyleActive = seat.SeatType.SeatTypeId == (int)SeatTypes.Default ? "button-seat-default" : "button-seat-vip"
                     };
                     seatViewModels.Add(seatViewModel);

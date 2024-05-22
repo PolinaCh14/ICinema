@@ -1,4 +1,4 @@
 ﻿namespace ICinema.Infrastructure.Enums
 {
-    public enum SeatTypes { Default = 1, VIP = 2 };
+    public enum SeatTypeEnum { Default = 1, VIP = 2 };
 }
