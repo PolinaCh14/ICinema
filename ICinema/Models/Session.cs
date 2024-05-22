@@ -24,6 +24,6 @@ public partial class Session
     public virtual Movie Movie { get; set; } = null!;
 
     public virtual SessionType SessionType { get; set; } = null!;
-}
 
-public enum SessionScheduleDates { Today, Tomorrow, Week = 7};
+    public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
+}

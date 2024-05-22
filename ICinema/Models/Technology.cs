@@ -13,5 +13,3 @@ public partial class Technology
 
     public virtual ICollection<Hall> Halls { get; set; } = new List<Hall>();
 }
-
-enum Technologies { Cinetech = 1, IMAX, _4DX}
