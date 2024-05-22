@@ -55,46 +55,5 @@ namespace ICinema.Controllers
             return View(scheduleItems);
         }
 
-        public async Task<IActionResult> SeatsCatalog(int sessionId)
-        {
-            var session = await _context.Sessions.FindAsync(sessionId);
-
-            if (session != null)
-            {
-                var seats = await _context.Seats
-                .Where(s => s.HallId == session.HallId)
-                .Include(s => s.SeatType)
-                .Include(s => s.Hall)
-                .ToListAsync();
-
-                // TODO: select tickets on ordered seats from Ticket table
-
-                var rows = seats.Select(s => s.RowNumber).Distinct().ToList();
-
-                var seatViewModels = new List<SeatViewModel>();
-
-                foreach (var seat in seats)
-                {
-                    var seatViewModel = new SeatViewModel
-                    {
-                        Seat = seat,
-                        StyleType = seat.SeatType.SeatTypeId == (int)SeatTypeEnum.Default ? "button-seat-default" : "button-seat-vip",
-                        //StyleActive = seat.SeatType.SeatTypeId == (int)SeatTypes.Default ? "button-seat-default" : "button-seat-vip"
-                    };
-                    seatViewModels.Add(seatViewModel);
-                }
-
-                var seatsCatalogViewModel = new SeatsCatalogViewModel()
-                {
-                    SeatViewModels = seatViewModels,
-                    Rows = rows,
-                    Session = session
-                };
-
-                return View(seatsCatalogViewModel);
-            }
-
-            return RedirectToAction("Schedule");
-        }
     }
 }
