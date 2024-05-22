@@ -1,6 +1,7 @@
 ﻿using ICinema.Data;
 using ICinema.Models;
 using ICinema.ViewModels;
+using ICinema.Infrastructure.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -18,7 +19,7 @@ namespace WebApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> MovieDetails(int id, SessionScheduleDates interval = SessionScheduleDates.Today)
+        public async Task<IActionResult> MovieDetails(int id, DateIntervalEnum interval = DateIntervalEnum.Today)
         {
             ArgumentOutOfRangeException.ThrowIfLessThan(id, 1, nameof(id));
 
@@ -33,7 +34,7 @@ namespace WebApp.Controllers
             Expression<Func<Session, bool>> predicate;
 
             //condition to retrieve sessions of specified by user time interval (for today, tomorrow or whole week)
-            if (interval == SessionScheduleDates.Tomorrow)
+            if (interval == DateIntervalEnum.Tomorrow)
                 predicate = s => s.Date == currentDate.AddDays((int)interval);
             else
                 predicate = s => s.Date >= currentDate && s.Date <= currentDate.AddDays((int)interval);
@@ -53,14 +54,14 @@ namespace WebApp.Controllers
                 Movie = movie,
                 SessionDates = movie.Sessions.Select(s => s.Date).Distinct(),
                 Technologies = movie.Sessions.Select(s => s.Hall.Technology).Distinct(),
-                SessionsCinetech = movie.Sessions.Where(s => s.Hall.TechnologyId == ((int)Technologies.Cinetech)),
-                SessionsIMAX = movie.Sessions.Where(s => s.Hall.TechnologyId == ((int)Technologies.IMAX)),
-                Sessions4DX = movie.Sessions.Where(s => s.Hall.TechnologyId == ((int)Technologies._4DX)),
+                SessionsCinetech = movie.Sessions.Where(s => s.Hall.TechnologyId == ((int)TechnologyEnum.Cinetech)),
+                SessionsIMAX = movie.Sessions.Where(s => s.Hall.TechnologyId == ((int)TechnologyEnum.IMAX)),
+                Sessions4DX = movie.Sessions.Where(s => s.Hall.TechnologyId == ((int)TechnologyEnum._4DX)),
                 CurrentDate = currentDate
             };
 
             // just to display date filter as selected (highlighted with white)
-            int idx = interval == SessionScheduleDates.Week ? 2 : ((int)interval);
+            int idx = interval == DateIntervalEnum.Week ? 2 : ((int)interval);
             scheduleItem.IntervalButtonClasses[idx] = "button-selected";
 
             return View(scheduleItem);

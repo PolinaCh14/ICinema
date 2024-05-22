@@ -38,11 +38,19 @@
                                                     if (@session.Date <= scheduleItem.CurrentDate
                                                     && @session.Time < TimeOnly.FromDateTime(DateTime.Now))
                                                     {
-                                                        <a href="#" class="button button-inactive inactive">@session.Time</a>
+                                                        <a asp-controller="sessions"
+                                                           asp-action="seatscatalog"
+                                                           asp-route-sessionId="@session.SessionId"
+                                                           class="button button-inactive inactive"
+                                                        >@session.Time</a>
                                                     }
                                                     else
                                                     {
-                                                        <a href="#" class="button button-primary">@session.Time</a>
+                                                        <a asp-controller="sessions"
+                                                           asp-action="seatscatalog"
+                                                           asp-route-sessionId="@session.SessionId"
+                                                           class="button button-primary"
+                                                        >@session.Time</a>
                                                     }
                                                 }
                                             </div>
@@ -58,11 +66,20 @@
                                                     if (@session.Date <= scheduleItem.CurrentDate 
                                                     && @session.Time < TimeOnly.FromDateTime(DateTime.Now))
                                                     {
-                                                        <a href="#" class="button button-inactive inactive">@session.Time</a>
+
+                                                        <a asp-controller="sessions"
+                                                           asp-action="seatscatalog"
+                                                           asp-route-sessionId="@session.SessionId"
+                                                           class="button button-inactive inactive"
+                                                        >@session.Time</a>
                                                     }
                                                     else
                                                     {
-                                                        <a href="#" class="button button-primary">@session.Time</a>
+                                                        <a asp-controller="sessions"
+                                                           asp-action="seatscatalog"
+                                                           asp-route-sessionId="@session.SessionId"
+                                                           class="button button-primary"
+                                                        >@session.Time</a>
                                                     }
                                                 }
                                             </div>
@@ -78,7 +95,11 @@
                                                     if (@session.Date <= scheduleItem.CurrentDate
                                                     && @session.Time < TimeOnly.FromDateTime(DateTime.Now))
                                                     {
-                                                        <a href="#" class="button button-inactive inactive">@session.Time</a>
+                                                        <a asp-controller="sessions"
+                                                           asp-action="seatscatalog"
+                                                           asp-route-sessionId="@session.SessionId"
+                                                           class="button button-inactive inactive"
+                                                        >@session.Time</a>
                                                     }
                                                     else
                                                     {
@@ -99,11 +120,19 @@
                                                     if (@session.Date <= scheduleItem.CurrentDate
                                                         && @session.Time < TimeOnly.FromDateTime(DateTime.Now))
                                                     {
-                                                        <a href="#" class="button button-inactive inactive">@session.Time</a>
+                                                        <a asp-controller="sessions"
+                                                           asp-action="seatscatalog"
+                                                           asp-route-sessionId="@session.SessionId"
+                                                           class="button button-inactive inactive"
+                                                        >@session.Time</a>
                                                     }
                                                     else
                                                     {
-                                                        <a href="#" class="button button-primary">@session.Time</a>
+                                                        <a asp-controller="sessions"
+                                                           asp-action="seatscatalog"
+                                                           asp-route-sessionId="@session.SessionId" 
+                                                           class="button button-primary"
+                                                        >@session.Time</a>
                                                     }
                                                 }
                                             </div>
@@ -119,11 +148,19 @@
                                                     if (@session.Date <= scheduleItem.CurrentDate
                                                     && @session.Time < TimeOnly.FromDateTime(DateTime.Now))
                                                     {
-                                                        <a href="#" class="button button-inactive inactive">@session.Time</a>
+                                                        <a asp-controller="sessions"
+                                                           asp-action="seatscatalog"
+                                                           asp-route-sessionId="@session.SessionId"
+                                                           class="button button-inactive inactive"
+                                                        >@session.Time</a>
                                                     }
                                                     else
                                                     {
-                                                        <a href="#" class="button button-primary">@session.Time</a>
+                                                        <a asp-controller="sessions"
+                                                           asp-action="seatscatalog"
+                                                           asp-route-sessionId="@session.SessionId"
+                                                           class="button button-primary"
+                                                        >@session.Time</a>
                                                     }
                                                 }
                                             </div>
@@ -139,11 +176,19 @@
                                                     if (@session.Date <= scheduleItem.CurrentDate
                                                     && @session.Time < TimeOnly.FromDateTime(DateTime.Now))
                                                     {
-                                                        <a href="#" class="button button-inactive inactive">@session.Time</a>
+                                                        <a asp-controller="sessions"
+                                                           asp-action="seatscatalog"
+                                                           asp-route-sessionId="@session.SessionId"
+                                                           class="button button-inactive inactive"
+                                                        >@session.Time</a>
                                                     }
                                                     else
                                                     {
-                                                        <a href="#" class="button button-primary">@session.Time</a>
+                                                        <a asp-controller="sessions"
+                                                           asp-action="seatscatalog"
+                                                           asp-route-sessionId="@session.SessionId"
+                                                           class="button button-primary"
+                                                        >@session.Time</a>
                                                     }
                                                 }
                                             </div>
@@ -163,23 +208,20 @@
             <div class="schedule-filter__options">
                 <a class="button button-inactive button-filter-option @Model.First().IntervalButtonClasses[0]"
                     asp-controller="sessions" 
-                    asp-action="schedule" 
-                    asp-route-interval="@SessionScheduleDates.Today"
-                >
+                    asp-action="schedule"
+                   asp-route-interval="@DateIntervalEnum.Today">
                     Сьогодні
                 </a>
                 <a class="button button-inactive button-filter-option @Model.First().IntervalButtonClasses[1]"
                     asp-controller="sessions"
                     asp-action="schedule"
-                    asp-route-interval="@SessionScheduleDates.Tomorrow"
-                >
+                   asp-route-interval="@DateIntervalEnum.Tomorrow">
                     Завтра
                 </a>
                 <a class="button button-inactive button-filter-option @Model.First().IntervalButtonClasses[2]"
                     asp-controller="sessions"
                     asp-action="schedule"
-                    asp-route-interval="@SessionScheduleDates.Week"
-                >
+                   asp-route-interval="@DateIntervalEnum.Week">
                     Тиждень
                 </a>
             </div>
