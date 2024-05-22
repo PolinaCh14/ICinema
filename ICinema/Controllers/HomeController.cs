@@ -1,6 +1,7 @@
 ﻿using ICinema.Data;
 using ICinema.Models;
 using ICinema.ViewModels;
+using ICinema.Infrastructure.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -18,7 +19,7 @@ namespace WebApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> MovieDetails(int id, SessionScheduleDates interval = SessionScheduleDates.Today)
+        public async Task<IActionResult> MovieDetails(int id, DateInterval interval = DateInterval.Today)
         {
             ArgumentOutOfRangeException.ThrowIfLessThan(id, 1, nameof(id));
 
@@ -33,7 +34,7 @@ namespace WebApp.Controllers
             Expression<Func<Session, bool>> predicate;
 
             //condition to retrieve sessions of specified by user time interval (for today, tomorrow or whole week)
-            if (interval == SessionScheduleDates.Tomorrow)
+            if (interval == DateInterval.Tomorrow)
                 predicate = s => s.Date == currentDate.AddDays((int)interval);
             else
                 predicate = s => s.Date >= currentDate && s.Date <= currentDate.AddDays((int)interval);
@@ -60,7 +61,7 @@ namespace WebApp.Controllers
             };
 
             // just to display date filter as selected (highlighted with white)
-            int idx = interval == SessionScheduleDates.Week ? 2 : ((int)interval);
+            int idx = interval == DateInterval.Week ? 2 : ((int)interval);
             scheduleItem.IntervalButtonClasses[idx] = "button-selected";
 
             return View(scheduleItem);

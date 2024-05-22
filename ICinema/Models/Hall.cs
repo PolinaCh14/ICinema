@@ -9,8 +9,6 @@ public partial class Hall
 
     public string HallName { get; set; } = null!;
 
-    public int Capacity { get; set; }
-
     public int TechnologyId { get; set; }
 
     public virtual ICollection<Seat> Seats { get; set; } = new List<Seat>();

@@ -13,3 +13,4 @@ public partial class SeatType
 
     public virtual ICollection<Seat> Seats { get; set; } = new List<Seat>();
 }
+

@@ -1,0 +1,53 @@
+﻿@model SeatsCatalogViewModel
+
+<div class="content">
+    <div class="content__left-block">
+        <!--Session info and Tickets in cart-->
+    </div>
+    <div class="content__right-block">
+        <div class="scheme-legend">
+            <!--SeatType and price info-->
+        </div>
+        <div class="scheme">
+            <div class="scheme__screen">
+                <hr class="screen-line"/>
+                <p class="screen-label">Екран</p>
+            </div>
+            <div class="scheme__seats">
+                @for(int i = 0; i < Model.Rows.Count(); i++)
+                {
+                    if (Model.SeatViewModels.Select(s => s.Seat.SeatTypeId).All(st => st == (int)SeatTypes.VIP))
+                    {
+                        <div class="row--vip">
+                            @foreach (var seatViewModel in Model.SeatViewModels)
+                            {
+                                @if (seatViewModel.Seat.RowNumber == @Model.Rows[i])
+                                {
+                                    <button class="button @seatViewModel.StyleType @seatViewModel.StyleActive">
+                                        @seatViewModel.Seat.SeatNumber
+                                    </button>
+                                }
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row--default">
+                            @foreach (var seatViewModel in Model.SeatViewModels)
+                            {
+                                @if (seatViewModel.Seat.RowNumber == @Model.Rows[i])
+                                {
+                                    <button class="button @seatViewModel.StyleType @seatViewModel.StyleActive">
+                                        @seatViewModel.Seat.SeatNumber
+                                    </button>
+                                }
+                            }
+                        </div>
+                    }
+                    <div class="row-number">@Model.Rows[i]</div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

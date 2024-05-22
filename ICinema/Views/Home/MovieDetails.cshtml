@@ -156,21 +156,21 @@
                    asp-controller="home"
                    asp-action="moviedetails"
                    asp-route-id="@Model.Movie.MovieId"
-                   asp-route-interval="@SessionScheduleDates.Today">
+                   asp-route-interval="@DateInterval.Today">
                     Сьогодні
                 </a>
                 <a class="button button-inactive button-filter-option @Model.IntervalButtonClasses[1]"
                    asp-controller="home"
                    asp-action="moviedetails"
                    asp-route-id="@Model.Movie.MovieId"
-                   asp-route-interval="@SessionScheduleDates.Tomorrow">
+                   asp-route-interval="@DateInterval.Tomorrow">
                     Завтра
                 </a>
                 <a class="button button-inactive button-filter-option @Model.IntervalButtonClasses[2]"
                    asp-controller="home"
                    asp-action="moviedetails"
                    asp-route-id="@Model.Movie.MovieId"
-                   asp-route-interval="@SessionScheduleDates.Week">
+                   asp-route-interval="@DateInterval.Week">
                     Тиждень
                 </a>
             </div>
