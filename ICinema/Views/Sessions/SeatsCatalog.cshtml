@@ -1,12 +1,47 @@
 ﻿@model SeatsCatalogViewModel
 
-<div class="content">
+<div class="seats-catalog">
     <div class="content__left-block">
-        <!--Session info and Tickets in cart-->
+        <div class="session-card">
+            <div class="session-movie">
+                <div class="poster-container-mini">
+                    <img src="@Model.Session.Movie.PosterPath" alt="@Model.Session.Movie.MovieName poster" />
+                </div>
+                <div class="session-movie__info">
+                    <h3 class="session-movie__title">
+                        @Model.Session.Movie.MovieName
+                    </h3>
+                    <div class="session-movie__properties">
+                        <div class="session-properties">
+                            <div class="propertie">технологія: @Model.Session.Hall.Technology.TechnologyName</div>
+                            <div class="propertie">формат: @Model.Session.Format</div>
+                        </div>
+                        <div class="movie-properties">Вікове обмеження: @Model.Session.Movie.AgeRestriction+</div>
+                    </div>
+                </div>
+            </div>
+            <div class="session-datetime">
+                <div class="datetime">
+                    <img src="~/images/icons/calendar.png" />
+                    <span>@Model.Session.Date, @Model.Session.Date.DayOfWeek</span>
+                </div>
+                <div class="datetime">
+                    <img src="~/images/icons/clock.png" />
+                    <span>@Model.Session.Time</span>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="content__right-block">
         <div class="scheme-legend">
-            <!--SeatType and price info-->
+            @foreach (var seat in Model.SeatViewModels.DistinctBy(s => s.Seat.SeatTypeId))
+            {
+                <div class="scheme-legend__item">
+                    <label for="seat-type-button">@seat.Seat.SeatType.SeatTypeName</label>
+                    <div class="button @seat.StyleType inactive" id="seat-type-button"></div>
+                    <label for="seat-type-button">@seat.Price.ToString("F2") грн</label>
+                </div>
+            }
         </div>
         <div class="scheme">
             <div class="scheme__screen">
@@ -16,35 +51,40 @@
             <div class="scheme__seats">
                 @for(int i = 0; i < Model.Rows.Count(); i++)
                 {
-                    if (Model.SeatViewModels.Select(s => s.Seat.SeatTypeId).All(st => st == (int)SeatTypeEnum.VIP))
-                    {
-                        <div class="row--vip">
-                            @foreach (var seatViewModel in Model.SeatViewModels)
-                            {
-                                @if (seatViewModel.Seat.RowNumber == @Model.Rows[i])
+                    <div class="scheme-row">
+                        @if (Model.SeatViewModels
+                                .Where(s => s.Seat.RowNumber == i+1)
+                                .Select(s => s.Seat.SeatTypeId)
+                                .All(st => st == (int)SeatTypeEnum.VIP))
+                        {
+                            <div class="row-vip">
+                                @foreach (var seatViewModel in Model.SeatViewModels)
                                 {
-                                    <button class="button @seatViewModel.StyleType @seatViewModel.StyleActive">
-                                        @seatViewModel.Seat.SeatNumber
-                                    </button>
+                                    @if (seatViewModel.Seat.RowNumber == @Model.Rows[i])
+                                    {
+                                        <button class="button @seatViewModel.StyleType @seatViewModel.StyleActive">
+                                            @seatViewModel.Seat.SeatNumber
+                                        </button>
+                                    }
                                 }
-                            }
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="row--default">
-                            @foreach (var seatViewModel in Model.SeatViewModels)
-                            {
-                                @if (seatViewModel.Seat.RowNumber == @Model.Rows[i])
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row-default">
+                                @foreach (var seatViewModel in Model.SeatViewModels)
                                 {
-                                    <button class="button @seatViewModel.StyleType @seatViewModel.StyleActive">
-                                        @seatViewModel.Seat.SeatNumber
-                                    </button>
+                                    @if (seatViewModel.Seat.RowNumber == @Model.Rows[i])
+                                    {
+                                        <button class="button @seatViewModel.StyleType @seatViewModel.StyleActive">
+                                            @seatViewModel.Seat.SeatNumber
+                                        </button>
+                                    }
                                 }
-                            }
-                        </div>
-                    }
-                    <div class="row-number">@Model.Rows[i]</div>
+                            </div>
+                        }
+                        <div class="row-number">@Model.Rows[i] Ряд</div>
+                    </div>
                 }
             </div>
         </div>

@@ -6,9 +6,6 @@ namespace ICinema.ViewModels
     {
         public List<SeatViewModel> SeatViewModels { get; set; } = [];
         public List<int> Rows { get; set; } = [];
-
-        //public IEnumerable<Ticket>? orderedTickets { get; set; }
-
-        public Session Session { get; set; } = new Session();
+        public Session Session { get; set; } = new();
     }
 }

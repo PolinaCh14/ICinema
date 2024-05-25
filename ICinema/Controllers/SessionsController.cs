@@ -57,44 +57,47 @@ namespace ICinema.Controllers
 
         public async Task<IActionResult> SeatsCatalog(int sessionId)
         {
-            var session = await _context.Sessions.FindAsync(sessionId);
+            var session = await _context.Sessions
+                .Include(s => s.Movie)
+                .Include(s => s.SessionType)
+                .Include(s => s.Hall).ThenInclude(h => h.Technology)
+                .Include(s => s.Hall).ThenInclude(h => h.Seats).ThenInclude(s => s.SeatType)
+                .FirstOrDefaultAsync(s => s.SessionId == sessionId);
 
-            if (session != null)
-            {
-                var seats = await _context.Seats
-                .Where(s => s.HallId == session.HallId)
-                .Include(s => s.SeatType)
-                .Include(s => s.Hall)
+            if (session is null)
+                return RedirectToAction("Schedule");
+
+            var seats = session.Hall.Seats.ToList();
+
+            var orderedTickets = await _context.Tickets
+                .Where(t => t.SessionId == sessionId)
                 .ToListAsync();
 
-                // TODO: select tickets on ordered seats from Ticket table
+            var rows = seats.Select(s => s.RowNumber).Distinct().ToList();
 
-                var rows = seats.Select(s => s.RowNumber).Distinct().ToList();
+            var seatViewModels = new List<SeatViewModel>();
 
-                var seatViewModels = new List<SeatViewModel>();
-
-                foreach (var seat in seats)
+            foreach (var seat in seats)
+            {
+                var seatViewModel = new SeatViewModel
                 {
-                    var seatViewModel = new SeatViewModel
-                    {
-                        Seat = seat,
-                        StyleType = seat.SeatType.SeatTypeId == (int)SeatTypeEnum.Default ? "button-seat-default" : "button-seat-vip",
-                        //StyleActive = seat.SeatType.SeatTypeId == (int)SeatTypes.Default ? "button-seat-default" : "button-seat-vip"
-                    };
-                    seatViewModels.Add(seatViewModel);
-                }
-
-                var seatsCatalogViewModel = new SeatsCatalogViewModel()
-                {
-                    SeatViewModels = seatViewModels,
-                    Rows = rows,
-                    Session = session
+                    Seat = seat,
+                    Price = seat.SeatType.BasePrice * session.Hall.Technology.Coefficient * session.SessionType.Coefficient,
+                    StyleType = seat.SeatType.SeatTypeId == (int)SeatTypeEnum.Default ? "button-seat-default" : "button-seat-vip",
+                    //StyleActive = orderedTickets.Exists(t => t.SeatId == seat.SeatId) ? "button-seat-inactive inactive" : ""
+                    StyleActive = seat.SeatNumber % 7 == 0 ? "button-seat-inactive inactive" : ""
                 };
-
-                return View(seatsCatalogViewModel);
+                seatViewModels.Add(seatViewModel);
             }
 
-            return RedirectToAction("Schedule");
+            var seatsCatalogViewModel = new SeatsCatalogViewModel
+            {
+                SeatViewModels = seatViewModels,
+                Rows = rows,
+                Session = session
+            };
+
+            return View(seatsCatalogViewModel);
         }
     }
 }

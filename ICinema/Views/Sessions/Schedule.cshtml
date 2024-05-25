@@ -48,7 +48,7 @@
                                                     {
                                                         <a asp-controller="sessions"
                                                            asp-action="seatscatalog"
-                                                           asp-route-sessionId="@session.SessionId"
+                                                           asp-route-sessionId="@session.SessionId" 
                                                            class="button button-primary"
                                                         >@session.Time</a>
                                                     }
@@ -69,7 +69,7 @@
 
                                                         <a asp-controller="sessions"
                                                            asp-action="seatscatalog"
-                                                           asp-route-sessionId="@session.SessionId"
+                                                           asp-route-sessionId="@session.SessionId" 
                                                            class="button button-inactive inactive"
                                                         >@session.Time</a>
                                                     }
@@ -77,7 +77,7 @@
                                                     {
                                                         <a asp-controller="sessions"
                                                            asp-action="seatscatalog"
-                                                           asp-route-sessionId="@session.SessionId"
+                                                           asp-route-sessionId="@session.SessionId" 
                                                            class="button button-primary"
                                                         >@session.Time</a>
                                                     }
@@ -97,13 +97,17 @@
                                                     {
                                                         <a asp-controller="sessions"
                                                            asp-action="seatscatalog"
-                                                           asp-route-sessionId="@session.SessionId"
+                                                           asp-route-sessionId="@session.SessionId" 
                                                            class="button button-inactive inactive"
                                                         >@session.Time</a>
                                                     }
                                                     else
                                                     {
-                                                        <a href="#" class="button button-primary">@session.Time</a>
+                                                        <a asp-controller="sessions"
+                                                           asp-action="seatscatalog"
+                                                           asp-route-sessionId="@session.SessionId" 
+                                                           class="button button-primary"
+                                                        >@session.Time</a>
                                                     }
                                                     
                                                 }
@@ -122,7 +126,7 @@
                                                     {
                                                         <a asp-controller="sessions"
                                                            asp-action="seatscatalog"
-                                                           asp-route-sessionId="@session.SessionId"
+                                                           asp-route-sessionId="@session.SessionId" 
                                                            class="button button-inactive inactive"
                                                         >@session.Time</a>
                                                     }
@@ -150,7 +154,7 @@
                                                     {
                                                         <a asp-controller="sessions"
                                                            asp-action="seatscatalog"
-                                                           asp-route-sessionId="@session.SessionId"
+                                                           asp-route-sessionId="@session.SessionId" 
                                                            class="button button-inactive inactive"
                                                         >@session.Time</a>
                                                     }
@@ -158,7 +162,7 @@
                                                     {
                                                         <a asp-controller="sessions"
                                                            asp-action="seatscatalog"
-                                                           asp-route-sessionId="@session.SessionId"
+                                                           asp-route-sessionId="@session.SessionId" 
                                                            class="button button-primary"
                                                         >@session.Time</a>
                                                     }
@@ -178,7 +182,7 @@
                                                     {
                                                         <a asp-controller="sessions"
                                                            asp-action="seatscatalog"
-                                                           asp-route-sessionId="@session.SessionId"
+                                                           asp-route-sessionId="@session.SessionId" 
                                                            class="button button-inactive inactive"
                                                         >@session.Time</a>
                                                     }
@@ -186,7 +190,7 @@
                                                     {
                                                         <a asp-controller="sessions"
                                                            asp-action="seatscatalog"
-                                                           asp-route-sessionId="@session.SessionId"
+                                                           asp-route-sessionId="@session.SessionId" 
                                                            class="button button-primary"
                                                         >@session.Time</a>
                                                     }
@@ -209,21 +213,18 @@
                 <a class="button button-inactive button-filter-option @Model.First().IntervalButtonClasses[0]"
                     asp-controller="sessions" 
                     asp-action="schedule"
-                   asp-route-interval="@DateIntervalEnum.Today">
-                    Сьогодні
-                </a>
+                    asp-route-interval="@DateIntervalEnum.Today"
+                >Сьогодні</a>
                 <a class="button button-inactive button-filter-option @Model.First().IntervalButtonClasses[1]"
                     asp-controller="sessions"
                     asp-action="schedule"
-                   asp-route-interval="@DateIntervalEnum.Tomorrow">
-                    Завтра
-                </a>
+                    asp-route-interval="@DateIntervalEnum.Tomorrow"
+                >Завтра</a>
                 <a class="button button-inactive button-filter-option @Model.First().IntervalButtonClasses[2]"
                     asp-controller="sessions"
                     asp-action="schedule"
-                   asp-route-interval="@DateIntervalEnum.Week">
-                    Тиждень
-                </a>
+                    asp-route-interval="@DateIntervalEnum.Week"
+                >Тиждень</a>
             </div>
         </div>
     </div>
