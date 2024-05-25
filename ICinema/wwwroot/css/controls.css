@@ -18,7 +18,6 @@
 
 .button {
     align-items: center;
-    cursor: pointer;
     display: flex;
     font-size: 16px;
     justify-content: center;
@@ -57,9 +56,9 @@
 
 .button-filter-option:hover {
     cursor: pointer;
-    background-color: #cbc9c9;
-    color: black;
-    border-color: black;
+    background-color: #a5e1f4;
+    color: white;
+    border-color: white;
 }
 
 .button-selected {
