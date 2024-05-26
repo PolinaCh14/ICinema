@@ -1,4 +1,5 @@
 using ICinema.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<CinemaContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ZhenyaServerConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("OlyaServerConnection")));
 
 var app = builder.Build();
 

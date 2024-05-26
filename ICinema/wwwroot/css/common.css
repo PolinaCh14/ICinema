@@ -71,3 +71,8 @@ body {
     cursor: default;
     pointer-events: none;
 }
+
+.nav-right {
+    float: right;
+    margin-right:100px;
+}

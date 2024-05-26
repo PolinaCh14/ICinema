@@ -26,8 +26,17 @@
                     <input class="form-control me-2 " type="search" placeholder="Пошук" aria-label="Search">
                     <button class="btn btn-outline-primary" type="submit">Пошук</button>
                 </form> *@
+
+                <div class="header-nav__links nav-right">
+                    <a class="nav-link" asp-controller="account" asp-action="login">Вхід</a>
+                    <span>|</span>
+                    <a class="nav-link" asp-controller="account" asp-action="register">Реєстрація</a>
+                </div>
+      
             </nav>
         </div>
+
+        
     </header>
     <div class="container">
         @RenderBody()
