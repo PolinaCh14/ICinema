@@ -39,6 +39,16 @@
             margin-top: 30px;
         }
 
+    .login-form input:focus {
+        text-align: right;
+        color: var(--text-main-color);
+        border: none;
+        border-bottom: 1px solid var(--text-main-color);
+        border-radius: 0px;
+        background-color: transparent;
+        box-shadow:none;
+    }
+
 .text-center {
     text-align: center;
 }
