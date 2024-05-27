@@ -1,0 +1,32 @@
+﻿@model LoginViewModel
+
+<div class="login-form">
+    <div class="col-md-6 block-center">
+
+        <h4 class="text-center">Вхід</h4>
+
+        <form asp-action="Login" method="post" class="padding-30" asp-antiforgery="true">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3 padding-30">
+                <input type="text" class="form-control" id="email-phone-field" placeholder="e-mail або номер телефону" asp-for="EmailOrPhone">
+                <span asp-validation-for="EmailOrPhone"></span>
+            </div>
+
+            <div class="mb-3 padding-30">
+                <input type="password" class="form-control" id="password-field" placeholder="пароль" asp-for="Password">
+                <span asp-validation-for="Password"></span>
+            </div>
+
+            <div class="text-center">
+                <a asp-controller="Account" asp-action="Register" class="text-center">
+                    Ще не маєте профілю?
+                </a>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Вхід" />
+            </div>
+        </form>
+    </div>
+</div>

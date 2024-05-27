@@ -1,0 +1,55 @@
+﻿@model RegisterViewModel
+     
+<div class="login-form">
+    <div class="col-md-6">
+       
+
+        <h4 class="text-center">Реєстрація</h4>
+
+        <form asp-action="Register" method="post" asp-antiforgery="true">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <input type="text" class="form-control" id="lastName-field" placeholder="Прізвище" asp-for="LastName">
+                <span asp-validation-for="LastName"></span>
+            </div>
+
+
+            <div class="mb-3">
+                <input type="text" class="form-control" id="firstName-field" placeholder="Ім'я" asp-for="FirstName">
+                <span asp-validation-for="FirstName"></span>
+            </div>
+
+
+            <div class="mb-3">
+                <input type="text" class="form-control" id="email-field" placeholder="e-mail" asp-for="Email">
+                <span asp-validation-for="Email"></span>
+            </div>
+
+
+            <div class="mb-3">
+                <input type="phone" class="form-control" id="phone-field" placeholder="номер телефону" asp-for="PhoneNumber">
+                <span asp-validation-for="PhoneNumber"></span>
+            </div>
+
+            <div class="mb-3">
+                <input type="password" class="form-control" id="password-field" placeholder="пароль" asp-for="Password">
+                <span asp-validation-for="Password"></span>
+            </div>
+            <div class="mb-3">
+                <input type="password" class="form-control" id="confirm-password-field" placeholder="підтвердіть пароль" asp-for="ConfirmPassword">
+                <span asp-validation-for="ConfirmPassword"></span>
+            </div>
+            
+            <div class="text-center">
+                <a asp-controller="Account" asp-action="Login" class="text-center">
+                    Вже маєте профіль?
+                </a>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Зареєструватися"/>
+            </div>
+        </form>
+    </div>
+</div>
