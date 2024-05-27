@@ -12,9 +12,10 @@
     box-shadow: -10px 10px 15px rgba(0, 0, 0, 0.2), /* тінь зліва і знизу */
     -10px -10px 15px rgba(0, 0, 0, 0.2), /* тінь зліва і зверху */
     0 10px 15px rgba(0, 0, 0, 0.2); /* тінь прямо знизу */
-
-
     background-image: url("/images/stripesBG.png");
+    min-height: 573px;
+    background-size: auto 100%;
+    background-position: center center;
 }
 
     .login-form input {
@@ -42,22 +43,6 @@
     text-align: center;
 }
 
-#login-block div.triangle {
-    position: relative;
-    width: 100%;
-    z-index: 50;
-    margin-top: -49px;
-    right: 49px;
-}
-
-.triangle {
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 0 50px 50px 0;
-    border-color: transparent #fff transparent transparent;
-}
-
 .login-form a:hover {
     color: #4090FF;
 }
@@ -65,3 +50,45 @@
 ::placeholder {
     color: #fff !important;
 }
+
+.block-center {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.padding-30{
+    padding:30px 0 30px 0;
+}
+
+.user-profile a{
+    display:flex;
+    flex-direction:row;
+    justify-content:end;
+    align-items:center;   
+}
+
+.user-profile img {
+    margin: 10px;
+}
+
+.user-profile span {
+    white-space: nowrap;
+}
+
+.dropdown-dark {
+    background-color: var(--background-color);
+}
+
+.dropdown-item:hover {
+    background-color: var(--background-color);
+}
+
+.text-color {
+    color: var(--text-main-color);
+}
+
+    .text-color:hover {
+        color: #3797EF;
+    }

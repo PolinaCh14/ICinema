@@ -26,16 +26,14 @@ namespace ICinema.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (!_context.Users.ToList().Any(x => x.Email == model.Email) || !_context.Users.ToList().Any(x => x.PhoneNumber == model.PhoneNumber))
+                if (!_context.Users.Any(x => x.Email == model.Email || x.PhoneNumber == model.PhoneNumber))
                 {
-
-
-                    await _context.Users.AddAsync(model.AddUser());
-
+                    User user = model.ToRecord();
+                    await _context.Users.AddAsync(user);
                     _context.SaveChanges();
 
-                    //await Authenticate(user);
-                    
+                    await Authorize(user);
+
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -46,20 +44,52 @@ namespace ICinema.Controllers
             return View(model);
         }
 
- 
+        public ActionResult Login()
+        {
+            return View(new LoginViewModel());
+        }
 
-        //private async Task Authenticate(User user)
-        //{
-        //    var claims = new List<Claim>
-        //    {
-        //        new Claim("UserId", user.UserId.ToString()),
-        //        new Claim(ClaimsIdentity.DefaultRoleClaimType, user.UserStatus),
-        //        new Claim(ClaimsIdentity.DefaultNameClaimType, user.FirstName + " " + user.LastName),
-        //    };
+        [HttpPost]
+        public async Task<ActionResult> Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User? user = _context.Users.SingleOrDefault(x => x.Email == model.EmailOrPhone || x.PhoneNumber == model.EmailOrPhone);
+                if (user != null && user.Password.Equals(model.Password))
+                {
+                    await Authorize(user);
 
-        //    ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+                    return RedirectToAction("Index", "Home");
+                }
 
-        //    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
-        //}
+                ModelState.AddModelError("", "Невірний email/номер телефону або пароль");
+            }
+
+            return View(model);
+        }
+
+        [Authorize]
+        public async Task<ActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Home");
+        }
+
+
+        private async Task Authorize(User user)
+        {
+            var claims = new List<Claim>
+            {
+                new (ClaimTypes.NameIdentifier, user.UserId.ToString()),
+                new (ClaimTypes.Role, user.UserStatus),
+                new (ClaimTypes.Email, user.Email),
+                new (ClaimTypes.Name, user.FirstName + " " + user.LastName),
+            };
+
+            ClaimsIdentity identity = new(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
+
+        }
     }
 }
