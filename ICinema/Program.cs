@@ -16,12 +16,9 @@ builder.Services.AddAuthentication(options =>
 })
 .AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
 {
-    //IConfigurationSection googleAuthSection = builder.Configuration.GetSection("Google");
-    //options.ClientId = googleAuthSection["ClientId"] ?? "";
-    //options.ClientSecret = googleAuthSection["ClientSecret"] ?? "";
-
-    options.ClientId = "583090746385-f5utupjicbdnuf6l0oocn6ds2i6fs21d.apps.googleusercontent.com";
-    options.ClientSecret = "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";
+    IConfigurationSection googleAuthSection = builder.Configuration.GetSection("Google");
+    options.ClientId = googleAuthSection["ClientId"] ?? "";
+    options.ClientSecret = googleAuthSection["ClientSecret"] ?? "";
 
     options.Scope.Add("profile");
     options.Scope.Add("email");
