@@ -367,3 +367,5 @@ bin/Degug
 obj/Debug
 bin
 obj
+
+.env
