@@ -18,36 +18,36 @@
     background-position: center center;
 }
 
-    .login-form input {
-        text-align: right;
-        color: var(--text-main-color);
-        border: none;
-        border-bottom: 1px solid var(--text-main-color);
-        border-radius: 0px;
-        background-color: transparent;
-    }
+.login-form input {
+    text-align: right;
+    color: var(--text-main-color);
+    border: none;
+    border-bottom: 1px solid var(--text-main-color);
+    border-radius: 0px;
+    background-color: transparent;
+}
 
-        .login-form input[type=submit] {
-            color: var(--text-main-color);
-            border-radius: 0px;
-            background-color: #4090FF;
-            border: none;
-            padding: 10px;
-            width: 200px;
-            text-align: center;
-            float: right;
-            margin-top: 30px;
-        }
+.login-form input[type=submit] {
+    color: var(--text-main-color);
+    border-radius: 0px;
+    background-color: #4090FF;
+    border: none;
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+    float: right;
+    margin-top: 30px;
+}
 
-    .login-form input:focus {
-        text-align: right;
-        color: var(--text-main-color);
-        border: none;
-        border-bottom: 1px solid var(--text-main-color);
-        border-radius: 0px;
-        background-color: transparent;
-        box-shadow:none;
-    }
+.login-form input:focus {
+    text-align: right;
+    color: var(--text-main-color);
+    border: none;
+    border-bottom: 1px solid var(--text-main-color);
+    border-radius: 0px;
+    background-color: transparent;
+    box-shadow:none;
+}
 
 .text-center {
     text-align: center;
@@ -66,6 +66,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
 }
 
 .padding-30{
@@ -99,6 +101,53 @@
     color: var(--text-main-color);
 }
 
-    .text-color:hover {
-        color: #3797EF;
-    }
+.text-color:hover {
+    color: #3797EF;
+}
+
+.password-line {
+    position: relative;
+}
+
+#togglePassword {
+    position: absolute;
+    right: -40px;
+    top: 40%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+#togglePasswordConfirm {
+    position: absolute;
+    right: -40px;
+    top: 40%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9em;
+}   
+
+.eye-button {
+    width: 20px;
+    height: 20px;
+}
+
+.google-login {
+    max-width: 45px;
+    max-height: 45px;
+    margin: 30px 130px 0;
+}
+
+.google-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+.login-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

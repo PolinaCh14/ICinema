@@ -26,6 +26,7 @@ namespace ICinema.Controllers
             var movies = await _context.Movies
                 .Include(m => m.Sessions)
                 .Where(m => m.Sessions.Any(s => s.Date >= currentDate && s.Date <= currentDate.AddDays((int)interval)))
+                .AsNoTracking()
                 .ToListAsync();
 
             foreach (var movie in movies)
@@ -36,6 +37,7 @@ namespace ICinema.Controllers
                     .Include(s => s.SessionType)
                     .Include(s => s.Hall)
                         .ThenInclude(h => h.Technology)
+                    .AsNoTracking()
                     .ToListAsync();
 
                 scheduleItems.Add(new SessionScheduleViewModel
@@ -62,16 +64,13 @@ namespace ICinema.Controllers
                 .Include(s => s.SessionType)
                 .Include(s => s.Hall).ThenInclude(h => h.Technology)
                 .Include(s => s.Hall).ThenInclude(h => h.Seats).ThenInclude(s => s.SeatType)
+                .Include(s => s.Tickets)
                 .FirstOrDefaultAsync(s => s.SessionId == sessionId);
 
             if (session is null)
                 return RedirectToAction("Schedule");
 
             var seats = session.Hall.Seats.ToList();
-
-            var orderedTickets = await _context.Tickets
-                .Where(t => t.SessionId == sessionId)
-                .ToListAsync();
 
             var rows = seats.Select(s => s.RowNumber).Distinct().ToList();
 
@@ -84,7 +83,7 @@ namespace ICinema.Controllers
                     Seat = seat,
                     Price = seat.SeatType.BasePrice * session.Hall.Technology.Coefficient * session.SessionType.Coefficient,
                     StyleType = seat.SeatType.SeatTypeId == (int)SeatTypeEnum.Default ? "button-seat-default" : "button-seat-vip",
-                    //StyleActive = orderedTickets.Exists(t => t.SeatId == seat.SeatId) ? "button-seat-inactive inactive" : ""
+                    //StyleActive = session.Tickets.Any(t => t.SeatId == seat.SeatId) ? "button-seat-inactive inactive" : ""
                     StyleActive = seat.SeatNumber % 7 == 0 ? "button-seat-inactive inactive" : ""
                 };
                 seatViewModels.Add(seatViewModel);
