@@ -1,4 +1,7 @@
 ﻿@model SessionScheduleViewModel
+@{
+    ViewData["Title"] = Model.Movie.MovieName;
+}
 
 <h2 class="session-schedule-header">Розклад: "@Model.Movie.MovieName"</h2>
 
