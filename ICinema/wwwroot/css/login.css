@@ -49,6 +49,16 @@
     box-shadow:none;
 }
 
+.login-form input:active {
+    text-align: right;
+    color: var(--text-main-color);
+    border: none;
+    border-bottom: 1px solid var(--text-main-color);
+    border-radius: 0px;
+    background-color: transparent;
+    box-shadow: none;
+}
+
 .text-center {
     text-align: center;
 }
@@ -137,7 +147,7 @@
 .google-login {
     max-width: 45px;
     max-height: 45px;
-    margin: 30px 130px 0;
+    margin: 30px 0px 0;
 }
 
 .google-icon {
@@ -149,5 +159,6 @@
 .login-group {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content:end;
+    gap: 50px;
 }
