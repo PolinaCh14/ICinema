@@ -1,4 +1,5 @@
 ﻿using System;
+using System;
 using System.Collections.Generic;
 using ICinema.Models;
 using Microsoft.EntityFrameworkCore;
@@ -248,8 +249,6 @@ public partial class CinemaContext : DbContext
             entity.ToTable("User");
 
             entity.HasIndex(e => e.Email, "UQ_Email").IsUnique();
-
-            entity.HasIndex(e => e.PhoneNumber, "UQ_PhoneNumber").IsUnique();
 
             entity.Property(e => e.Email)
                 .HasMaxLength(255)

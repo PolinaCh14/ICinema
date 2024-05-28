@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using ICinema.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.Google;
+using ICinema.Infrastructure.Constants;
 
 namespace ICinema.Controllers
 {
@@ -26,7 +28,9 @@ namespace ICinema.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (!_context.Users.Any(x => x.Email == model.Email || x.PhoneNumber == model.PhoneNumber))
+                if (!_context.Users.Any(
+                    x => x.Email == model.Email
+                    || (x.PhoneNumber != null && x.PhoneNumber == model.PhoneNumber)))
                 {
                     User user = model.ToRecord();
                     await _context.Users.AddAsync(user);
@@ -54,7 +58,9 @@ namespace ICinema.Controllers
         {
             if (ModelState.IsValid)
             {
-                User? user = _context.Users.SingleOrDefault(x => x.Email == model.EmailOrPhone || x.PhoneNumber == model.EmailOrPhone);
+                User? user = _context.Users.SingleOrDefault(
+                    x => x.Email == model.EmailOrPhone 
+                    || (x.PhoneNumber != null && x.PhoneNumber == model.EmailOrPhone));
                 if (user != null && user.Password.Equals(model.Password))
                 {
                     await Authorize(user);
@@ -90,6 +96,51 @@ namespace ICinema.Controllers
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
 
+        }
+
+        public ActionResult GoogleLogin()
+        {
+            var properties = new AuthenticationProperties { RedirectUri = Url.Action("GoogleResponse") };
+            return Challenge(properties, GoogleDefaults.AuthenticationScheme);
+        }
+
+        [HttpGet("~/signin-google-response")]
+        public async Task<IActionResult> GoogleResponse()
+        {
+            var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            if (!result.Succeeded)
+                return RedirectToAction("Schedule", "Sessions");
+
+            var claims = result.Principal.Identities.FirstOrDefault()?.Claims;
+
+            if (claims == null)
+                return RedirectToAction("Register");
+
+            var firstName = claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName)?.Value ?? "";
+            var lastName = claims.FirstOrDefault(c => c.Type == ClaimTypes.Surname)?.Value ?? "";
+            var email = claims.First(c => c.Type == ClaimTypes.Email).Value;
+            var phoneNumber = claims.FirstOrDefault(c => c.Type == ClaimTypes.MobilePhone)?.Value ?? null;
+
+            var user = _context.Users.FirstOrDefault(u => u.Email == email);
+
+            if (user == null)
+            {
+                user = new User
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Email = email,
+                    PhoneNumber = phoneNumber,
+                    Password = "",
+                    UserStatus = UserStatuses.client
+                };
+                _context.Users.Add(user);
+                await _context.SaveChangesAsync();
+            }
+
+            await Authorize(user);
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

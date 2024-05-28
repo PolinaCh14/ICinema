@@ -32,13 +32,19 @@
                 <span asp-validation-for="PhoneNumber"></span>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-3 password-line">
                 <input type="password" class="form-control" id="password-field" placeholder="пароль" asp-for="Password">
                 <span asp-validation-for="Password"></span>
+                <button type="button" id="togglePassword">
+                    <img src="~/images/icons/eye-visible.png" class="eye-button" />
+                </button>
             </div>
-            <div class="mb-3">
+            <div class="mb-3 password-line">
                 <input type="password" class="form-control" id="confirm-password-field" placeholder="підтвердіть пароль" asp-for="ConfirmPassword">
                 <span asp-validation-for="ConfirmPassword"></span>
+                <button type="button" id="togglePasswordConfirm">
+                    <img src="~/images/icons/eye-visible.png" class="eye-button" />
+                </button>
             </div>
             
             <div class="text-center">

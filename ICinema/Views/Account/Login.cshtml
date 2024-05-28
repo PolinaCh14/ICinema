@@ -13,9 +13,12 @@
                 <span asp-validation-for="EmailOrPhone"></span>
             </div>
 
-            <div class="mb-3 padding-30">
+            <div class="mb-3 padding-30 password-line">
                 <input type="password" class="form-control" id="password-field" placeholder="пароль" asp-for="Password">
                 <span asp-validation-for="Password"></span>
+                <button type="button" id="togglePassword">
+                    <img src="~/images/icons/eye-visible.png" class="eye-button"/>
+                </button>
             </div>
 
             <div class="text-center">
@@ -23,10 +26,18 @@
                     Ще не маєте профілю?
                 </a>
             </div>
-
-            <div class="form-group">
-                <input type="submit" value="Вхід" />
+            
+            <div class="login-group">
+                <a class="google-login"
+                   asp-controller="account"
+                   asp-action="GoogleLogin">
+                    <img src="/images/icons/google-icon.png" alt="Alternate Text" class="google-icon" />
+                </a>
+                <div class="form-group">
+                    <input type="submit" value="Вхід" />
+                </div>
             </div>
+
         </form>
     </div>
 </div>
