@@ -16,30 +16,32 @@
 
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active profile-information" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+            <div class="align-profile-content">
+                <div class="col-md-6 block-center">
+                    <table>
+                        <tr>
+                            <th>Ім'я:</th>
+                            <th>@Model.FirstName</th>
+                        </tr>
+                        <tr>
+                            <th>Прізвище:</th>
+                            <th>@Model.LastName</th>
+                        </tr>
+                        <tr>
+                            <th>Email:</th>
+                            <th>@Model.Email</th>
+                        </tr>
+                        <tr>
+                            <th>Телефон:</th>
+                            <th>@Model.PhoneNumber</th>
+                        </tr>
+                    </table>
 
-            <table>
-                <tr>
-                    <th>Ім'я:</th>
-                    <th>@Model.FirstName</th>
-                </tr>
-                <tr>
-                    <th>Прізвище:</th>
-                    <th>@Model.LastName</th>
-                </tr>
-                <tr>
-                    <th>Email:</th>
-                    <th>@Model.Email</th>
-                </tr>
-                <tr>
-                    <th>Телефон:</th>
-                    <th>@Model.PhoneNumber</th>
-                </tr>
-            </table>
-
-            <div class="align-right">
-                <button class="button-primary rounded-button">Відредагувати</button>
+                    <div class="align-right">
+                        <button class="button-primary button1">Редагувати</button>
+                    </div>
+                </div>
             </div>
-
         </div>
 
         <div class="tab-pane fade" id="orders-tab-pane" role="tabpanel" aria-labelledby="orders-tab" tabindex="0">замовлення</div>
