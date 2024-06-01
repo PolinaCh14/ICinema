@@ -1,0 +1,52 @@
+﻿.block {
+    padding: 60px 0px;
+    max-width: 800px;
+    margin: auto;
+}
+
+.tabs-control {
+    margin: 0px 0 40px 0;
+    background: none;
+    border-bottom-width: 3px;
+    
+}
+
+.block .nav-tabs .nav-link {
+    font-weight: initial;
+    padding-left:0;
+    padding-right: 50px;
+}
+    .block .nav-tabs .nav-link.active {
+        color: var(--text-main-color);
+        background-color: transparent;
+        border: none;
+        font-weight: bold;
+        border-color: transparent;
+    }
+
+.nav-tabs .nav-link:hover {
+    isolation: isolate;
+    border: none;
+    border-color: transparent;
+}
+
+.rounded-button {
+    border-radius: 8px;
+    padding: 10px 15px 10px 15px;
+    margin: 20px;
+    border: 2px solid black;
+}
+
+.profile-information th {
+    padding-bottom: 10px;
+    padding-right: 40px;
+    padding-top: 10px;
+    font-size: 20px;
+    font-weight: inherit;
+}
+
+.block .align-right {
+    display:flex;
+    justify-content: flex-end;
+    margin-left: auto;
+}
