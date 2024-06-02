@@ -42,7 +42,7 @@
                 <div class="scheme-legend__item">
                     <label for="seat-type-button">@seat.Seat.SeatType.SeatTypeName</label>
                     <div class="button @seat.StyleType inactive" id="seat-type-button"></div>
-                    <label for="seat-type-button">@seat.Price.ToString("F2") грн</label>
+                    <label for="seat-type-button">@seat.Price грн</label>
                 </div>
             }
         </div>
@@ -65,9 +65,13 @@
                                 {
                                     @if (seatViewModel.Seat.RowNumber == @Model.Rows[i])
                                     {
-                                        <button class="button @seatViewModel.StyleType @seatViewModel.StyleActive">
-                                            @seatViewModel.Seat.SeatNumber
-                                        </button>
+                                        <a class="button @seatViewModel.StyleType @seatViewModel.StyleActive"
+                                                asp-controller="cart"
+                                                asp-action="AddToCart"
+                                                asp-route-sessionId="@Model.Session.SessionId"
+                                                asp-route-seatId="@seatViewModel.Seat.SeatId"
+                                                asp-route-price="@seatViewModel.Price"
+                                        >@seatViewModel.Seat.SeatNumber</a>
                                     }
                                 }
                             </div>
@@ -79,9 +83,13 @@
                                 {
                                     @if (seatViewModel.Seat.RowNumber == @Model.Rows[i])
                                     {
-                                        <button class="button @seatViewModel.StyleType @seatViewModel.StyleActive">
-                                            @seatViewModel.Seat.SeatNumber
-                                        </button>
+                                        <a class="button @seatViewModel.StyleType @seatViewModel.StyleActive"
+                                                asp-controller="cart"
+                                                asp-action="AddToCart"
+                                                asp-route-sessionId="@Model.Session.SessionId"
+                                                asp-route-seatId="@seatViewModel.Seat.SeatId"
+                                                asp-route-price="@seatViewModel.Price"
+                                        >@seatViewModel.Seat.SeatNumber</a>
                                     }
                                 }
                             </div>

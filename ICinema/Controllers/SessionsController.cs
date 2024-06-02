@@ -57,15 +57,15 @@ namespace ICinema.Controllers
             return View(scheduleItems);
         }
 
-        public async Task<IActionResult> SeatsCatalog(int sessionId)
+        public IActionResult SeatsCatalog(int sessionId)
         {
-            var session = await _context.Sessions
+            var session = _context.Sessions
                 .Include(s => s.Movie)
                 .Include(s => s.SessionType)
                 .Include(s => s.Hall).ThenInclude(h => h.Technology)
                 .Include(s => s.Hall).ThenInclude(h => h.Seats).ThenInclude(s => s.SeatType)
                 .Include(s => s.Tickets)
-                .FirstOrDefaultAsync(s => s.SessionId == sessionId);
+                .FirstOrDefault(s => s.SessionId == sessionId);
 
             if (session is null)
                 return RedirectToAction("Schedule");
@@ -81,10 +81,9 @@ namespace ICinema.Controllers
                 var seatViewModel = new SeatViewModel
                 {
                     Seat = seat,
-                    Price = seat.SeatType.BasePrice * session.Hall.Technology.Coefficient * session.SessionType.Coefficient,
+                    Price = Convert.ToDecimal(Convert.ToDouble(seat.SeatType.BasePrice * session.Hall.Technology.Coefficient * session.SessionType.Coefficient)),
                     StyleType = seat.SeatType.SeatTypeId == (int)SeatTypeEnum.Default ? "button-seat-default" : "button-seat-vip",
-                    //StyleActive = session.Tickets.Any(t => t.SeatId == seat.SeatId) ? "button-seat-inactive inactive" : ""
-                    StyleActive = seat.SeatNumber % 7 == 0 ? "button-seat-inactive inactive" : ""
+                    StyleActive = session.Tickets.Any(t => t.SeatId == seat.SeatId) ? "button-seat-inactive inactive" : ""
                 };
                 seatViewModels.Add(seatViewModel);
             }

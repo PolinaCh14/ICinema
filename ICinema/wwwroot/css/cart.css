@@ -1,0 +1,90 @@
+﻿.cart-index {
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-index-main {
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-content {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.cart-header {
+    height: 100px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cart-header hr {
+    max-width: 300px;
+    margin-top: 5px;
+}
+
+.cart-content__right {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.cart-index .session-movie__info {
+    width: 400px;
+}
+
+.cart-tickets {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+}
+
+.cart-tickets__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.ticket {
+    flex: 1;
+    height: 60px;
+    box-shadow: -10px 10px 15px rgba(0, 0, 0, 0.2), /* тінь зліва і знизу */
+    -10px -10px 15px rgba(0, 0, 0, 0.2), /* тінь зліва і зверху */
+    0 10px 15px rgba(0, 0, 0, 0.2); /* тінь прямо знизу */
+    border: 3px solid #c8d4da;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    font-size: 20px;
+    font-weight: 600;
+    align-items: center;
+}
+
+.ticket p {
+    padding: 0;
+    margin: 0;
+    color: #e1e8eb;
+}
+
+.ticket__placement {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.cross-icon-container {
+    display: flex;
+    height: 70px;
+}
+
+.cart-content__right .button{
+    width: 100%;
+    height: 60px;
+    font-weight: 600;
+    font-size: 22px;
+}

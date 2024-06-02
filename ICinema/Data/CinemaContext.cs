@@ -6,17 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ICinema.Data;
 
-public partial class CinemaContext : DbContext
+public partial class CinemaContext(DbContextOptions<CinemaContext> options) : DbContext(options)
 {
-    public CinemaContext()
-    {
-    }
-
-    public CinemaContext(DbContextOptions<CinemaContext> options)
-        : base(options)
-    {
-    }
-
     public virtual DbSet<Hall> Halls { get; set; }
 
     public virtual DbSet<Movie> Movies { get; set; }

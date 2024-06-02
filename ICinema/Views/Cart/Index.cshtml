@@ -1,0 +1,76 @@
+﻿@model CartViewModel
+@{
+    ViewData["Title"] = "Кошик";
+}
+
+<div class="cart-index">
+    <div class="cart-index-main">
+        <div class="cart-header">
+            <h2>Ваш кошик</h2>
+            <hr class="session-date-divider" />
+        </div>
+        <div class="cart-content">
+            @if (Model.Cart.CartTickets.Count == 0)
+            {
+                <div class="cart-header">
+                    <h2>У вас ще немає квитків у кошику!</h2>
+                </div>
+            }
+            else
+            {
+                <div class="cart-content__right">
+                    <div class="session-card">
+                        <div class="session-movie">
+                            <div class="poster-container-mini">
+                                <img src="@Model.Session.Movie.PosterPath" alt="@Model.Session.Movie.MovieName poster" />
+                            </div>
+                            <div class="session-movie__info">
+                                <h3 class="session-movie__title">
+                                    @Model.Session.Movie.MovieName
+                                </h3>
+                                <div class="session-movie__properties">
+                                    <div class="session-properties">
+                                        <div class="propertie">технологія: @Model.Session.Hall.Technology.TechnologyName</div>
+                                        <div class="propertie">формат: @Model.Session.Format</div>
+                                    </div>
+                                    <div class="movie-properties">Вікове обмеження: @Model.Session.Movie.AgeRestriction+</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="session-datetime">
+                            <div class="datetime">
+                                <img src="~/images/icons/calendar.png" />
+                                <span>@Model.Session.Date, @Model.Session.Date.DayOfWeek</span>
+                            </div>
+                            <div class="datetime">
+                                <img src="~/images/icons/clock.png" />
+                                <span>@Model.Session.Time</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <a class="button button-primary make-order-button">Оформити замовлення</a>
+                    </div>
+                </div>
+                <div class="cart-tickets">
+                    @foreach (var ticket in Model.Cart.CartTickets)
+                    {
+                        <div class="cart-tickets__item">
+                            <div class="ticket">
+                                <div class="ticket__placement">
+                                    <p>@ticket.Seat.RowNumber ряд</p>
+                                    <p>@ticket.Seat.SeatNumber місце</p>
+                                </div>
+                                <p>@ticket.Price.ToString("F2") грн.</p>
+                            </div>
+                            <div class="cross-icon-container">
+                                <img src="/images/icons/cross.png" alt="X" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        
+    </div>
+</div>
