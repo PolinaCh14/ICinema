@@ -1,4 +1,5 @@
-﻿using ICinema.Models;
+﻿using ICinema.Infrastructure.Constants;
+using ICinema.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace ICinema.ViewModels
@@ -42,7 +43,7 @@ namespace ICinema.ViewModels
             user.Email = Email;
             user.PhoneNumber = PhoneNumber;
             user.Password = Password;
-            user.UserStatus = "Клієнт";
+            user.UserStatus = UserStatuses.client;
 
             return user;
         }

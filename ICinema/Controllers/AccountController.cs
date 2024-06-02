@@ -9,6 +9,7 @@ using ICinema.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Google;
 using ICinema.Infrastructure.Constants;
+using System.Linq;
 
 namespace ICinema.Controllers
 {
@@ -59,7 +60,7 @@ namespace ICinema.Controllers
             if (ModelState.IsValid)
             {
                 User? user = _context.Users.SingleOrDefault(
-                    x => x.Email == model.EmailOrPhone 
+                    x => x.Email == model.EmailOrPhone
                     || (x.PhoneNumber != null && x.PhoneNumber == model.EmailOrPhone));
                 if (user != null && user.Password.Equals(model.Password))
                 {
@@ -141,6 +142,21 @@ namespace ICinema.Controllers
             await Authorize(user);
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult MyProfile()
+        {
+            int userId = Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            User? user = _context.Users.Find(userId);
+
+            if (user == null)
+            {
+                throw new Exception("Unknown user");
+            }
+
+            return View(user);
         }
     }
 }
