@@ -4,48 +4,29 @@ using ICinema.Models;
 using ICinema.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json;
 
 namespace ICinema.Controllers;
 
 public class CartController(CinemaContext context) : Controller
 {
     private readonly CinemaContext _context = context;
-    private readonly JsonSerializerOptions _serializerOptions = new JsonSerializerOptions { WriteIndented = true };
-
-    private Cart _cart = null!;
-
-    public void RetrieveFromSession()
-    {
-        var sessionCart = HttpContext.Session.GetString(nameof(Cart));
-        if (sessionCart != null)
-            _cart = JsonSerializer.Deserialize<Cart>(sessionCart, _serializerOptions)!;
-
-        _cart ??= new();
-    }
-
-    public void SaveToSession()
-    {
-        var serializedCart = JsonSerializer.Serialize(_cart, _serializerOptions);
-
-        HttpContext.Session.SetString(nameof(Cart), serializedCart);
-    }
+    private readonly Cart _cart = new();
 
     public IActionResult Index()
     {
-        RetrieveFromSession();
+        _cart.RetrieveFromSession(HttpContext);
 
         var cartViewModel = new CartViewModel { Cart = _cart };
 
-        if (_cart.CartTickets.Count == 0)
+        if (_cart.Tickets.Count == 0)
             return View(cartViewModel);
 
         var session = _context.Sessions
                 .Include(s => s.Movie)
                 .Include(s => s.Hall).ThenInclude(h => h.Technology)
-                .First(s => s.SessionId == _cart.CartTickets.First().SessionId);
+                .First(s => s.SessionId == _cart.Tickets.First().SessionId);
 
-        foreach (var ticket in _cart.CartTickets)
+        foreach (var ticket in _cart.Tickets)
             ticket.Seat = _context.Seats.First(s => s.SeatId == ticket.SeatId);
 
         cartViewModel.Session = session;
@@ -60,11 +41,11 @@ public class CartController(CinemaContext context) : Controller
         if (ticket == null) 
             return RedirectToAction("SeatsCatalog", "Sessions", new { sessionId });
 
-        RetrieveFromSession();
+        _cart.RetrieveFromSession(HttpContext);
 
-        _cart.CartTickets.Add(ticket);
+        _cart.Tickets.Add(ticket);
 
-        SaveToSession();
+        _cart.SaveToSession(HttpContext);
 
         return RedirectToAction("SeatsCatalog", "Sessions", new { sessionId });
     }

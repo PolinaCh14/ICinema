@@ -10,7 +10,7 @@
             <hr class="session-date-divider" />
         </div>
         <div class="cart-content">
-            @if (Model.Cart.CartTickets.Count == 0)
+            @if (Model.Cart.Tickets.Count == 0)
             {
                 <div class="cart-header">
                     <h2>У вас ще немає квитків у кошику!</h2>
@@ -49,11 +49,14 @@
                         </div>
                     </div>
                     <div>
-                        <a class="button button-primary make-order-button">Оформити замовлення</a>
+                        <a href="#" class="button button-primary make-order-button">
+                            <div>Оформити замовлення</div>
+                            <div>@Model.Cart.Tickets.Sum(t => t.Price) грн</div>
+                        </a>
                     </div>
                 </div>
                 <div class="cart-tickets">
-                    @foreach (var ticket in Model.Cart.CartTickets)
+                    @foreach (var ticket in Model.Cart.Tickets)
                     {
                         <div class="cart-tickets__item">
                             <div class="ticket">
@@ -71,6 +74,5 @@
                 </div>
             }
         </div>
-        
     </div>
 </div>
