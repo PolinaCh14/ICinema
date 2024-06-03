@@ -46,7 +46,7 @@
                                 <span>@(User.Identity.Name ?? string.Empty)</span>
                             </a>
                             <ul class="dropdown-menu dropdown-dark">
-                                <li><a class="dropdown-item text-color">Мій профіль</a></li>
+                                <li><a class="dropdown-item text-color" asp-controller="account" asp-action="MyProfile">Мій профіль</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item text-color" asp-controller="account" asp-action="logout">Вийти</a></li>
                             </ul>
