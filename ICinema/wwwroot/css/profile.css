@@ -24,6 +24,34 @@
     background-position: center center;
 }
 
+    .profile-information input {
+        color: var(--text-main-color);
+        border: none;
+        border-radius: 0px;
+        background-color: transparent;
+        font-size: 20px;
+        padding: 0;
+        margin-left: 60px;
+    }
+
+        .profile-information input:focus {
+            color: var(--text-main-color);
+            border: none;
+            border-radius: 0px;
+            background-color: transparent;
+            box-shadow: none;
+        }
+
+    .profile-information ul {
+        margin: 0;
+    }
+
+@media (min-width: 768px) {
+    .col-md-6 {
+        flex: 0 0 auto;
+        width: 60%;
+    }
+}
 
 .tabs-control {
     margin: 0px 0 40px 0;
@@ -53,20 +81,25 @@
 
 .button1 {
     padding: 8px 25px 8px 25px;
-    margin-top: 20px;
-    margin-top: 40px;
-    
+    margin-top: 30px;
 }
 
-.profile-information th {
+.p-lines {
     padding-right: 40px;
     padding-top: 40px;
-    font-size: 20px;
-    font-weight: inherit;
+    margin: 0;
 }
 
-.profile-information tr {
+.profile-information .bottom-border {
     border-bottom: 1px solid var(--text-main-color);
+}
+
+.profile-information label {
+    font-size: 20px;
+}
+
+.profile-information .col-form-label {
+    padding: 0;
 }
 
 .block .align-right {
