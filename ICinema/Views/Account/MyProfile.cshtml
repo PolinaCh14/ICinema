@@ -74,8 +74,9 @@
             <div class="align-profile-content" id="edit-profile">
 
                 <form asp-action="MyProfile" method="post" asp-antiforgery="true">
+                    
                     <input type="hidden" asp-for="IsEditMode" />
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    
 
                     <div class="col-md-6 block-center">
                         <div class="row bottom-border p-lines ">
@@ -108,6 +109,8 @@
                         <span asp-validation-for="PhoneNumber"></span>
 
 
+                        <div asp-validation-summary="ModelOnly" class="text-danger mt-4"></div>
+                        
                         <div class="align-right">
                             <div class="form-group">
                                 <button type="submit" class="button-primary button1" id="save">Зберегти</button>

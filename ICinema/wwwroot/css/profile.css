@@ -42,6 +42,10 @@
             box-shadow: none;
         }
 
+    .profile-information ul {
+        margin: 0;
+    }
+
 @media (min-width: 768px) {
     .col-md-6 {
         flex: 0 0 auto;
@@ -49,67 +53,66 @@
     }
 }
 
-    .tabs-control {
-        margin: 0px 0 40px 0;
-        background: none;
-        border-bottom-width: 3px;
-    }
+.tabs-control {
+    margin: 0px 0 40px 0;
+    background: none;
+    border-bottom-width: 3px;
+}
 
-    .block .nav-tabs .nav-link {
-        font-weight: initial;
-        padding-left: 0;
-        padding-right: 50px;
-    }
+.block .nav-tabs .nav-link {
+    font-weight: initial;
+    padding-left: 0;
+    padding-right: 50px;
+}
 
-        .block .nav-tabs .nav-link.active {
-            color: var(--text-main-color);
-            background-color: transparent;
-            border: none;
-            font-weight: bold;
-            border-color: transparent;
-        }
-
-    .nav-tabs .nav-link:hover {
-        isolation: isolate;
+    .block .nav-tabs .nav-link.active {
+        color: var(--text-main-color);
+        background-color: transparent;
         border: none;
+        font-weight: bold;
         border-color: transparent;
     }
 
-    .button1 {
-        padding: 8px 25px 8px 25px;
-        margin-top: 20px;
-        margin-top: 20px;
-    }
+.nav-tabs .nav-link:hover {
+    isolation: isolate;
+    border: none;
+    border-color: transparent;
+}
 
-    .p-lines {
-        padding-right: 40px;
-        padding-top: 40px;
-        margin:0;
-    }
+.button1 {
+    padding: 8px 25px 8px 25px;
+    margin-top: 30px;
+}
 
-    .profile-information .bottom-border {
-        border-bottom: 1px solid var(--text-main-color);
-    }
+.p-lines {
+    padding-right: 40px;
+    padding-top: 40px;
+    margin: 0;
+}
 
-    .profile-information label {
-        font-size: 20px;
-    }
+.profile-information .bottom-border {
+    border-bottom: 1px solid var(--text-main-color);
+}
 
-    .profile-information .col-form-label {
-        padding: 0;
-    }
+.profile-information label {
+    font-size: 20px;
+}
 
-    .block .align-right {
-        display: flex;
-        justify-content: flex-end;
-        margin-left: auto;
-    }
+.profile-information .col-form-label {
+    padding: 0;
+}
+
+.block .align-right {
+    display: flex;
+    justify-content: flex-end;
+    margin-left: auto;
+}
 
 
-    .align-profile-content {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 100%;
-    }
+.align-profile-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
