@@ -24,62 +24,92 @@
     background-position: center center;
 }
 
-
-.tabs-control {
-    margin: 0px 0 40px 0;
-    background: none;
-    border-bottom-width: 3px;
-}
-
-.block .nav-tabs .nav-link {
-    font-weight: initial;
-    padding-left: 0;
-    padding-right: 50px;
-}
-
-    .block .nav-tabs .nav-link.active {
+    .profile-information input {
         color: var(--text-main-color);
-        background-color: transparent;
         border: none;
-        font-weight: bold;
+        border-radius: 0px;
+        background-color: transparent;
+        font-size: 20px;
+        padding: 0;
+        margin-left: 60px;
+    }
+
+        .profile-information input:focus {
+            color: var(--text-main-color);
+            border: none;
+            border-radius: 0px;
+            background-color: transparent;
+            box-shadow: none;
+        }
+
+@media (min-width: 768px) {
+    .col-md-6 {
+        flex: 0 0 auto;
+        width: 60%;
+    }
+}
+
+    .tabs-control {
+        margin: 0px 0 40px 0;
+        background: none;
+        border-bottom-width: 3px;
+    }
+
+    .block .nav-tabs .nav-link {
+        font-weight: initial;
+        padding-left: 0;
+        padding-right: 50px;
+    }
+
+        .block .nav-tabs .nav-link.active {
+            color: var(--text-main-color);
+            background-color: transparent;
+            border: none;
+            font-weight: bold;
+            border-color: transparent;
+        }
+
+    .nav-tabs .nav-link:hover {
+        isolation: isolate;
+        border: none;
         border-color: transparent;
     }
 
-.nav-tabs .nav-link:hover {
-    isolation: isolate;
-    border: none;
-    border-color: transparent;
-}
+    .button1 {
+        padding: 8px 25px 8px 25px;
+        margin-top: 20px;
+        margin-top: 20px;
+    }
 
-.button1 {
-    padding: 8px 25px 8px 25px;
-    margin-top: 20px;
-    margin-top: 40px;
-    
-}
+    .p-lines {
+        padding-right: 40px;
+        padding-top: 40px;
+        margin:0;
+    }
 
-.profile-information th {
-    padding-right: 40px;
-    padding-top: 40px;
-    font-size: 20px;
-    font-weight: inherit;
-}
+    .profile-information .bottom-border {
+        border-bottom: 1px solid var(--text-main-color);
+    }
 
-.profile-information tr {
-    border-bottom: 1px solid var(--text-main-color);
-}
+    .profile-information label {
+        font-size: 20px;
+    }
 
-.block .align-right {
-    display: flex;
-    justify-content: flex-end;
-    margin-left: auto;
-}
+    .profile-information .col-form-label {
+        padding: 0;
+    }
+
+    .block .align-right {
+        display: flex;
+        justify-content: flex-end;
+        margin-left: auto;
+    }
 
 
-.align-profile-content {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-}
+    .align-profile-content {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+    }

@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Google;
 using ICinema.Infrastructure.Constants;
 using System.Linq;
+using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace ICinema.Controllers
 {
@@ -156,7 +158,44 @@ namespace ICinema.Controllers
                 throw new Exception("Unknown user");
             }
 
-            return View(user);
+            return View(new ProfileViewModel(user));
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> MyProfile(ProfileViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                int userId = Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                if (!_context.Users.Any(
+                    x => ((x.Email == model.Email)
+                    || (x.PhoneNumber != null && x.PhoneNumber == model.PhoneNumber))
+                    && x.UserId != userId))
+                {
+
+                    User? user = await _context.Users.SingleOrDefaultAsync(x => x.UserId == userId);
+
+                    user.FirstName = model.FirstName;
+                    user.LastName = model.LastName;
+                    user.Email = model.Email;
+                    user.PhoneNumber = model.PhoneNumber;
+
+                    _context.SaveChanges();
+                    model.IsEditMode = false;
+
+                    await Authorize(user);
+
+                    return RedirectToAction(nameof(MyProfile), model);
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Такий користувач вже існує");
+                }
+            }
+
+            model.IsEditMode = true;
+            return View(model);
         }
     }
 }
