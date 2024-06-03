@@ -39,6 +39,18 @@
     margin-top: 30px;
 }
 
+    .login-form input[type=submit]:focus {
+        color: var(--text-main-color);
+        border-radius: 0px;
+        background-color: #4090FF;
+        border: none;
+        padding: 10px;
+        width: 200px;
+        text-align: center;
+        float: right;
+        margin-top: 30px;
+    }
+
 .login-form input:focus {
     text-align: right;
     color: var(--text-main-color);

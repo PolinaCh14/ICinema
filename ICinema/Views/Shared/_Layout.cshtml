@@ -59,7 +59,9 @@
     <div class="container">
         @RenderBody()
     </div>
+    <script src="~/lib/jquery.min.js"></script>
     <script src="~/lib/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/index.js"></script>
+    @RenderSection("scripts", false)
 </body>
 </html>
