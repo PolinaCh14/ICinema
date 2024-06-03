@@ -15,6 +15,8 @@ public partial class Ticket
 
     public int SeatId { get; set; }
 
+    public DateTime CreateDate { get; set; }
+
     public virtual Order? Order { get; set; }
 
     public virtual Seat Seat { get; set; } = null!;

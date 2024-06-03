@@ -1,5 +1,6 @@
 using DotNetEnv;
 using ICinema.Data;
+using ICinema.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,13 @@ using Microsoft.EntityFrameworkCore;
 Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(15);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+}); 
 
 builder.Services
     .AddAuthentication(options =>
@@ -31,6 +39,8 @@ builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddHostedService<CartResetService>();
+
 builder.Services.AddDbContext<CinemaContext>(options => 
     options.UseSqlServer(Environment.GetEnvironmentVariable("DbConnectionString")));
 
@@ -42,6 +52,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",

@@ -1,0 +1,25 @@
+﻿.different-session-error{
+    height: 95vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+}
+
+.different-session-error h2{
+    font-size: 42px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.return-to-session {
+    display: flex;
+    justify-content: center;
+    gap: 70px;
+}
+
+.return-to-session .button{
+    width: 200px;
+    height: 50px;
+}

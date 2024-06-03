@@ -148,3 +148,22 @@
 .header-nav__link:hover {
     color: #3797EF;
 }
+
+
+.header-right {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+@media(min-width: 992px) {
+    .header-right {
+        flex-direction: row;
+        gap: 30px;
+        align-items: center;
+    }
+}
+
+.header-icon {
+    height: 40px;
+}
