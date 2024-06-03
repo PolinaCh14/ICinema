@@ -1,13 +1,30 @@
 ﻿@model CartViewModel
 @{
     ViewData["Title"] = "Кошик";
+
+    string formattedFinalDate = null!;
+    if (Model.Cart.Tickets.Count > 0)
+    {
+        var initialDate = Model.Cart.Tickets.Last().CreateDate;
+        var finalDate = initialDate.AddMinutes(15);
+        formattedFinalDate = finalDate.ToString("HH:mm:ss");
+    }
 }
 
 <div class="cart-index">
     <div class="cart-index-main">
-        <div class="cart-header">
-            <h2>Ваш кошик</h2>
-            <hr class="session-date-divider" />
+        <div class="cart-index-main__header">
+            <div class="cart-header">
+                <h2>Ваш кошик</h2>
+                <hr class="session-date-divider" />
+            </div>
+            @if (formattedFinalDate != null)
+            {
+                <div class="expiration-time">
+                    <h2>Заброньовано до @formattedFinalDate</h2>
+                    <hr class="session-date-divider" />
+                </div>
+            }
         </div>
         <div class="cart-content">
             @if (Model.Cart.Tickets.Count == 0)

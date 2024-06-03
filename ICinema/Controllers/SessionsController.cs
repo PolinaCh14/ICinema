@@ -1,4 +1,5 @@
 ﻿using ICinema.Data;
+using ICinema.Infrastructure;
 using ICinema.Infrastructure.Enums;
 using ICinema.Models;
 using ICinema.ViewModels;
@@ -59,6 +60,12 @@ namespace ICinema.Controllers
 
         public IActionResult SeatsCatalog(int sessionId)
         {
+            var cart = new Cart();
+            cart.RetrieveFromSession(HttpContext);
+
+            foreach (var ticket in cart.Tickets)
+                ticket.Seat = _context.Seats.AsNoTracking().First(s => s.SeatId == ticket.SeatId);
+
             var session = _context.Sessions
                 .Include(s => s.Movie)
                 .Include(s => s.SessionType)
@@ -81,10 +88,13 @@ namespace ICinema.Controllers
                 var seatViewModel = new SeatViewModel
                 {
                     Seat = seat,
-                    Price = Convert.ToDecimal(Convert.ToDouble(seat.SeatType.BasePrice * session.Hall.Technology.Coefficient * session.SessionType.Coefficient)),
+                    Price = decimal.Round(seat.SeatType.BasePrice * session.Hall.Technology.Coefficient * session.SessionType.Coefficient, 2),
                     StyleType = seat.SeatType.SeatTypeId == (int)SeatTypeEnum.Default ? "button-seat-default" : "button-seat-vip",
-                    StyleActive = session.Tickets.Any(t => t.SeatId == seat.SeatId) ? "button-seat-inactive inactive" : ""
+                    StyleActive = session.Tickets.Any(t => t.SeatId == seat.SeatId) ? "button-seat-inactive inactive" : "",
+                    StyleSelected = cart.Tickets.Exists(t => t.SeatId == seat.SeatId && t.SessionId == session.SessionId)
+                        ? "button-seat-selected inactive" : ""
                 };
+
                 seatViewModels.Add(seatViewModel);
             }
 
@@ -92,7 +102,8 @@ namespace ICinema.Controllers
             {
                 SeatViewModels = seatViewModels,
                 Rows = rows,
-                Session = session
+                Session = session,
+                Cart = cart
             };
 
             return View(seatsCatalogViewModel);

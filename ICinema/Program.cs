@@ -1,10 +1,8 @@
 using DotNetEnv;
-using ICinema.Controllers;
 using ICinema.Data;
 using ICinema.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 Env.Load();
@@ -40,8 +38,6 @@ builder.Services
 builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddControllersWithViews();
-
-builder.Services.AddTransient<CartController>();
 
 builder.Services.AddHostedService<CartResetService>();
 

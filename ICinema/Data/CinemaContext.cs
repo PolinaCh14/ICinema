@@ -218,6 +218,8 @@ public partial class CinemaContext(DbContextOptions<CinemaContext> options) : Db
 
             entity.Property(e => e.Price).HasColumnType("decimal(6, 2)");
 
+            entity.Property(e => e.CreateDate).HasDefaultValueSql("GETDATE()");
+
             entity.HasOne(d => d.Order).WithMany(p => p.Tickets)
                 .HasForeignKey(d => d.OrderId)
                 .OnDelete(DeleteBehavior.Cascade)

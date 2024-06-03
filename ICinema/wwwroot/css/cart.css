@@ -14,16 +14,34 @@
     gap: 30px;
 }
 
+.cart-index-main__header {
+    display: flex;
+    justify-content: space-between;
+}
+
 .cart-header {
     height: 100px;
-    display:flex;
+    display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
 .cart-header hr {
-    max-width: 300px;
+    width: 300px;
     margin-top: 5px;
+}
+
+.expiration-time {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 30px;
+}
+
+.expiration-time .session-date-divider{
+    background-color: transparent;
+    border: 1px solid transparent;
 }
 
 .cart-content__right {

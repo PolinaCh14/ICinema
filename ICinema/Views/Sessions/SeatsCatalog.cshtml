@@ -34,6 +34,36 @@
                 </div>
             </div>
         </div>
+        @if (Model.Cart.Tickets.Count > 0 && Model.Cart.Tickets.First().SessionId == Model.Session.SessionId)
+        {
+            <div class="cart-tickets">
+                @foreach (var ticket in Model.Cart.Tickets)
+                {
+                    <div class="cart-tickets__item">
+                        <div class="ticket">
+                            <div class="ticket__placement">
+                                <p>@ticket.Seat.RowNumber ряд</p>
+                                <p>@ticket.Seat.SeatNumber місце</p>
+                            </div>
+                            <p>@ticket.Price грн.</p>
+                        </div>
+                        <div class="cross-icon-container">
+                            <img src="/images/icons/cross.png" alt="X" />
+                        </div>
+                    </div>
+                }
+            </div>
+            <div>
+                <a 
+                    asp-controller="cart"
+                    asp-action="AddToCart"
+                    class="button button-primary make-order-button"
+                >
+                    <div>Додати в кошик</div>
+                    <div>@Model.Cart.Tickets.Sum(t => t.Price) грн</div>
+                </a>
+            </div>
+        }
     </div>
     <div class="content__right-block">
         <div class="scheme-legend">
@@ -65,12 +95,14 @@
                                 {
                                     @if (seatViewModel.Seat.RowNumber == @Model.Rows[i])
                                     {
-                                        <a class="button @seatViewModel.StyleType @seatViewModel.StyleActive"
-                                                asp-controller="cart"
-                                                asp-action="AddToCart"
-                                                asp-route-sessionId="@Model.Session.SessionId"
-                                                asp-route-seatId="@seatViewModel.Seat.SeatId"
-                                                asp-route-price="@seatViewModel.Price"
+                                        <a 
+                                            class="button @seatViewModel.StyleType @seatViewModel.StyleSelected @seatViewModel.StyleActive"
+                                            id="select-seat-button"
+                                            asp-controller="cart"
+                                            asp-action="SelectTicket"
+                                            asp-route-sessionId="@Model.Session.SessionId"
+                                            asp-route-seatId="@seatViewModel.Seat.SeatId"
+                                            asp-route-price="@seatViewModel.Price.ToString(CultureInfo.InvariantCulture)"
                                         >@seatViewModel.Seat.SeatNumber</a>
                                     }
                                 }
@@ -83,12 +115,14 @@
                                 {
                                     @if (seatViewModel.Seat.RowNumber == @Model.Rows[i])
                                     {
-                                        <a class="button @seatViewModel.StyleType @seatViewModel.StyleActive"
-                                                asp-controller="cart"
-                                                asp-action="AddToCart"
-                                                asp-route-sessionId="@Model.Session.SessionId"
-                                                asp-route-seatId="@seatViewModel.Seat.SeatId"
-                                                asp-route-price="@seatViewModel.Price"
+                                        <a 
+                                            class="button @seatViewModel.StyleType @seatViewModel.StyleSelected @seatViewModel.StyleActive"
+                                            id="select-seat-button"
+                                            asp-controller="cart"
+                                            asp-action="SelectTicket"
+                                            asp-route-sessionId="@Model.Session.SessionId"
+                                            asp-route-seatId="@seatViewModel.Seat.SeatId"
+                                            asp-route-price="@seatViewModel.Price.ToString(CultureInfo.InvariantCulture)"
                                         >@seatViewModel.Seat.SeatNumber</a>
                                     }
                                 }

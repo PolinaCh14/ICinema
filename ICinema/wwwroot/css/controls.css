@@ -38,6 +38,16 @@
     border-color: #006cff;
 }
 
+.button-outline-primary {
+    background: transparent;
+    border: 2px solid #3797EF;
+    color: #3797EF;
+}
+
+.button-outline-primary:hover {
+    background: #a5e1f463;
+}
+
 .button-inactive {
     background: transparent;
     border: 2px solid var(--text-main-color);

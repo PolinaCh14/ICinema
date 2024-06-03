@@ -6,7 +6,7 @@ namespace ICinema.Infrastructure
 {
     public class Cart
     {
-        private readonly JsonSerializerOptions _serializerOptions = new() { WriteIndented = true };
+        private static readonly JsonSerializerOptions _serializerOptions = new() { WriteIndented = true };
 
         public List<Ticket> Tickets { get; set; } = [];
 
@@ -14,16 +14,20 @@ namespace ICinema.Infrastructure
         {
             var sessionCart = httpContext.Session.GetString(nameof(Cart));
             if (sessionCart != null)
-                Tickets = JsonSerializer.Deserialize<Cart>(sessionCart, _serializerOptions)?.Tickets ?? [];
+                Tickets = DeserializeCart(sessionCart)?.Tickets ?? [];
 
             Tickets ??= [];
         }
 
         public void SaveToSession(HttpContext httpContext)
         {
-            var serializedCart = JsonSerializer.Serialize(this, _serializerOptions);
+            var serializedCart = SerializeCart();
 
             httpContext.Session.SetString(nameof(Cart), serializedCart);
         }
+
+        public string SerializeCart() => JsonSerializer.Serialize(this, _serializerOptions);
+
+        public static Cart? DeserializeCart(string cartJson) => JsonSerializer.Deserialize<Cart>(cartJson, _serializerOptions);
     }
 }
