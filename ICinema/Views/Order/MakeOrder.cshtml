@@ -6,39 +6,44 @@
 <div class="contact-form-page">
     <div class="contact-form">
         <div class="contact-form__header">
-            <h3>Заповніть форму для оформлення квитків</h3>
+            <h3>Заповніть форму для замовлення квитків</h3>
         </div>
-        <form asp-controller="order" asp-action="makeorder" method="post" asp-antiforgery="true">
+        <form class="contact-form__form" asp-controller="order" asp-action="makeorder" method="post" asp-antiforgery="true">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="contact-data">
                 <div class="mb-3">
                     <input type="hidden" class="form-control" asp-for="UserId">
+                    <input type="hidden" class="form-control" asp-for="TotalPrice">
                 </div>
                 <div class="mb-3">
                     <input type="text" class="form-control" placeholder="Прізвище" asp-for="LastName">
-                    <span asp-validation-for="LastName"></span>
+                    <span class="error-msg" asp-validation-for="LastName"></span>
                 </div>
                 <div class="mb-3">
                     <input type="text" class="form-control" placeholder="Ім'я" asp-for="FirstName">
-                    <span asp-validation-for="FirstName"></span>
+                    <span class="error-msg" asp-validation-for="FirstName"></span>
                 </div>
                 <div class="mb-3">
                     <input type="text" class="form-control" placeholder="e-mail" asp-for="Email">
-                    <span asp-validation-for="Email"></span>
+                    <span class="error-msg" asp-validation-for="Email"></span>
                 </div>
             </div>
             <div class="payment-type">
                 <h4>Оберіть спосіб оплати</h4>
-                <select asp-for=PaymentType class="form-control">
-                    <option>- Plese Select -</option>
-                    <option value="@PaymentTypes.CASH_DESK">@PaymentTypes.CASH_DESK</option>
-                    <option value="@PaymentTypes.ONLINE">@PaymentTypes.ONLINE</option>
-                </select>
-                <span asp-validation-for="PaymentType"></span>
+                <div class="payment-type__variants">
+                    <div class="payment-variant">
+                        <input class="btn-check" type="radio" asp-for="PaymentType" value="@PaymentTypes.CASH_DESK" id="cashDesk">
+                        <label class="btn btn-outline-primary" for="cashDesk">Оплатити @PaymentTypes.CASH_DESK.ToLower()</label>
+                    </div>
+                    <div class="payment-variant online">
+                        <input class="btn-check" type="radio" asp-for="PaymentType" value="@PaymentTypes.ONLINE" id="online">
+                        <label class="btn btn-outline-success" for="online">Оплатити @PaymentTypes.ONLINE.ToLower()</label>
+                    </div>
+                </div>
+                <span asp-validation-for="PaymentType" class="error-msg"></span>
             </div>
-
-            <div class="form-group">
-                <input type="submit" value="Замовити" />
+            <div class="contact-form__submit">
+                <input class="btn btn-primary submit-form-button" type="submit" value="Замовити" />
             </div>
         </form>
     </div>

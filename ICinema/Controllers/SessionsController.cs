@@ -15,6 +15,8 @@ namespace ICinema.Controllers
 
         public async Task<IActionResult> Schedule(DateIntervalEnum interval = DateIntervalEnum.Today)
         {
+            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+
             var currentDate = new DateOnly(2024, 7, 10);
             Expression<Func<Session, bool>> predicate;
 
@@ -60,6 +62,8 @@ namespace ICinema.Controllers
 
         public IActionResult SeatsCatalog(int sessionId)
         {
+            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+
             var cart = new Cart();
             cart.RetrieveFromSession(HttpContext);
 

@@ -1,5 +1,6 @@
 ﻿using ICinema.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 
 namespace ICinema.Infrastructure
@@ -29,5 +30,11 @@ namespace ICinema.Infrastructure
         public string SerializeCart() => JsonSerializer.Serialize(this, _serializerOptions);
 
         public static Cart? DeserializeCart(string cartJson) => JsonSerializer.Deserialize<Cart>(cartJson, _serializerOptions);
+
+        public bool IsEmpty(HttpContext httpContext) 
+        {
+            RetrieveFromSession(httpContext);
+            return !Tickets.Any(t => t.TicketId != 0);
+        } 
     }
 }

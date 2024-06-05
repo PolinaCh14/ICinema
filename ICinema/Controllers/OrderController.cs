@@ -1,10 +1,10 @@
-﻿
-using ICinema.Data;
+﻿using ICinema.Data;
 using ICinema.Infrastructure;
 using ICinema.Infrastructure.Constants;
 using ICinema.Models;
 using ICinema.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace ICinema.Controllers
@@ -15,12 +15,13 @@ namespace ICinema.Controllers
 
         public IActionResult MakeOrder()
         {
+            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+
             var cart = new Cart();
             cart.RetrieveFromSession(HttpContext);
 
             if (cart.Tickets.Count == 0 || !cart.Tickets.All(ticket => _context.Tickets.Contains(ticket)))
-                //TODO: redirection to Error Page "Sorry, u don't have active tickets in cart. Please, select new tickets"
-                return RedirectToAction("Index", "Cart");
+                return View("NoActiveTicketsErrorPage");
 
             if (User?.Identity?.IsAuthenticated != true)
                 return View();
@@ -55,9 +56,14 @@ namespace ICinema.Controllers
             cart.RetrieveFromSession(HttpContext);
 
             if (cart.Tickets.Count == 0 || !cart.Tickets.All(ticket => _context.Tickets.Contains(ticket)))
-                //TODO: redirection to Error Page "Sorry, u don't have active tickets in cart. Please, select new tickets"
-                return RedirectToAction("Index", "Cart");
+                return View("NoActiveTicketsErrorPage");
 
+            if (contactForm.PaymentType == PaymentTypes.ONLINE && contactForm.PaymentCredentials == null)
+            {
+                contactForm.TotalPrice = decimal.Round(cart.Tickets.Sum(ticket => ticket.Price), 2);
+                return View("OnlinePayment", contactForm);
+            }
+                    
             var order = new Order
             {
                 Price = cart.Tickets.Sum(x => x.Price),
@@ -85,7 +91,14 @@ namespace ICinema.Controllers
             cart.Tickets = [];
             cart.SaveToSession(HttpContext);
 
-            return RedirectToAction("Index", "Home");
+            order.Tickets = [.. _context.Tickets
+                .Include(t => t.Seat)
+                .Include(t => t.Session).ThenInclude(t => t.Movie)
+                .Include(t => t.Session).ThenInclude(t => t.Hall)
+                .Where(o => o.OrderId == order.OrderId)];
+
+            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+            return View("OrderResult", order);
         }
 
         public bool CheckPaymentTypeSelected(ContactFormViewModel contactForm) => 

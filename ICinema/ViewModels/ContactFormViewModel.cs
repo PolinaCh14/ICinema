@@ -22,5 +22,10 @@ namespace ICinema.ViewModels
         public string PaymentType { get; set; } = null!;
 
         public string? PaymentCredentials { get; set; }
+        public string? CardMont { get; set; }
+        public string? CardYear { get; set; }
+        public string? CardCvv { get; set; }
+
+        public decimal? TotalPrice { get; set; }
     }
 }
