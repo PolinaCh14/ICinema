@@ -66,7 +66,11 @@
                         </div>
                     </div>
                     <div>
-                        <a href="#" class="button button-primary make-order-button">
+                        <a 
+                            asp-controller="order"
+                            asp-action="MakeOrder"
+                            class="button button-primary make-order-button"
+                        >
                             <div>Оформити замовлення</div>
                             <div>@Model.Cart.Tickets.Sum(t => t.Price) грн</div>
                         </a>

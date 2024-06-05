@@ -71,12 +71,3 @@ body {
     cursor: default;
     pointer-events: none;
 }
-
-.nav-right {
-    float: right;
-}
-
-.login-register-buttons {
-    display: flex;
-    gap: 10px;
-}

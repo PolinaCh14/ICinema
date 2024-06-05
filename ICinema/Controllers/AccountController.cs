@@ -135,7 +135,7 @@ namespace ICinema.Controllers
                     Email = email,
                     PhoneNumber = phoneNumber,
                     Password = "",
-                    UserStatus = UserStatuses.client
+                    UserStatus = UserStatuses.CLIENT
                 };
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
