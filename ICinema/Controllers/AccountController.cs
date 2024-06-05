@@ -155,7 +155,6 @@ namespace ICinema.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public ActionResult MyProfile()
         {
             int userId = Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));

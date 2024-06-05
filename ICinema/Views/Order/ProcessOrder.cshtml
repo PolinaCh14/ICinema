@@ -1,0 +1,73 @@
+﻿@model Order
+@{
+    ViewData["title"] = "Замовлення №" + Model.OrderId;
+
+    var movieName = Model.Tickets.First().Session.Movie.MovieName;
+    var hall = Model.Tickets.First().Session.Hall;
+    var date = Model.Tickets.First().Session.Date;
+    var time = Model.Tickets.First().Session.Time;
+}
+
+<div class="order-result-page">
+    <div class="order-result__header">
+        <h2>Замовлення №@Model.OrderId</h2
+    </div>
+    <div class="order">
+        <p class="order__orderid">№@Model.OrderId</p>
+
+        <div class="order__user">
+
+        </div>
+
+        <div class="order__session-info">
+            <h3>@movieName</h3>
+            <div class="session-info__session">
+                <div class="datetime">
+                    <img src="~/images/icons/calendar.png" />
+                    <span>@date, @date.DayOfWeek</span>
+                </div>
+                <div class="datetime">
+                    <img src="~/images/icons/clock.png" />
+                    <span>@time</span>
+                </div>
+                <div class="datetime">Зал №@hall.HallId @hall.HallName</div>
+            </div>
+        </div>
+        <div class="order__tickets">
+            @foreach (var ticket in Model.Tickets)
+            {
+                <div class="order__ticket">
+                    <p>@ticket.Seat.RowNumber ряд</p>
+                    <p>@ticket.Seat.SeatNumber місце</p>
+                    <p>@ticket.Price грн.</p>
+                </div>
+            }
+        </div>
+        <div class="order__summary">
+            <p>Загалом: @Model.Price грн.</p>
+            <form class="order-status-select" method="post" asp-controller="order" asp-action="processorder">
+                <span>Статус:</span>
+                <select asp-for="OrderStatus" class="form-control">
+                    <option value="@Model.OrderStatus" selected disabled hidden>@Model.OrderStatus</option>
+                    <option value="@OrderStatuses.NEW">@OrderStatuses.NEW</option>
+                    <option value="@OrderStatuses.CANCELED">@OrderStatuses.CANCELED</option>
+                    <option value="@OrderStatuses.PAID">@OrderStatuses.PAID</option>
+                    <option value="@OrderStatuses.COMPLETED">@OrderStatuses.COMPLETED</option>
+                </select>
+                <input type="submit" value="Оновити" class="btn btn-primary" />
+
+                <input type="hidden" class="form-control" asp-for="UserId">
+                <input type="hidden" class="form-control" asp-for="OrderId">
+                <input type="hidden" class="form-control" asp-for="Price">
+                <input type="hidden" class="form-control" asp-for="UserFirstName">
+                <input type="hidden" class="form-control" asp-for="UserLastName">
+                <input type="hidden" class="form-control" asp-for="UserEmail">
+                <input type="hidden" class="form-control" asp-for="UserId">
+                <input type="hidden" class="form-control" asp-for="PaymentType">
+                <input type="hidden" class="form-control" asp-for="PaymentCredentials">
+                <input type="hidden" class="form-control" asp-for="PaymentDate">
+                <input type="hidden" class="form-control" asp-for="CreateDate">
+            </form>
+        </div>
+    </div>
+</div>

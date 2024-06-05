@@ -24,6 +24,10 @@
                 <div class="header-nav__links">
                     <a class="nav-link" asp-controller="home" asp-action="index">Фільми</a>
                     <a class="nav-link" asp-controller="sessions" asp-action="schedule">Розклад</a>
+                    @if (User?.Identity?.IsAuthenticated == true && User.IsInRole(UserStatuses.ADMINISTRATOR))
+                    {
+                        <a class="nav-link" asp-controller="order" asp-action="manageorders">Адміністрування</a>
+                    }
                 </div>
                 <div class="header-right">
                     <a class="nav-link" asp-controller="cart" asp-action="index">

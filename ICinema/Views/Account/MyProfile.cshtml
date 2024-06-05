@@ -9,7 +9,8 @@
             <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="true">Ваш профіль</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="orders-tab" data-bs-toggle="tab" data-bs-target="#orders-tab-pane" type="button" role="tab" aria-controls="orders-tab-pane" aria-selected="false">Історія замовлень</button>
+            @* <button class="nav-link" id="orders-tab" data-bs-toggle="tab" data-bs-target="#orders-tab-pane" type="button" role="tab" aria-controls="orders-tab-pane" aria-selected="false">Історія замовлень</button> *@
+            <a asp-controller="order" asp-action="ordershistory" class="nav-link">Історія замовлень</a>
         </li>
     </ul>
 

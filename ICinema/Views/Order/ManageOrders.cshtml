@@ -1,0 +1,39 @@
+﻿@model List<Order>
+@{
+    ViewData["Title"] = "Адміністрування";
+}
+
+<h2 style="margin: 25px 0">Керування замовленнями</h2>
+<table class="table">
+     <thead>
+         <tr class="table-dark">
+             <th scope="col">ID Замовлення</th>
+             <th scope="col">Ціна</th>
+             <th scope="col">Кілкість квитків</th>
+             <th scope="col">ID користувача</th>
+             <th scope="col">Користувач</th>
+             <th scope="col">Дата замовлення</th>
+             <th scope="col">Оплата</th>
+             <th scope="col">Статус замовлення</th>
+             <th scope="col"></th>
+         </tr>
+     </thead>
+     <tbody>
+         @foreach (var order in Model)
+         {
+            <tr>
+                <td class="col-1">@order.OrderId</td>
+                <td class="col-1">@order.Price</td>
+                <td class="col-1">@order.Tickets.Count</td>
+                <td class="col-1">@order.UserId</td>
+                <td class="col-3">@order.UserLastName @order.UserFirstName</td>
+                <td class="col-2">@order.CreateDate</td>
+                <td class="col-1">@order.PaymentType</td>
+                <td class="col-2">@order.OrderStatus</td>
+                <td class="col-2">
+                    <a asp-controller="order" asp-action="processorder" asp-route-id="@order.OrderId" style="color: blue">Обробити</a>
+                </td>
+            </tr>
+         }
+     </tbody>
+ </table>
