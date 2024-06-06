@@ -4,7 +4,7 @@
 }
 
 <div class="orders-history-page">
-    @foreach(var order in Model)
+    @foreach(var order in Model.OrderByDescending(o => o.CreateDate))
     {
         <div class="order">
             <p class="order__orderid">№@order.OrderId</p>
@@ -13,7 +13,7 @@
                 <div class="session-info__session">
                     <div class="datetime">
                         <img src="~/images/icons/calendar.png" />
-                        <span>@order.Tickets.First().Session.Date, @order.Tickets.First().Session.Date.DayOfWeek</span>
+                        <span>@order.Tickets.First().Session.Date, @order.Tickets.First().Session.Date.DayOfWeek</span> 
                     </div>
                     <div class="datetime">
                         <img src="~/images/icons/clock.png" />

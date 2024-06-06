@@ -84,6 +84,9 @@
     color: black;
 }
 
+
+
+
 .orders-history-page {
     display: flex;
     flex-direction: column;
@@ -91,4 +94,13 @@
     min-height: 90vh;
     gap: 20px;
     padding: 20px;
+}
+
+
+
+
+.order__user {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
 }

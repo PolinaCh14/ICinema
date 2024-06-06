@@ -10,13 +10,15 @@
 
 <div class="order-result-page">
     <div class="order-result__header">
-        <h2>Замовлення №@Model.OrderId</h2
+        <h2>Замовлення №@Model.OrderId</h2>
     </div>
     <div class="order">
         <p class="order__orderid">№@Model.OrderId</p>
 
         <div class="order__user">
-
+            <div>ID особи: @Model.UserId</div>
+            <div>Повне ім'я: @Model.UserFirstName @Model.UserLastName</div>
+            <div>Email: @Model.UserEmail</div>
         </div>
 
         <div class="order__session-info">
