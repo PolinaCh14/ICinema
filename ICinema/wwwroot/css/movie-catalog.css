@@ -68,3 +68,32 @@
 .movie-title {
     text-align: center;
 }
+
+
+.most-popular-container {
+    padding: 30px 0 10px;
+/*    border-bottom: 3px solid;
+    border-top: 3px solid;*/
+    position: relative;
+}
+
+
+.most-popular-container::before {
+    content: '';
+    position: absolute;
+    left: 0; /* Починається з правого краю */
+    right: 26%; /* Закінчується на 15% від лівого краю */
+    top: 0; /* Розташування зверху */
+    height: 2px; /* Thickness of the border */
+    background-color: white; /* Color of the border */
+}
+
+.most-popular-container::after {
+    content: '';
+    position: absolute;
+    right: 0; /* Починається з правого краю */
+    left: 26%; /* Закінчується на 15% від лівого краю */
+    bottom: 0; /* Розташування зверху */
+    height: 3px; /* Thickness of the border */
+    background-color: white; /* Color of the border */
+}

@@ -1,0 +1,57 @@
+﻿@model ContactFormViewModel
+@{
+    ViewData["title"] = "Оплата в касі";
+}
+@* <div class="contact-form-page">
+    <div class="contact-form">
+        <div class="contact-form__header">
+            <h3>До сплати @Model.TotalPrice грн</h3>
+        </div>
+        <form asp-controller="order" asp-action="makeorder" method="post" asp-antiforgery="true">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="contact-data">
+                <div>
+                    <input type="hidden" class="form-control" asp-for="UserId">
+                    <input type="hidden" class="form-control" asp-for="LastName">
+                    <input type="hidden" class="form-control" asp-for="FirstName">
+                    <input type="hidden" class="form-control" asp-for="Email">
+                    <input type="hidden" class="form-control" asp-for="PaymentType">
+                    <input type="hidden" class="form-control" placeholder="Місяць" asp-for="CardMont" >
+                    <input type="hidden" class="form-control" placeholder="Рік" asp-for="CardYear" >
+                    <input type="hidden" class="form-control" placeholder="CVV" asp-for="CardCvv" >
+                    <input type="hidden" class="form-control" placeholder="Номер картки" asp-for="PaymentCredentials" >
+                </div>
+                <div class="cah-desk-warning">
+                    Замовлення має бути викуплене до @Model.Tickets.First().Session.Date @Model.Tickets.First().Session.Time!
+                </div>
+            </div>
+            <div class="contact-form__submit payment-button">
+                <input class="btn btn-primary submit-form-button" type="submit" value="Оплатити" />
+            </div>
+        </form>
+    </div>
+</div> *@
+
+<div class="different-session-error">
+    <h2>Вибачте, ви не можете обрати квитки на різні сеанси! Оформте замовлення або приберіть квитки</h2>
+    <form asp-controller="order" asp-action="makeorder" method="post" asp-antiforgery="true">
+        <div class="contact-data">
+            <input type="hidden" class="form-control" asp-for="UserId">
+            <input type="hidden" class="form-control" asp-for="LastName">
+            <input type="hidden" class="form-control" asp-for="FirstName">
+            <input type="hidden" class="form-control" asp-for="Email">
+            <input type="hidden" class="form-control" asp-for="PaymentType">
+            <input type="hidden" class="form-control" placeholder="Місяць" asp-for="CardMont">
+            <input type="hidden" class="form-control" placeholder="Рік" asp-for="CardYear">
+            <input type="hidden" class="form-control" placeholder="CVV" asp-for="CardCvv">
+            <input type="hidden" class="form-control" placeholder="Номер картки" asp-for="PaymentCredentials">
+        </div>
+        <div class="return-to-session">
+            <a class="button button-outline-primary"
+               asp-controller="cart"
+               asp-action="index"
+            >До кошика</a>
+            <input class="btn btn-primary submit-form-button" type="submit" value="Замовити" />
+        </div>
+    </form>
+</div>

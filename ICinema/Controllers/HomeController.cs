@@ -17,7 +17,7 @@ namespace WebApp.Controllers
         {
             ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
 
-            var movies = _context.Movies.AsNoTracking().ToList();
+            var movies = _context.Movies.AsNoTracking().Include(m => m.Sessions).ThenInclude(s => s.Tickets).ToList();
             return View(movies);
         }
 
@@ -71,5 +71,18 @@ namespace WebApp.Controllers
 
             return View(scheduleItem);
         }
+
+        public List<Movie> MostPopularMovies()
+        {
+            return  _context.Movies
+                .AsNoTracking()
+                .Include(m => m.Sessions).ThenInclude(s => s.Tickets)
+                .Where(m => m.Sessions.Any(s => s.Date >= DateOnly.FromDateTime(DateTime.Now)
+                                                && s.Time > TimeOnly.FromDateTime(DateTime.Now)))
+                .OrderByDescending(m => m.Sessions.SelectMany(s => s.Tickets).Count())
+                .Take(4)
+                .ToList();
+        }
+
     }
 }
