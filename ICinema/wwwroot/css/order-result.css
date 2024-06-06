@@ -1,0 +1,74 @@
+﻿.order-result-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 90vh;
+}
+
+.order-result-page p {
+    margin: 0;
+    padding: 0;
+}
+
+.order-result__header {
+    display: flex;
+    height: 100px;
+    align-items: center;
+    gap: 30px;
+}
+
+.order {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 20px 40px;
+    max-width: 900px;
+    width: 100%;
+    box-shadow: -10px 10px 15px rgba(0, 0, 0, 0.2), 
+        -10px -10px 15px rgba(0, 0, 0, 0.2),
+        0 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+.order__orderid {
+    font-size: 20px;
+}
+
+.order__session-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.session-info__session {
+    display: flex;
+    max-width: 700px;
+    justify-content: space-between;
+}
+
+.session-info__session .datetime{
+    font-size: 18px;
+}
+
+.order__tickets {
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    font-weight: 600;
+    gap: 10px;
+}
+
+.order__ticket {
+    display: flex;
+    width: 100%;
+    gap: 50px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.order__summary {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    font-weight: 600;
+}

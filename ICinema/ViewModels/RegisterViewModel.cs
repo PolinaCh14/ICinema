@@ -43,7 +43,7 @@ namespace ICinema.ViewModels
             user.Email = Email;
             user.PhoneNumber = PhoneNumber;
             user.Password = Password;
-            user.UserStatus = UserStatuses.client;
+            user.UserStatus = UserStatuses.CLIENT;
 
             return user;
         }

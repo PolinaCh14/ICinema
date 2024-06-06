@@ -12,6 +12,7 @@ using ICinema.Infrastructure.Constants;
 using System.Linq;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using ICinema.Infrastructure;
 
 namespace ICinema.Controllers
 {
@@ -22,6 +23,7 @@ namespace ICinema.Controllers
         [HttpGet]
         public ActionResult Register()
         {
+            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
             return View(new RegisterViewModel());
         }
 
@@ -48,11 +50,14 @@ namespace ICinema.Controllers
                     ModelState.AddModelError("", "Такий користувач вже існує");
                 }
             }
+
+            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
             return View(model);
         }
 
         public ActionResult Login()
         {
+            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
             return View(new LoginViewModel());
         }
 
@@ -74,12 +79,14 @@ namespace ICinema.Controllers
                 ModelState.AddModelError("", "Невірний email/номер телефону або пароль");
             }
 
+            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
             return View(model);
         }
 
         [Authorize]
         public async Task<ActionResult> Logout()
         {
+            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
         }
@@ -135,7 +142,7 @@ namespace ICinema.Controllers
                     Email = email,
                     PhoneNumber = phoneNumber,
                     Password = "",
-                    UserStatus = UserStatuses.client
+                    UserStatus = UserStatuses.CLIENT
                 };
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
@@ -143,6 +150,7 @@ namespace ICinema.Controllers
 
             await Authorize(user);
 
+            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
             return RedirectToAction("Index", "Home");
         }
 
@@ -157,7 +165,7 @@ namespace ICinema.Controllers
             {
                 throw new Exception("Unknown user");
             }
-
+            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
             return View(new ProfileViewModel(user));
         }
 
@@ -195,6 +203,7 @@ namespace ICinema.Controllers
             }
 
             model.IsEditMode = true;
+            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
             return View(model);
         }
     }

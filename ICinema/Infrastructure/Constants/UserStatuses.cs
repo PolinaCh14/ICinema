@@ -2,7 +2,7 @@
 {
     public class UserStatuses
     {
-        public const string client = "Клієнт";
-        public const string administrator = "Адміністратор";
+        public const string CLIENT = "Клієнт";
+        public const string ADMINISTRATOR = "Адміністратор";
     }
 }
