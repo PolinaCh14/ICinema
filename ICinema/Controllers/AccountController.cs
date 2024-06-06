@@ -148,7 +148,7 @@ namespace ICinema.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult MyProfile()
+        public async Task<ActionResult> MyProfile()
         {
             int userId = Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             User? user = _context.Users.Find(userId);
@@ -158,7 +158,17 @@ namespace ICinema.Controllers
                 throw new Exception("Unknown user");
             }
 
-            return View(new ProfileViewModel(user));
+            var orders = _context.Orders.Include(x => x.User)
+                                        .Include(x => x.Tickets).ThenInclude(x => x.Session)
+                                                                          .ThenInclude(x => x.Hall)
+                                        .Include(x => x.Tickets).ThenInclude(x => x.Session)
+                                                                          .ThenInclude(x => x.Movie)
+                            .OrderBy(x=>x.CreateDate).ToList();
+
+            ProfileViewModel model = new ProfileViewModel(user);
+            model.Orders = orders;
+
+            return View();
         }
 
         [HttpPost]

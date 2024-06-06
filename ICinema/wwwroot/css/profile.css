@@ -125,3 +125,32 @@
     transform: translate(-50%, -50%);
     width: 100%;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.order-card {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    max-height: 320px;
+    max-width: 730px;
+    box-shadow: -10px 10px 15px rgba(0, 0, 0, 0.2), -10px -10px 15px rgba(0, 0, 0, 0.2), 0 10px 15px rgba(0, 0, 0, 0.2);
+}

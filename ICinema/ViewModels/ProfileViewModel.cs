@@ -28,6 +28,9 @@ namespace ICinema.ViewModels
 
         public bool IsEditMode { get; set; }
 
+
+       public ProfileOrders Orders { get; set; }
+
         public ProfileViewModel() { }
         public ProfileViewModel(User user)
         {
