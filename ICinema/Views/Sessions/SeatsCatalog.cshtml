@@ -36,6 +36,14 @@
         </div>
         @if (Model.Cart.Tickets.Count > 0 && Model.Cart.Tickets.First().SessionId == Model.Session.SessionId)
         {
+            <div>
+                <a asp-controller="cart"
+                   asp-action="AddToCart"
+                   class="button button-primary make-order-button">
+                    <div>Додати в кошик</div>
+                    <div>@Model.Cart.Tickets.Sum(t => t.Price) грн</div>
+                </a>
+            </div>
             <div class="cart-tickets">
                 @foreach (var ticket in Model.Cart.Tickets)
                 {
@@ -52,16 +60,6 @@
                         </div>
                     </div>
                 }
-            </div>
-            <div>
-                <a 
-                    asp-controller="cart"
-                    asp-action="AddToCart"
-                    class="button button-primary make-order-button"
-                >
-                    <div>Додати в кошик</div>
-                    <div>@Model.Cart.Tickets.Sum(t => t.Price) грн</div>
-                </a>
             </div>
         }
     </div>

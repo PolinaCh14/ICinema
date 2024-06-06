@@ -29,16 +29,16 @@
                 </div>
             </div>
             <div class="payment-type">
-                <h4>Оберіть спосіб оплати</h4>
+                <h4>Cпосіб оплати</h4>
                 <div class="payment-type__variants">
                     <div class="payment-variant">
-                        <input class="btn-check" type="radio" asp-for="PaymentType" value="@PaymentTypes.CASH_DESK" id="cashDesk">
+                        <input class="btn-check" type="radio" asp-for="PaymentType" value="@PaymentTypes.CASH_DESK" id="cashDesk" checked>
                         <label class="btn btn-outline-primary" for="cashDesk">Оплатити @PaymentTypes.CASH_DESK.ToLower()</label>
                     </div>
-                    <div class="payment-variant online">
+@*                     <div class="payment-variant online">
                         <input class="btn-check" type="radio" asp-for="PaymentType" value="@PaymentTypes.ONLINE" id="online">
                         <label class="btn btn-outline-success" for="online">Оплатити @PaymentTypes.ONLINE.ToLower()</label>
-                    </div>
+                    </div> *@
                 </div>
                 <span asp-validation-for="PaymentType" class="error-msg"></span>
             </div>

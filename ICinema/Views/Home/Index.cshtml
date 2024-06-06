@@ -1,9 +1,30 @@
 ﻿@model List<Movie>
 @{
     ViewData["Title"] = "ICinema Афіша";
+    var mostPopularMovies = Model
+        .Where(m => m.Sessions.Any(s => 
+            s.Date >= DateOnly.FromDateTime(DateTime.Now) ||
+            (s.Date == DateOnly.FromDateTime(DateTime.Now) && s.Time > TimeOnly.FromDateTime(DateTime.Now))))
+        .OrderByDescending(m => m.Sessions.SelectMany(s => s.Tickets).Count())
+        .Take(4)
+        .ToList();
 }
 
-<h1 class="movie-catalog__title">Афіша кінотеатру ICinema</h1>
+<h2 class="movie-catalog__title">Найпопулярніші серед глядачів </h2>
+<div class="movie-catalog most-popular-container">
+    @foreach (var movie in mostPopularMovies)
+    {
+        <div class="movie-card">
+            <a asp-controller="Home" asp-action="MovieDetails" asp-route-id="@movie.MovieId" class="movie-poster">
+                <img src="@movie.PosterPath" alt="@movie.PosterPath">
+            </a>
+            <a asp-controller="Home" asp-action="MovieDetails" asp-route-id="@movie.MovieId" class="movie-title">
+                @movie.MovieName
+            </a>
+        </div>
+    }
+</div>
+<h2 class="movie-catalog__title">Афіша кінотеатру ICinema</h2>
 <div class="movie-catalog">
     @foreach (var movie in Model)
     {
