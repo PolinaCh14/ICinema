@@ -1,0 +1,139 @@
+﻿.contact-form-page {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    max-width: 700px;
+    padding: 40px 80px;
+    box-shadow: -10px 10px 15px rgba(0, 0, 0, 0.2),
+    -10px -10px 15px rgba(0, 0, 0, 0.2),
+    0 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+.contact-form__header h3 {
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.contact-form__form {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.contact-data input {
+    text-align: end;
+    background: transparent;
+    border-radius: 0;
+    border: none;
+    border-bottom: 2px solid white;
+    font-size: 17px;
+    letter-spacing: 1px;
+    color: white;
+}
+
+.contact-data input:focus {
+    text-align: end;
+    background: transparent;
+    border-radius: 0;
+    border: none;
+    border-bottom: 2px solid white;
+    box-shadow: none;
+    color: white;
+}
+
+.contact-data .mb-3 {
+    position: relative;
+}
+
+.payment-type {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+}
+
+.payment-type h4 {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.payment-type__variants {
+    display: flex;
+    width: 100%;
+    height: 45px;
+    justify-content: space-between;
+}
+
+.online input.btn-check:checked + label.btn {
+    background: #0CC66D;
+    border-color: #0CC66D;
+    color: white;
+}
+
+.payment-variant .btn-outline-primary:hover {
+    border-color: #3797EF;
+    color: #3797EF;
+}
+
+.payment-variant input.btn-check:checked + .btn-outline-primary:hover {
+    border-color: #0d6efd;
+    color: white;
+}
+
+.payment-type__variants .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 250px;
+    margin: 0;
+    border-width: 3px;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.error-msg {
+    position: absolute;
+    z-index: 2;
+    bottom: -30px;
+    left:0;
+    font-style: italic;
+}
+
+.contact-form__submit{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.submit-form-button {
+    width: 200px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.card-credential {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.card-date-code {
+    display: flex;
+    gap: 30px;
+}
+
+.payment-button .submit-form-button {
+    margin: 20px;
+}

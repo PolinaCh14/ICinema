@@ -1,0 +1,48 @@
+﻿@model Order
+@{
+    ViewData["title"] = "Замовлення оформлено!";
+    var movieName = Model.Tickets.First().Session.Movie.MovieName;
+    var hall = Model.Tickets.First().Session.Hall;
+    var date = Model.Tickets.First().Session.Date;
+    var time = Model.Tickets.First().Session.Time;
+}
+
+<div class="order-result-page">
+    <div class="order-result__header">
+        <h2>Замовлення оформлено! </h2>
+        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
+            <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708" />
+        </svg>
+    </div>
+    <div class="order">
+        <p class="order__orderid">№@Model.OrderId</p>
+        <div class="order__session-info">
+            <h3>@movieName</h3>
+            <div class="session-info__session">
+                <div class="datetime">
+                    <img src="~/images/icons/calendar.png" />
+                    <span>@date, @date.DayOfWeek</span>
+                </div>
+                <div class="datetime">
+                    <img src="~/images/icons/clock.png" />
+                    <span>@time</span>
+                </div>
+                <div class="datetime">Зал №@hall.HallId @hall.HallName</div>
+            </div>
+        </div>
+        <div class="order__tickets">
+            @foreach(var ticket in Model.Tickets)
+            {
+                <div class="order__ticket">
+                    <p>@ticket.Seat.RowNumber ряд</p>
+                    <p>@ticket.Seat.SeatNumber місце</p>
+                    <p>@ticket.Price грн.</p>
+                </div>
+            }
+        </div>
+        <div class="order__summary">
+            <p>Загалом: @Model.Price грн.</p>
+            <p>Статус замовлення: @Model.OrderStatus</p>
+        </div>
+    </div>
+</div>

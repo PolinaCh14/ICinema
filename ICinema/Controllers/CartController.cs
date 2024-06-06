@@ -15,6 +15,8 @@ public class CartController(CinemaContext context) : Controller
 
     public IActionResult Index()
     {
+        ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+
         _cart.RetrieveFromSession(HttpContext);
 
         foreach (var ticket in _cart.Tickets)
@@ -41,6 +43,7 @@ public class CartController(CinemaContext context) : Controller
 
     public IActionResult SelectTicket(int sessionId, int seatId, decimal price)
     {
+        ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
 
         var ticket = CreateTicket(sessionId, seatId, price);
 
@@ -68,13 +71,24 @@ public class CartController(CinemaContext context) : Controller
 
     public IActionResult AddToCart()
     {
+        ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+
         _cart.RetrieveFromSession(HttpContext);
 
-        foreach (var ticket in _cart.Tickets)
-            if(!_context.Tickets.Any(t => t.SeatId == ticket.SeatId && t.SessionId == ticket.SessionId))
-                _context.Tickets.Add(ticket);
+        try
+        {
+            foreach (var ticket in _cart.Tickets)
+                if (!_context.Tickets.Any(t => t.SeatId == ticket.SeatId && t.SessionId == ticket.SessionId))
+                    _context.Tickets.Add(ticket);
 
-        _context.SaveChanges();
+            _context.SaveChanges();
+        }
+        catch (Exception)
+        {
+            _cart.Tickets = [];
+            _cart.SaveToSession(HttpContext);
+            return View("NoActiveTicketsErrorPage");
+        }
 
         var lastCreateDate = _cart.Tickets.Last().CreateDate;
 

@@ -5,6 +5,7 @@ using ICinema.Infrastructure.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using ICinema.Infrastructure;
 
 namespace WebApp.Controllers
 {
@@ -14,6 +15,8 @@ namespace WebApp.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+
             var movies = _context.Movies.AsNoTracking().ToList();
             return View(movies);
         }
@@ -21,6 +24,8 @@ namespace WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> MovieDetails(int id, DateIntervalEnum interval = DateIntervalEnum.Today)
         {
+            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+
             ArgumentOutOfRangeException.ThrowIfLessThan(id, 1, nameof(id));
 
             Movie? movie = await _context.Movies.FindAsync(id);

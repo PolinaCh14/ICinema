@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "NoActiveTickets";
+}
+
+<div class="different-session-error">
+    <h2>Вибачте, у вас немає активних квитків у кошику! Будь ласка, оберіть нові!</h2>
+    <div class="return-to-session">
+        <a class="button button-primary"
+           asp-controller="sessions"
+           asp-action="Schedule"
+        >До розкладу сеансів</a>
+    </div>
+</div>

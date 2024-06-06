@@ -5,15 +5,21 @@
     padding: 3px;
 }
 
-.btn-outline-primary {
-    color: #3797EF;
+.btn-primary {
+    color: white;
     border-color: #3797EF;
+    background-color: #3797EF;
 }
 
-.btn-outline-primary:hover {
+.btn-outline-success {
+    color: #0CC66D;
+    border-color: #0CC66D;
+}
+
+.btn-success {
     color: white;
-    border-color: white;
-    background: #3797EF;
+    border-color: #0CC66D;
+    background: #0CC66D;
 }
 
 .button {
@@ -84,4 +90,8 @@
 .header .btn .btn-outline-primary {
     height: 100%;
     color: red;
+}
+
+.login-register-buttons {
+    display: flex;
 }
