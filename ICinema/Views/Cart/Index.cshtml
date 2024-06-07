@@ -77,7 +77,7 @@
                     </div>
                 </div>
                 <div class="cart-tickets">
-                    @foreach (var ticket in Model.Cart.Tickets)
+                    @foreach (var ticket in Model.Cart.Tickets.OrderBy(t => t.Seat.RowNumber).ThenBy(t => t.Seat.SeatNumber))
                     {
                         <div class="cart-tickets__item">
                             <div class="ticket">

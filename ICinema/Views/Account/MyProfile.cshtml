@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Мій кабінет";
 }
+
 <div class="block">
 
     <ul class="nav nav-tabs tabs-control" id="myTab" role="tablist">
@@ -118,7 +119,7 @@
             <div class="orders-history-page">
                 @if (Model.Orders != null)
                 {
-                    @foreach (var order in Model.Orders)
+                    @foreach (var order in Model.Orders.OrderByDescending(o => o.OrderId))
                     {
                         <div class="order mb-4">
                             <p class="order__orderid">№@order.OrderId</p>
@@ -137,7 +138,7 @@
                                 </div>
                             </div>
                             <div class="order__tickets">
-                                @foreach (var ticket in order.Tickets)
+                                @foreach (var ticket in order.Tickets.OrderBy(t => t.SeatId))
                                 {
                                     var hall = ticket.Session.Hall;
 

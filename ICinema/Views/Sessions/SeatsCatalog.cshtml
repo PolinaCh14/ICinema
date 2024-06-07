@@ -45,7 +45,7 @@
                 </a>
             </div>
             <div class="cart-tickets">
-                @foreach (var ticket in Model.Cart.Tickets)
+                @foreach (var ticket in Model.Cart.Tickets.OrderBy(t => t.SeatId))
                 {
                     <div class="cart-tickets__item">
                         <div class="ticket">
