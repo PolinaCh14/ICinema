@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using ICinema.Infrastructure;
+using ICinema.Helpers;
 
 namespace ICinema.Controllers
 {
@@ -156,7 +157,7 @@ namespace ICinema.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult MyProfile()
+        public async Task<ActionResult> MyProfile()
         {
             int userId = Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             User? user = _context.Users.Find(userId);
@@ -165,8 +166,20 @@ namespace ICinema.Controllers
             {
                 throw new Exception("Unknown user");
             }
+
+            var orders = _context.Orders.Include(x => x.User).Where(x=>x.UserId == user.UserId)
+                                        .Include(x => x.Tickets).ThenInclude(x => x.Session)
+                                                                          .ThenInclude(x => x.Hall)
+                                        .Include(x => x.Tickets).ThenInclude(x => x.Session)
+                                                                          .ThenInclude(x => x.Movie)
+                                        .Include(x => x.Tickets).ThenInclude(x => x.Seat)
+                            .OrderByDescending(x=>x.CreateDate).ToList();
+
+            ProfileViewModel model = new (user);
+            model.Orders = orders.Convert();
+
             ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
-            return View(new ProfileViewModel(user));
+            return View(model);
         }
 
         [HttpPost]
@@ -188,6 +201,7 @@ namespace ICinema.Controllers
                     user.LastName = model.LastName;
                     user.Email = model.Email;
                     user.PhoneNumber = model.PhoneNumber;
+                    user.Password = model.Password ?? String.Empty;
 
                     _context.SaveChanges();
                     model.IsEditMode = false;

@@ -1,5 +1,6 @@
 ﻿using ICinema.Infrastructure.Constants;
 using ICinema.Models;
+using ICinema.ViewModels.HelperModels;
 using System.ComponentModel.DataAnnotations;
 
 namespace ICinema.ViewModels
@@ -26,7 +27,14 @@ namespace ICinema.ViewModels
         [MaxLength(10, ErrorMessage = "Номер телефону має складатися з 10 цифр")]
         public string? PhoneNumber { get; set; } = null;
 
+
+        [MinLength(6, ErrorMessage = "Пароль має містити не менше 6 символів")]
+        [MaxLength(50, ErrorMessage = "Пароль занадто довгий")]
+        public string? Password { get; set; } = null!;
+
         public bool IsEditMode { get; set; }
+
+        public List<OrdersModel> Orders { get; set; } = default!;
 
         public ProfileViewModel() { }
         public ProfileViewModel(User user)
