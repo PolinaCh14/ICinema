@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using ICinema.Infrastructure;
+using ICinema.Helpers;
 
 namespace ICinema.Controllers
 {
@@ -171,14 +172,14 @@ namespace ICinema.Controllers
                                                                           .ThenInclude(x => x.Hall)
                                         .Include(x => x.Tickets).ThenInclude(x => x.Session)
                                                                           .ThenInclude(x => x.Movie)
-                            .OrderBy(x=>x.CreateDate).ToList();
+                                        .Include(x => x.Tickets).ThenInclude(x => x.Seat)
+                            .OrderByDescending(x=>x.CreateDate).ToList();
 
-            ProfileViewModel model = new ProfileViewModel(user);
-            model.Orders = orders;
+            ProfileViewModel model = new (user);
+            model.Orders = orders.Convert();
 
-            return View();
             ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
-            return View(new ProfileViewModel(user));
+            return View(model);
         }
 
         [HttpPost]
@@ -200,6 +201,7 @@ namespace ICinema.Controllers
                     user.LastName = model.LastName;
                     user.Email = model.Email;
                     user.PhoneNumber = model.PhoneNumber;
+                    user.Password = model.Password ?? String.Empty;
 
                     _context.SaveChanges();
                     model.IsEditMode = false;

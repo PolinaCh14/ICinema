@@ -1,12 +1,5 @@
 ﻿@model ProfileViewModel
 @{
-    ViewData["title"] = "Замовлення оформлено!";
-    var movieName = Model.Orders.Tickets.First().Session.Movie.MovieName;
-    var hall = Model.Orders.Tickets.First().Session.Hall;
-    var date = Model.Orders.Tickets.First().Session.Date;
-    var time = Model.Orders.Tickets.First().Session.Time;
-}
-@{
     ViewData["Title"] = "Мій кабінет";
 }
 <div class="block">
@@ -27,24 +20,6 @@
         <div class="tab-pane fade show active profile-information" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
             <div class="align-profile-content" id="show-profile">
                 <div class="col-md-6 block-center">
-                    @* <table>
-                    <tr>
-                    <td>Ім'я:</td>
-                    <td>@Model.FirstName</td>
-                    </tr>
-                    <tr>
-                    <td>Прізвище:</td>
-                    <td>@Model.LastName</td>
-                    </tr>
-                    <tr>
-                    <td>Email:</td>
-                    <td>@Model.Email</td>
-                    </tr>
-                    <tr>
-                    <td>Телефон:</td>
-                    <t>@Model.PhoneNumber</t>
-                    </tr>
-                    </table> *@
                     <div class="row bottom-border p-lines ">
                         <label for="staticEmail" class="col-sm-2 col-form-label">Ім'я:</label>
                         <div class="col-sm-10">
@@ -70,7 +45,6 @@
                             <input type="phone" readonly class="form-control-plaintext" id="phone-field" value="@Model.PhoneNumber">
                         </div>
                     </div>
-
                     <div class="align-right">
                         <button class="button-primary button1" id="redact">Редагувати</button>
                     </div>
@@ -82,8 +56,8 @@
 
                 <form asp-action="MyProfile" method="post" asp-antiforgery="true">
 
-                    <input type="hidden" asp-for="IsEditMode" />
-
+                    @Html.HiddenFor(x => x.IsEditMode)
+                    @Html.HiddenFor(x => x.Orders)
 
                     <div class="col-md-6 block-center">
                         <div class="row bottom-border p-lines ">
@@ -115,6 +89,16 @@
                         </div>
                         <span asp-validation-for="PhoneNumber"></span>
 
+                        <div class="row bottom-border p-lines password-line">
+                            <label for="staticEmail" class="col-sm-2 col-form-label">Пароль:</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control form-control-plaintext" id="password-change-field" value="@Model.Password" asp-for="Password">
+                                <button type="button" id="togglePasswordChange">
+                                    <img src="~/images/icons/eye-visible.png" class="eye-button" />
+                                </button>
+                            </div>
+                        </div>
+                        <span asp-validation-for="Password"></span>
 
                         <div asp-validation-summary="ModelOnly" class="text-danger mt-4"></div>
 
@@ -130,56 +114,52 @@
         </div>
 
         <div class="tab-pane fade" id="orders-tab-pane" role="tabpanel" aria-labelledby="orders-tab" tabindex="0">
-            замовлення
 
-            <div class="order-result-page">
-                <div class="order-result__header">
-                    <h2>Замовлення оформлено! </h2>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
-                        <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708" />
-                    </svg>
-                </div>
-                <div class="order">
-                    <p class="order__orderid">№@Model.Orders.OrderId</p>
-                    <div class="order__session-info">
-                        <h3>@movieName</h3>
-                        <div class="session-info__session">
-                            <div class="datetime">
-                                <img src="~/images/icons/calendar.png" />
-                                <span>@date, @date.DayOfWeek</span>
+            <div class="orders-history-page">
+                @if (Model.Orders != null)
+                {
+                    @foreach (var order in Model.Orders)
+                    {
+                        <div class="order mb-4">
+                            <p class="order__orderid">№@order.OrderId</p>
+                            <div class="order__session-info">
+                                <h3>@order.Tickets.First().Session.Movie.MovieName</h3>
+                                <div class="session-info__session">
+                                    <div class="datetime">
+                                        <img src="~/images/icons/calendar.png" />
+                                        <span>@order.Tickets.First().Session.Date, @order.Tickets.First().Session.Date.DayOfWeek</span>
+                                    </div>
+                                    <div class="datetime">
+                                        <img src="~/images/icons/clock.png" />
+                                        <span>@order.Tickets.First().Session.Time</span>
+                                    </div>
+                                    <div class="datetime">Зал №@order.Tickets.First().Session.Hall.HallId @order.Tickets.First().Session.Hall.HallName</div>
+                                </div>
                             </div>
-                            <div class="datetime">
-                                <img src="~/images/icons/clock.png" />
-                                <span>@time</span>
+                            <div class="order__tickets">
+                                @foreach (var ticket in order.Tickets)
+                                {
+                                    var hall = ticket.Session.Hall;
+
+                                    var seat = hall.Seats.First(x => x.SeatId == ticket.SeatId);
+
+                                    <div class="order__ticket">
+                                        <p>@seat.RowNumber ряд</p>
+                                        <p>@seat.SeatNumber місце</p>
+                                        <p>@ticket.Price грн.</p>
+                                    </div>
+
+                                }
                             </div>
-                            <div class="datetime">Зал №@hall.HallId @hall.HallName</div>
+                            <div class="order__summary">
+                                <p>Загалом: @order.Price грн.</p>
+                                <p>Статус замовлення: @order.OrderStatus</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="order__tickets">
-                        @foreach (var ticket in Model.Orders.Tickets)
-                        {
-                            <div class="order__ticket">
-                                <p>@ticket.Seat.RowNumber ряд</p>
-                                <p>@ticket.Seat.SeatNumber місце</p>
-                                <p>@ticket.Price грн.</p>
-                            </div>
-                        }
-                    </div>
-                    <div class="order__summary">
-                        <p>Загалом: @Model.Orders.Price грн.</p>
-                        <p>Статус замовлення: @Model.Orders.OrderStatus</p>
-                    </div>
-                </div>
+                    }
+
+                }
             </div>
-
-
-
-
-
-
-
-
-
         </div>
     </div>
 </div>
@@ -187,10 +167,24 @@
 @section scripts {
     <script>
 
-        let model = @Html.Raw(Json.Serialize(Model))
-                                                                                                debugger;
+        let model = @Html.Raw(Json.Serialize(Model));
 
         $(document).ready(function () {
+
+            $("#togglePasswordChange").click(function ()
+            {
+                let passwordField = $("#password-change-field");
+                let passwordFieldType = passwordField.attr('type');
+
+                if (passwordFieldType === 'password') {
+                    passwordField.attr('type', 'text');
+                    this.innerHTML = `<img src="../images/icons/eye-invisible.png" class="eye-button"/>`;
+                } else {
+                    passwordField.attr('type', 'password');
+                    this.innerHTML = `<img src="../images/icons/eye-visible.png" class="eye-button"/>`;
+                }
+            });
+
             if (model.isEditMode == true) {
                 $("#show-profile").hide();
                 $("#edit-profile").show()
