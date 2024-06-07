@@ -167,7 +167,7 @@ namespace ICinema.Controllers
                 throw new Exception("Unknown user");
             }
 
-            var orders = _context.Orders.Include(x => x.User)
+            var orders = _context.Orders.Include(x => x.User).Where(x=>x.UserId == user.UserId)
                                         .Include(x => x.Tickets).ThenInclude(x => x.Session)
                                                                           .ThenInclude(x => x.Hall)
                                         .Include(x => x.Tickets).ThenInclude(x => x.Session)
