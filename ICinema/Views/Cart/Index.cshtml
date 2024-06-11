@@ -87,9 +87,13 @@
                                 </div>
                                 <p>@ticket.Price.ToString("F2") грн.</p>
                             </div>
-                            <div class="cross-icon-container">
+                            <a class="cross-icon-container"
+                                asp-controller="cart"
+                                asp-action="DeleteTicket"
+                                asp-route-ticketId="@ticket.TicketId"
+                            >
                                 <img src="/images/icons/cross.png" alt="X" />
-                            </div>
+                            </a>
                         </div>
                     }
                 </div>

@@ -71,15 +71,29 @@ public class CartController(CinemaContext context) : Controller
 
     public IActionResult RemoveTicket(int sessionId, int seatId)
     {
-        ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
-
         _cart.RetrieveFromSession(HttpContext);
 
         _cart.Tickets.RemoveAll(t => t.SessionId == sessionId && t.SeatId == seatId);
 
         _cart.SaveToSession(HttpContext);
 
+        ViewBag.IsCartEmpty = _cart.IsEmpty(HttpContext);
         return RedirectToAction("SeatsCatalog", "Sessions", new { sessionId });
+    }
+
+    public IActionResult DeleteTicket(int ticketId)
+    {
+        _cart.RetrieveFromSession(HttpContext);
+
+        _context.Tickets.Remove(_cart.Tickets.First(t => t.TicketId == ticketId));
+        _context.SaveChanges();
+
+        _cart.Tickets.RemoveAll(t => t.TicketId == ticketId);
+
+        _cart.SaveToSession(HttpContext);
+
+        ViewBag.IsCartEmpty = _cart.IsEmpty(HttpContext);
+        return RedirectToAction("Index");
     }
 
     public IActionResult AddToCart()
