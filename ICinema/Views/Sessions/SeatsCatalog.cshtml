@@ -55,9 +55,13 @@
                             </div>
                             <p>@ticket.Price грн.</p>
                         </div>
-                        <div class="cross-icon-container">
+                        <a class="cross-icon-container"
+                           asp-controller="cart"
+                           asp-action="RemoveTicket"
+                           asp-route-sessionId="@Model.Session.SessionId"
+                           asp-route-seatId="@ticket.SeatId">
                             <img src="/images/icons/cross.png" alt="X" />
-                        </div>
+                        </a>
                     </div>
                 }
             </div>
