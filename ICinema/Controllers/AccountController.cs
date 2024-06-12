@@ -14,6 +14,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using ICinema.Infrastructure;
 using ICinema.Helpers;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ICinema.Controllers
 {
@@ -167,15 +168,15 @@ namespace ICinema.Controllers
                 throw new Exception("Unknown user");
             }
 
-            var orders = _context.Orders.Include(x => x.User).Where(x=>x.UserId == user.UserId)
+            var orders = _context.Orders.Include(x => x.User).Where(x => x.UserId == user.UserId)
                                         .Include(x => x.Tickets).ThenInclude(x => x.Session)
                                                                           .ThenInclude(x => x.Hall)
                                         .Include(x => x.Tickets).ThenInclude(x => x.Session)
                                                                           .ThenInclude(x => x.Movie)
                                         .Include(x => x.Tickets).ThenInclude(x => x.Seat)
-                            .OrderByDescending(x=>x.CreateDate).ToList();
+                            .OrderByDescending(x => x.CreateDate).ToList();
 
-            ProfileViewModel model = new (user);
+            ProfileViewModel model = new(user);
             model.Orders = orders.Convert();
 
             ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
@@ -219,6 +220,18 @@ namespace ICinema.Controllers
             model.IsEditMode = true;
             ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
             return View(model);
+        }
+
+        public async Task<JsonResult> CancelOrder([FromQuery] int id)
+        {
+            Order order = await _context.Orders.SingleOrDefaultAsync(x => x.OrderId == id);
+
+
+                order.OrderStatus = OrderStatuses.CANCELED;
+                _context.SaveChanges();
+
+                return Json("OK");
+
         }
     }
 }

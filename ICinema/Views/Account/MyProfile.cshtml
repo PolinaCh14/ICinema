@@ -24,20 +24,19 @@
                     <div class="row bottom-border p-lines ">
                         <label for="staticEmail" class="col-sm-2 col-form-label">Ім'я:</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="firstName-field" value="@Model.FirstName">
+                            <input type="text" readonly class="form-control-plaintext" id="firstName-field" value="@Model.FirstName" />
                         </div>
                     </div>
                     <div class="row bottom-border p-lines">
                         <label for="staticEmail" class="col-sm-2 col-form-label">Прізвище:</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="lastName-field" value="@Model.LastName">
+                            <input type="text" readonly class="form-control-plaintext" id="lastName-field" value="@Model.LastName" />
                         </div>
                     </div>
                     <div class="row bottom-border p-lines">
                         <label for="staticEmail" class="col-sm-2 col-form-label">Email:</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="email-field" value="@Model.Email">
-
+                            <input type="text" readonly class="form-control-plaintext" id="email-field" value="@Model.Email" />
                         </div>
                     </div>
                     <div class="row bottom-border p-lines">
@@ -121,7 +120,7 @@
                 {
                     @foreach (var order in Model.Orders.OrderByDescending(o => o.OrderId))
                     {
-                        <div class="order mb-4">
+                        <div class="order mb-4" id='@($"order-id-{order.OrderId}")'>
                             <p class="order__orderid">№@order.OrderId</p>
                             <div class="order__session-info">
                                 <h3>@order.Tickets.First().Session.Movie.MovieName</h3>
@@ -154,16 +153,40 @@
                             </div>
                             <div class="order__summary">
                                 <p>Загалом: @order.Price грн.</p>
-                                <p>Статус замовлення: @order.OrderStatus</p>
+                                <p>Статус замовлення: <span id='@($"order-status-{order.OrderId}")'>@order.OrderStatus</span></p>
+
+                                <section id='@($"cancel-order-{order.OrderId}")'>
+                                    @if (order.OrderStatus == OrderStatuses.NEW || order.OrderStatus == OrderStatuses.PAID)
+                                    {
+                                        <a href='@($"#order-id-{order.OrderId}")' data-id="@order.OrderId">
+                                            <input type="button" class="cancel-btn" data-bs-toggle="modal" data-bs-target="#confirmModal" value="Скасувати" />
+                                        </a>
+                                    }
+                                </section>
                             </div>
                         </div>
                     }
-
                 }
             </div>
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <input id="order-id" type="hidden" />
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Ви хочете скасувати це замовлення?</h1>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-blue" data-bs-dismiss="modal">Ні</button>
+                <button type="button" class="btn btn-primary btn-red" id="confirm-cancellation" data-bs-dismiss="modal">Так</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @section scripts {
     <script>
@@ -172,8 +195,7 @@
 
         $(document).ready(function () {
 
-            $("#togglePasswordChange").click(function ()
-            {
+            $("#togglePasswordChange").click(function () {
                 let passwordField = $("#password-change-field");
                 let passwordFieldType = passwordField.attr('type');
 
@@ -197,6 +219,33 @@
                     $("#edit-profile").show()
                 });
             }
+        });
+
+        $(".cancel-btn").click(function () {
+            let id = $(this).parent().data("id");
+
+            $("#confirmModal #order-id").val(id);
+            $("#confirmModal").show();
+
+        });
+
+        $("#confirm-cancellation").click(function () {
+            let id = $("#confirmModal #order-id").val();
+            $.ajax({
+                url: '/Account/CancelOrder?id=' + id,
+                type: 'put',
+                dataType: 'json',
+                success: function (response) {
+                    let link = $("section#cancel-order-" + id);
+                    link.html("");
+
+                    let orderstatus = $("span#order-status-" + id);
+                    orderstatus.html("Скасоване");
+                },
+                error: function (error) {
+                    alert(error);
+                }
+            });
         });
 
     </script>
