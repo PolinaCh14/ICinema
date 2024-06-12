@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using ICinema.Infrastructure;
 using ICinema.Helpers;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using String = System.String;
 
 namespace ICinema.Controllers
 {
@@ -226,12 +227,25 @@ namespace ICinema.Controllers
         {
             Order order = await _context.Orders.SingleOrDefaultAsync(x => x.OrderId == id);
 
+            var session = _context.Orders.Include(x => x.Tickets).ThenInclude(x => x.Session);
+
+            DateTime date = session.FirstOrDefault(x => x.OrderId == id).Tickets.FirstOrDefault().Session.Date.ToDateTime(TimeOnly.Parse("00:00:00"));
+            TimeOnly time = session.FirstOrDefault(x => x.OrderId == id).Tickets.FirstOrDefault().Session.Time;
+
+            date += time.ToTimeSpan();
+
+            if (date - DateTime.Now > TimeSpan.FromHours(1))
+            {
 
                 order.OrderStatus = OrderStatuses.CANCELED;
                 _context.SaveChanges();
 
                 return Json("OK");
-
+            }
+            else
+            {
+                throw new Exception();
+            }
         }
     }
 }

@@ -242,8 +242,8 @@
                     let orderstatus = $("span#order-status-" + id);
                     orderstatus.html("Скасоване");
                 },
-                error: function (error) {
-                    alert(error);
+                error: function () {
+                    alert("Замовлення можна скасувати не пізніше ніж за годину до початку сеансу");
                 }
             });
         });
