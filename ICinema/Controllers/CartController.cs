@@ -97,6 +97,21 @@ public class CartController(CinemaContext context) : Controller
         return RedirectToAction("Index");
     }
 
+    public IActionResult ClearCart()
+    {
+        _cart.RetrieveFromSession(HttpContext);
+
+        _context.Tickets.RemoveRange(_cart.Tickets);
+        _context.SaveChanges();
+
+        _cart.Tickets = [];
+
+        _cart.SaveToSession(HttpContext);
+
+        ViewBag.IsCartEmpty = _cart.IsEmpty(HttpContext);
+        return RedirectToAction("Index");
+    }
+
     public IActionResult AddToCart()
     {
         ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
@@ -106,7 +121,11 @@ public class CartController(CinemaContext context) : Controller
         try
         {
             foreach (var ticket in _cart.Tickets)
-                if (!_context.Tickets.Include(t=>t.Order).Any(t => t.SeatId == ticket.SeatId && t.SessionId == ticket.SessionId && (t.Order != null && t.Order.OrderStatus!=OrderStatuses.CANCELED)))
+                if (!_context.Tickets.Include(t=>t.Order).Any(
+                        t => t.SeatId == ticket.SeatId 
+                        && t.SessionId == ticket.SessionId 
+                        && t.Order != null && t.Order.OrderStatus != OrderStatuses.CANCELED)
+                )
                     _context.Tickets.Add(ticket);
 
             _context.SaveChanges();
@@ -153,6 +172,6 @@ public class CartController(CinemaContext context) : Controller
         {
             ticket.CreateDate = newCreateDate;
             _context.SaveChanges();
-            }
+        }
     }
 }

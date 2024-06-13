@@ -107,6 +107,22 @@
     font-size: 22px;
 }
 
+.cart-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.clear-cart-button {
+    padding: 0 30px;
+    background-color: #F05454;
+    border: none;
+}
+
+.clear-cart-button:hover {
+    background-color: #f33636;
+}
+
 .make-order-button {
     display: flex;
     justify-content: space-between;

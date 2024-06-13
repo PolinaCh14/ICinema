@@ -65,7 +65,13 @@
                             </div>
                         </div>
                     </div>
-                    <div>
+                    <div class="cart-actions">
+                        <a asp-controller="cart"
+                           asp-action="ClearCart"
+                           class="button button-primary clear-cart-button"
+                        >
+                            Очистити кошик
+                        </a>
                         <a 
                             asp-controller="order"
                             asp-action="MakeOrder"
