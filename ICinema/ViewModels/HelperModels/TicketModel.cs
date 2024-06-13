@@ -9,6 +9,7 @@ namespace ICinema.ViewModels.HelperModels
         public decimal Price { get; set; }
 
         public int SeatId { get; set; }
+        public SeatModel Seat { get; set; } = default!;
 
         public DateTime CreateDate { get; set; }
 

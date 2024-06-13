@@ -1,5 +1,6 @@
 ﻿using ICinema.Data;
 using ICinema.Infrastructure;
+using ICinema.Infrastructure.Constants;
 using ICinema.Infrastructure.Enums;
 using ICinema.Models;
 using ICinema.ViewModels;
@@ -75,7 +76,7 @@ namespace ICinema.Controllers
                 .Include(s => s.SessionType)
                 .Include(s => s.Hall).ThenInclude(h => h.Technology)
                 .Include(s => s.Hall).ThenInclude(h => h.Seats).ThenInclude(s => s.SeatType)
-                .Include(s => s.Tickets)
+                .Include(s => s.Tickets).ThenInclude(t => t.Order)
                 .FirstOrDefault(s => s.SessionId == sessionId);
 
             if (session is null)
@@ -94,7 +95,7 @@ namespace ICinema.Controllers
                     Seat = seat,
                     Price = decimal.Round(seat.SeatType.BasePrice * session.Hall.Technology.Coefficient * session.SessionType.Coefficient, 2),
                     StyleType = seat.SeatType.SeatTypeId == (int)SeatTypeEnum.Default ? "button-seat-default" : "button-seat-vip",
-                    StyleActive = session.Tickets.Any(t => t.SeatId == seat.SeatId) ? "button-seat-inactive inactive" : "",
+                    StyleActive = session.Tickets.Any(t => t.SeatId == seat.SeatId && t.Order!=null && t.Order.OrderStatus != OrderStatuses.CANCELED) ? "button-seat-inactive inactive" : "",
                     StyleSelected = cart.Tickets.Exists(t => t.SeatId == seat.SeatId && t.SessionId == session.SessionId)
                         ? "button-seat-selected inactive" : ""
                 };

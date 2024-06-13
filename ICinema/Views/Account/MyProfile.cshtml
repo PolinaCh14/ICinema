@@ -137,11 +137,11 @@
                                 </div>
                             </div>
                             <div class="order__tickets">
-                                @foreach (var ticket in order.Tickets.OrderBy(t => t.SeatId))
-                                {
+                                @foreach (var ticket in order.Tickets.OrderBy(t => t.TicketId))
+                                {@* 
                                     var hall = ticket.Session.Hall;
-
-                                    var seat = hall.Seats.First(x => x.SeatId == ticket.SeatId);
+ *@
+                                    var seat = ticket.Seat;
 
                                     <div class="order__ticket">
                                         <p>@seat.RowNumber ряд</p>

@@ -16,6 +16,7 @@ using ICinema.Infrastructure;
 using ICinema.Helpers;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using String = System.String;
+using ICinema.ViewModels.HelperModels;
 
 namespace ICinema.Controllers
 {
@@ -169,12 +170,11 @@ namespace ICinema.Controllers
                 throw new Exception("Unknown user");
             }
 
-            var orders = _context.Orders.Include(x => x.User).Where(x => x.UserId == user.UserId)
-                                        .Include(x => x.Tickets).ThenInclude(x => x.Session)
-                                                                          .ThenInclude(x => x.Hall)
-                                        .Include(x => x.Tickets).ThenInclude(x => x.Session)
-                                                                          .ThenInclude(x => x.Movie)
+            var orders = _context.Orders.Include(x => x.User)
+                                        .Include(x => x.Tickets).ThenInclude(x => x.Session).ThenInclude(x => x.Hall)
+                                        .Include(x => x.Tickets).ThenInclude(x => x.Session).ThenInclude(x => x.Movie)
                                         .Include(x => x.Tickets).ThenInclude(x => x.Seat)
+                                        .Where(x => x.UserId == user.UserId)
                             .OrderByDescending(x => x.CreateDate).ToList();
 
             ProfileViewModel model = new(user);
@@ -238,6 +238,7 @@ namespace ICinema.Controllers
             {
 
                 order.OrderStatus = OrderStatuses.CANCELED;
+
                 _context.SaveChanges();
 
                 return Json("OK");
