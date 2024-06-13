@@ -8,7 +8,7 @@ namespace ICinema.ViewModels.HelperModels
 
         public string HallName { get; set; } = null!;
 
-        public ICollection<SeatModel> Seats { get; set; } = new List<SeatModel>();
+        //public ICollection<SeatModel> Seats { get; set; } = new List<SeatModel>();
 
         public Technology Technology { get; set; } = null!;
     }

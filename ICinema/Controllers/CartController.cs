@@ -1,5 +1,6 @@
 ﻿using ICinema.Data;
 using ICinema.Infrastructure;
+using ICinema.Infrastructure.Constants;
 using ICinema.Models;
 using ICinema.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -105,7 +106,7 @@ public class CartController(CinemaContext context) : Controller
         try
         {
             foreach (var ticket in _cart.Tickets)
-                if (!_context.Tickets.Any(t => t.SeatId == ticket.SeatId && t.SessionId == ticket.SessionId))
+                if (!_context.Tickets.Include(t=>t.Order).Any(t => t.SeatId == ticket.SeatId && t.SessionId == ticket.SessionId && (t.Order != null && t.Order.OrderStatus!=OrderStatuses.CANCELED)))
                     _context.Tickets.Add(ticket);
 
             _context.SaveChanges();
@@ -132,7 +133,7 @@ public class CartController(CinemaContext context) : Controller
 
     private Ticket? CreateTicket(int sessionId, int seatId, decimal price)
     {
-        if (_context.Tickets.Any(t => t.SessionId == sessionId && t.SeatId == seatId))
+        if (_context.Tickets.Any(t => t.SessionId == sessionId && t.SeatId == seatId && t.Order.OrderStatus != OrderStatuses.CANCELED))
             return null;
 
         var ticket = new Ticket
@@ -152,6 +153,6 @@ public class CartController(CinemaContext context) : Controller
         {
             ticket.CreateDate = newCreateDate;
             _context.SaveChanges();
-        }
+            }
     }
 }

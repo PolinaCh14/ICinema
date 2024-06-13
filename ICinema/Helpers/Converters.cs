@@ -1,5 +1,6 @@
 ﻿using ICinema.Models;
 using ICinema.ViewModels.HelperModels;
+using System;
 
 namespace ICinema.Helpers;
 
@@ -29,7 +30,7 @@ public static class Converters
 
         item.Date = session.Date;
         item.Time = session.Time;
-        item.Tickets = session.Tickets.Select(x => x.Convert()).ToList();
+        item.Tickets = order.Tickets.Select(x => x.Convert()).ToList();
 
         return item;
     }
@@ -42,6 +43,7 @@ public static class Converters
         model.SeatId = ticket.SeatId;
         model.CreateDate = ticket.CreateDate;
         model.Session = ticket.Session.Convert();
+        model.Seat = ticket.Seat.Convert();
         return model;
     }
 
@@ -93,7 +95,7 @@ public static class Converters
         HallModel model = new();
         model.HallId = hall.HallId;
         model.HallName = hall.HallName;
-        model.Seats = hall.Seats.Select(x => x.Convert()).ToList();
+//        model.Seats = hall.Seats.Select(x => x.Convert()).ToList();
         model.Technology = hall.Technology;
 
         return model;

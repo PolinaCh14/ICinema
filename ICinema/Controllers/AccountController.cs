@@ -14,6 +14,9 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using ICinema.Infrastructure;
 using ICinema.Helpers;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using String = System.String;
+using ICinema.ViewModels.HelperModels;
 
 namespace ICinema.Controllers
 {
@@ -167,15 +170,14 @@ namespace ICinema.Controllers
                 throw new Exception("Unknown user");
             }
 
-            var orders = _context.Orders.Include(x => x.User).Where(x=>x.UserId == user.UserId)
-                                        .Include(x => x.Tickets).ThenInclude(x => x.Session)
-                                                                          .ThenInclude(x => x.Hall)
-                                        .Include(x => x.Tickets).ThenInclude(x => x.Session)
-                                                                          .ThenInclude(x => x.Movie)
+            var orders = _context.Orders.Include(x => x.User)
+                                        .Include(x => x.Tickets).ThenInclude(x => x.Session).ThenInclude(x => x.Hall)
+                                        .Include(x => x.Tickets).ThenInclude(x => x.Session).ThenInclude(x => x.Movie)
                                         .Include(x => x.Tickets).ThenInclude(x => x.Seat)
-                            .OrderByDescending(x=>x.CreateDate).ToList();
+                                        .Where(x => x.UserId == user.UserId)
+                            .OrderByDescending(x => x.CreateDate).ToList();
 
-            ProfileViewModel model = new (user);
+            ProfileViewModel model = new(user);
             model.Orders = orders.Convert();
 
             ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
@@ -219,6 +221,32 @@ namespace ICinema.Controllers
             model.IsEditMode = true;
             ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
             return View(model);
+        }
+
+        public async Task<JsonResult> CancelOrder([FromQuery] int id)
+        {
+            Order order = await _context.Orders.SingleOrDefaultAsync(x => x.OrderId == id);
+
+            var session = _context.Orders.Include(x => x.Tickets).ThenInclude(x => x.Session);
+
+            DateTime date = session.FirstOrDefault(x => x.OrderId == id).Tickets.FirstOrDefault().Session.Date.ToDateTime(TimeOnly.Parse("00:00:00"));
+            TimeOnly time = session.FirstOrDefault(x => x.OrderId == id).Tickets.FirstOrDefault().Session.Time;
+
+            date += time.ToTimeSpan();
+
+            if (date - DateTime.Now > TimeSpan.FromHours(1))
+            {
+
+                order.OrderStatus = OrderStatuses.CANCELED;
+
+                _context.SaveChanges();
+
+                return Json("OK");
+            }
+            else
+            {
+                throw new Exception();
+            }
         }
     }
 }

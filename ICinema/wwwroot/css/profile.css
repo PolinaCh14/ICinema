@@ -126,6 +126,17 @@
     width: 100%;
 }
 
+.cancel-btn {
+    background-color: #DA6666;
+    border: none;
+    padding: 0 40px;
+    height: 35px;
+}
+
+    .cancel-btn:hover {
+        background-color: #C24141;
+    }
+
 #togglePasswordChange {
     position: absolute;
     right: -40px;
@@ -136,3 +147,34 @@
     font-size: 0.9em;
 }
 
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    color: var(--bs-modal-color);
+    pointer-events: auto;
+    background-color: var(--background-color);
+    background-clip: padding-box;
+    border: var(--bs-modal-border-width) solid var(--bs-modal-border-color);
+    border-radius: var(--bs-modal-border-radius);
+    outline: 0;
+    transform: translate(0%, 200%);
+    padding: 10px;
+}
+
+.btn-blue {
+    border: none;
+    background-color: var(--primary-color);
+}
+
+    .btn-blue:hover {
+        background-color: #006cff;
+    }
+.btn-red {
+    border: none;
+    background-color: #DA6666;
+}
+    .btn-red:hover {
+        background-color: #C24141;
+    }
