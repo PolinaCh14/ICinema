@@ -74,6 +74,11 @@ public class CartController(CinemaContext context) : Controller
     {
         _cart.RetrieveFromSession(HttpContext);
 
+        var ticketToRemove = _cart.Tickets.FirstOrDefault(t => t.SessionId == sessionId && t.SeatId == seatId);
+
+        if (ticketToRemove != null && ticketToRemove.TicketId != 0)
+            return RedirectToAction("DeleteTicket", new { ticketId = ticketToRemove.TicketId });
+
         _cart.Tickets.RemoveAll(t => t.SessionId == sessionId && t.SeatId == seatId );
 
         _cart.SaveToSession(HttpContext);
@@ -124,7 +129,7 @@ public class CartController(CinemaContext context) : Controller
                 if (!_context.Tickets.Include(t => t.Order).Any(
                         t => t.SeatId == ticket.SeatId 
                         && t.SessionId == ticket.SessionId
-                        && ((t.Order != null && t.Order.OrderStatus == OrderStatuses.CANCELED) || t.OrderId == null))
+                        && ((t.Order != null && t.Order.OrderStatus != OrderStatuses.CANCELED) || t.OrderId == null))
                 )
                     _context.Tickets.Add(ticket);
 
@@ -154,7 +159,7 @@ public class CartController(CinemaContext context) : Controller
     {
         if (_context.Tickets.Include(t => t.Order)
             .Any(t => t.SessionId == sessionId && t.SeatId == seatId
-                && ((t.Order != null && t.Order.OrderStatus == OrderStatuses.CANCELED) || t.OrderId == null))
+                && ((t.Order != null && t.Order.OrderStatus != OrderStatuses.CANCELED) || t.OrderId == null))
         )
             return null;
 
