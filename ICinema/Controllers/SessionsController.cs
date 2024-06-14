@@ -90,12 +90,16 @@ namespace ICinema.Controllers
 
             foreach (var seat in seats)
             {
+                bool isSeatInactive = session.Tickets
+                    .Any(t => t.SeatId == seat.SeatId
+                    && ((t.Order != null && t.Order.OrderStatus != OrderStatuses.CANCELED) || t.OrderId == null));
+
                 var seatViewModel = new SeatViewModel
                 {
                     Seat = seat,
                     Price = decimal.Round(seat.SeatType.BasePrice * session.Hall.Technology.Coefficient * session.SessionType.Coefficient, 2),
                     StyleType = seat.SeatType.SeatTypeId == (int)SeatTypeEnum.Default ? "button-seat-default" : "button-seat-vip",
-                    StyleActive = session.Tickets.Any(t => t.SeatId == seat.SeatId && t.Order!=null && t.Order.OrderStatus != OrderStatuses.CANCELED) ? "button-seat-inactive inactive" : "",
+                    StyleActive = isSeatInactive ? "button-seat-inactive inactive" : "",
                     StyleSelected = cart.Tickets.Exists(t => t.SeatId == seat.SeatId && t.SessionId == session.SessionId)
                         ? "button-seat-selected inactive" : ""
                 };

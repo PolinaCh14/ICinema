@@ -74,7 +74,7 @@ public class CartController(CinemaContext context) : Controller
     {
         _cart.RetrieveFromSession(HttpContext);
 
-        _cart.Tickets.RemoveAll(t => t.SessionId == sessionId && t.SeatId == seatId);
+        _cart.Tickets.RemoveAll(t => t.SessionId == sessionId && t.SeatId == seatId );
 
         _cart.SaveToSession(HttpContext);
 
@@ -121,10 +121,10 @@ public class CartController(CinemaContext context) : Controller
         try
         {
             foreach (var ticket in _cart.Tickets)
-                if (!_context.Tickets.Include(t=>t.Order).Any(
+                if (!_context.Tickets.Include(t => t.Order).Any(
                         t => t.SeatId == ticket.SeatId 
-                        && t.SessionId == ticket.SessionId 
-                        && t.Order != null && t.Order.OrderStatus != OrderStatuses.CANCELED)
+                        && t.SessionId == ticket.SessionId
+                        && ((t.Order != null && t.Order.OrderStatus == OrderStatuses.CANCELED) || t.OrderId == null))
                 )
                     _context.Tickets.Add(ticket);
 
@@ -152,7 +152,10 @@ public class CartController(CinemaContext context) : Controller
 
     private Ticket? CreateTicket(int sessionId, int seatId, decimal price)
     {
-        if (_context.Tickets.Any(t => t.SessionId == sessionId && t.SeatId == seatId && t.Order.OrderStatus != OrderStatuses.CANCELED))
+        if (_context.Tickets.Include(t => t.Order)
+            .Any(t => t.SessionId == sessionId && t.SeatId == seatId
+                && ((t.Order != null && t.Order.OrderStatus == OrderStatuses.CANCELED) || t.OrderId == null))
+        )
             return null;
 
         var ticket = new Ticket
