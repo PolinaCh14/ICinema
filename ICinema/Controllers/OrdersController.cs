@@ -15,7 +15,7 @@ namespace ICinema.Controllers
 
         public IActionResult MakeOrder()
         {
-            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+            ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
 
             var cart = new Cart();
             cart.RetrieveFromSession(HttpContext);
@@ -97,7 +97,7 @@ namespace ICinema.Controllers
                 .Include(t => t.Session).ThenInclude(t => t.Hall)
                 .Where(o => o.OrderId == order.OrderId)];
 
-            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+            ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
             return View("OrderResult", order);
         }
 

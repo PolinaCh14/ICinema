@@ -16,7 +16,7 @@ public class CartController(CinemaContext context) : Controller
 
     public IActionResult Index()
     {
-        ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+        ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
 
         _cart.RetrieveFromSession(HttpContext);
 
@@ -44,7 +44,7 @@ public class CartController(CinemaContext context) : Controller
 
     public IActionResult SelectTicket(int sessionId, int seatId, decimal price)
     {
-        ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+        ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
 
         var ticket = CreateTicket(sessionId, seatId, price);
 
@@ -86,7 +86,7 @@ public class CartController(CinemaContext context) : Controller
 
         _cart.SaveToSession(HttpContext);
 
-        ViewBag.IsCartEmpty = _cart.IsEmpty(HttpContext);
+        ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
         return RedirectToAction("SeatsCatalog", "Sessions", new { sessionId });
     }
 
@@ -101,7 +101,7 @@ public class CartController(CinemaContext context) : Controller
 
         _cart.SaveToSession(HttpContext);
 
-        ViewBag.IsCartEmpty = _cart.IsEmpty(HttpContext);
+        ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
         return RedirectToAction("Index");
     }
 
@@ -116,13 +116,13 @@ public class CartController(CinemaContext context) : Controller
 
         _cart.SaveToSession(HttpContext);
 
-        ViewBag.IsCartEmpty = _cart.IsEmpty(HttpContext);
+        ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
         return RedirectToAction("Index");
     }
 
     public IActionResult AddToCart()
     {
-        ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+        ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
 
         _cart.RetrieveFromSession(HttpContext);
 

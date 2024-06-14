@@ -71,3 +71,25 @@ body {
     cursor: default;
     pointer-events: none;
 }
+
+.cart-icon-container {
+    position: relative;
+}
+
+.cart-counter {
+    position: absolute;
+    top: -10px;
+    left: 51%;
+    transform: translateX(-50%);
+    color: black;
+    font-weight: 700;
+    font-size: 13px;
+    background-color: white;
+    border: 3px solid black;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

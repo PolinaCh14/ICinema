@@ -18,7 +18,7 @@ namespace ICinema.Controllers
 
         public IActionResult MakeOrder()
         {
-            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+            ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
 
             var cart = new Cart();
             cart.RetrieveFromSession(HttpContext);
@@ -100,7 +100,7 @@ namespace ICinema.Controllers
                 .Include(t => t.Session).ThenInclude(t => t.Hall)
                 .Where(o => o.OrderId == order.OrderId)];
 
-            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+            ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
             return View("OrderResult", order);
         }
 
@@ -110,7 +110,7 @@ namespace ICinema.Controllers
         [Authorize(Roles = "Адміністратор")]
         public IActionResult ManageOrders(OrdersListViewModel model)
         {
-            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+            ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
             IQueryable<Order> orders = _context.Orders
                 .Include(o => o.Tickets).ThenInclude(t => t.Seat)
                 .Include(o => o.Tickets).ThenInclude(t => t.Session).ThenInclude(s => s.Movie)
@@ -129,7 +129,7 @@ namespace ICinema.Controllers
         [Authorize(Roles = "Адміністратор")]
         public IActionResult ProcessOrder(int id)
         {
-            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+            ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
 
             var orders = _context.Orders
                 .Include(o => o.Tickets).ThenInclude(t => t.Seat)
@@ -153,7 +153,7 @@ namespace ICinema.Controllers
         //[Authorize]
         //public IActionResult OrdersHistory()
         //{
-        //    ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+        //    ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
 
         //    var userId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
