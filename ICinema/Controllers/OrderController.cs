@@ -2,9 +2,12 @@
 using ICinema.Infrastructure;
 using ICinema.Infrastructure.Constants;
 using ICinema.Models;
+using System.Linq;
 using ICinema.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System.Security.Claims;
 
 namespace ICinema.Controllers
@@ -103,5 +106,67 @@ namespace ICinema.Controllers
 
         public bool CheckPaymentTypeSelected(ContactFormViewModel contactForm) => 
             contactForm.PaymentType == PaymentTypes.CASH_DESK || contactForm.PaymentType == PaymentTypes.ONLINE;
+
+        [Authorize(Roles = "Адміністратор")]
+        public IActionResult ManageOrders(OrdersListViewModel model)
+        {
+            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+            IQueryable<Order> orders = _context.Orders
+                .Include(o => o.Tickets).ThenInclude(t => t.Seat)
+                .Include(o => o.Tickets).ThenInclude(t => t.Session).ThenInclude(s => s.Movie)
+                .Include(o => o.Tickets).ThenInclude(t => t.Session).ThenInclude(s => s.Hall);
+
+            if (model.Id.HasValue)
+            {
+                orders = orders.Where(x => x.OrderId == model.Id);
+            }
+
+             model.Items = orders.OrderByDescending(x => x.CreateDate).ToList();
+
+            return View(model);
+        }
+
+        [Authorize(Roles = "Адміністратор")]
+        public IActionResult ProcessOrder(int id)
+        {
+            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+
+            var orders = _context.Orders
+                .Include(o => o.Tickets).ThenInclude(t => t.Seat)
+                .Include(o => o.Tickets).ThenInclude(t => t.Session).ThenInclude(s => s.Movie)
+                .Include(o => o.Tickets).ThenInclude(t => t.Session).ThenInclude(s => s.Hall)
+                .First(o => o.OrderId == id);
+
+            return View(orders);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Адміністратор")]
+        public IActionResult ProcessOrder(Order order)
+        {
+            _context.Orders.Update(order);
+            _context.SaveChanges();
+
+            return RedirectToAction("ManageOrders");
+        }
+
+        //[Authorize]
+        //public IActionResult OrdersHistory()
+        //{
+        //    ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+
+        //    var userId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+        //    if (userId == 0)
+        //        return View();
+
+        //    var orders = _context.Orders
+        //        .Include(o => o.Tickets).ThenInclude(t => t.Seat)
+        //        .Include(o => o.Tickets).ThenInclude(t => t.Session).ThenInclude(s => s.Movie)
+        //        .Include(o => o.Tickets).ThenInclude(t => t.Session).ThenInclude(s => s.Hall)
+        //        .Where(o => o.UserId == userId).ToList();
+
+        //    return View(orders);
+        //}
     }
 }

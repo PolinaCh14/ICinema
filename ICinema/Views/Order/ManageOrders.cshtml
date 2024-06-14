@@ -1,0 +1,51 @@
+﻿@model OrdersListViewModel
+@{
+    ViewData["Title"] = "Адміністрування";
+}
+
+<div class="order-administration__header">
+    <h2>Керування замовленнями</h2>
+    <div class="find-order">
+        <form asp-action="ManageOrders" method="post" class="padding-30 row g-3" asp-antiforgery="true">
+            <div class="col-auto">
+                <input type="text" asp-for="Id" class="form-control" id="email-phone-field" placeholder="ID замовлення">
+            </div>
+            <div class="col-auto">
+                <input type="submit" value="Знайти" />
+            </div>
+        </form>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr class="table-dark">
+            <th scope="col">ID Замовлення</th>
+            <th scope="col">Користувач</th>
+            <th scope="col">Ціна</th>
+            <th scope="col">Кількість квитків</th>
+            <th scope="col">ID користувача</th>
+            <th scope="col">Дата замовлення</th>
+            <th scope="col">Оплата</th>
+            <th scope="col">Статус замовлення</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model.Items)
+        {
+            <tr>
+                <td class="col-1">@order.OrderId</td>
+                <td class="col-3 text-left">@order.UserLastName @order.UserFirstName</td>
+                <td class="col-1">@order.Price</td>
+                <td class="col-1">@order.Tickets.Count</td>
+                <td class="col-1">@order.UserId</td>
+                <td class="col-3">@order.CreateDate</td>
+                <td class="col-1">@order.PaymentType</td>
+                <td class="col-1">@order.OrderStatus</td>
+                <td class="col-2">
+                    <a asp-controller="order" asp-action="ProcessOrder" asp-route-id="@order.OrderId">Обробити</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
