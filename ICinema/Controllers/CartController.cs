@@ -77,7 +77,10 @@ public class CartController(CinemaContext context) : Controller
         var ticketToRemove = _cart.Tickets.FirstOrDefault(t => t.SessionId == sessionId && t.SeatId == seatId);
 
         if (ticketToRemove != null && ticketToRemove.TicketId != 0)
-            return RedirectToAction("DeleteTicket", new { ticketId = ticketToRemove.TicketId });
+        {
+            _context.Tickets.Remove(_cart.Tickets.First(t => t.TicketId == ticketToRemove.TicketId));
+            _context.SaveChanges();
+        }
 
         _cart.Tickets.RemoveAll(t => t.SessionId == sessionId && t.SeatId == seatId );
 
