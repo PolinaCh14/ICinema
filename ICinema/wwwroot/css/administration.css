@@ -8,9 +8,6 @@
 
 .table {
     font-weight: 600;
-    /*box-shadow: -10px 10px 15px rgba(0, 0, 0, 0.2),*/ /* тінь зліва і знизу */
-    /*-10px -10px 15px rgba(0, 0, 0, 0.2),*/ */ /* тінь зліва і зверху */
-    /*0 10px 15px rgba(0, 0, 0, 0.1);*/ */ /* тінь прямо знизу */
 }
 
     .table th {
@@ -45,21 +42,10 @@ table tr:last-child td {
     background-color: transparent;
 }
 
-.find-order input[type=submit] {
-    color: var(--text-main-color);
-    border-radius: 0px;
-    background-color: #0D105A;
-    border: none;
-    padding: 10px;
-    width: 200px;
-    text-align: center;
-    float: right;
-}
-
-    .find-order input[type=submit]:focus {
+    .find-order input[type=submit] {
         color: var(--text-main-color);
         border-radius: 0px;
-        background-color: #4090FF;
+        background-color: #0D105A;
         border: none;
         padding: 10px;
         width: 200px;
@@ -67,11 +53,58 @@ table tr:last-child td {
         float: right;
     }
 
-.find-order input:focus {
+        .find-order input[type=submit]:focus {
+            color: var(--text-main-color);
+            border-radius: 0px;
+            background-color: #4090FF;
+            border: none;
+            padding: 10px;
+            width: 200px;
+            text-align: center;
+            float: right;
+        }
+
+    .find-order input:focus {
+        color: var(--text-main-color);
+        border: none;
+        border-bottom: 1px solid var(--text-main-color);
+        border-radius: 0px;
+        background-color: transparent;
+        box-shadow: none;
+    }
+
+.btn-dark {
     color: var(--text-main-color);
+    background-color: #0D105A;
+    border: none;
+    width: 120px;
+    height: 35px;
+    font-weight: 600;
+    text-align: center;
+}
+    .btn-dark:hover {
+        background-color: #4090FF;
+    }
+
+.set-status {
+    text-align: right;
+    font-weight: 600;
+    color: var(--text-main-color);
+    width: 150px;
+    padding: 0;
     border: none;
     border-bottom: 1px solid var(--text-main-color);
     border-radius: 0px;
     background-color: transparent;
-    box-shadow: none;
+    text-align: center;
 }
+
+    .set-status:focus {
+        text-align: right;
+        color: var(--text-main-color);
+        border: none;
+        border-bottom: 1px solid var(--text-main-color);
+        border-radius: 0px;
+        background-color: transparent;
+        text-align: center;
+    }
