@@ -36,5 +36,11 @@ namespace ICinema.Infrastructure
             RetrieveFromSession(httpContext);
             return !Tickets.Any(t => t.TicketId != 0);
         } 
+
+        public int TicketsAmount(HttpContext httpContext)
+        {
+            RetrieveFromSession(httpContext);
+            return Tickets.Where(t => t.TicketId != 0).Count();
+        }
     }
 }

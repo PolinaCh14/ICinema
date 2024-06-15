@@ -27,7 +27,7 @@ namespace ICinema.Controllers
         [HttpGet]
         public ActionResult Register()
         {
-            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+            ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
             return View(new RegisterViewModel());
         }
 
@@ -55,13 +55,13 @@ namespace ICinema.Controllers
                 }
             }
 
-            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+            ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
             return View(model);
         }
 
         public ActionResult Login()
         {
-            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+            ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
             return View(new LoginViewModel());
         }
 
@@ -83,14 +83,14 @@ namespace ICinema.Controllers
                 ModelState.AddModelError("", "Невірний email/номер телефону або пароль");
             }
 
-            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+            ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
             return View(model);
         }
 
         [Authorize]
         public async Task<ActionResult> Logout()
         {
-            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+            ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
         }
@@ -154,7 +154,7 @@ namespace ICinema.Controllers
 
             await Authorize(user);
 
-            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+            ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
             return RedirectToAction("Index", "Home");
         }
 
@@ -180,7 +180,7 @@ namespace ICinema.Controllers
             ProfileViewModel model = new(user);
             model.Orders = orders.Convert();
 
-            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+            ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
             return View(model);
         }
 
@@ -219,7 +219,7 @@ namespace ICinema.Controllers
             }
 
             model.IsEditMode = true;
-            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+            ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
             return View(model);
         }
 

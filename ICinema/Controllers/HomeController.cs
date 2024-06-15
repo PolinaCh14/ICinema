@@ -15,7 +15,7 @@ namespace WebApp.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+            ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
 
             var movies = _context.Movies.AsNoTracking().Include(m => m.Sessions).ThenInclude(s => s.Tickets).ToList();
             return View(movies);
@@ -24,7 +24,7 @@ namespace WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> MovieDetails(int id, DateIntervalEnum interval = DateIntervalEnum.Today)
         {
-            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+            ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
 
             ArgumentOutOfRangeException.ThrowIfLessThan(id, 1, nameof(id));
 

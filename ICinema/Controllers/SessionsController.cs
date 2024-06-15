@@ -16,7 +16,7 @@ namespace ICinema.Controllers
 
         public async Task<IActionResult> Schedule(DateIntervalEnum interval = DateIntervalEnum.Today)
         {
-            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+            ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
 
             var currentDate = new DateOnly(2024, 7, 10);
             Expression<Func<Session, bool>> predicate;
@@ -63,7 +63,7 @@ namespace ICinema.Controllers
 
         public IActionResult SeatsCatalog(int sessionId)
         {
-            ViewBag.IsCartEmpty = new Cart().IsEmpty(HttpContext);
+            ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
 
             var cart = new Cart();
             cart.RetrieveFromSession(HttpContext);
@@ -100,8 +100,7 @@ namespace ICinema.Controllers
                     Price = decimal.Round(seat.SeatType.BasePrice * session.Hall.Technology.Coefficient * session.SessionType.Coefficient, 2),
                     StyleType = seat.SeatType.SeatTypeId == (int)SeatTypeEnum.Default ? "button-seat-default" : "button-seat-vip",
                     StyleActive = isSeatInactive ? "button-seat-inactive inactive" : "",
-                    StyleSelected = cart.Tickets.Exists(t => t.SeatId == seat.SeatId && t.SessionId == session.SessionId)
-                        ? "button-seat-selected inactive" : ""
+                    StyleSelected = cart.Tickets.Exists(t => t.SeatId == seat.SeatId && t.SessionId == session.SessionId) ? "button-seat-selected inactive" : ""
                 };
 
                 seatViewModels.Add(seatViewModel);
