@@ -118,8 +118,8 @@ namespace ICinema.Controllers
 
             var emailMessage =
                 $"Ваше замовлення №{order.OrderId} успішно оформлене!\n"
-                + $"Фільм: {order.Tickets.First().Session.Movie}.\n"
-                + $"Дата: {order.Tickets.First().Session.Date}.\tЧас: {order.Tickets.First().Session.Time}.\tЗал: {order.Tickets.First().Session.Hall.HallName}\n."
+                + $"Фільм: {order.Tickets.First().Session.Movie.MovieName}.\n"
+                + $"Дата: {order.Tickets.First().Session.Date}.\tЧас: {order.Tickets.First().Session.Time}.\tЗал: {order.Tickets.First().Session.Hall.HallName}.\n"
                 + $"Квитки:\n"
                 + ticketsList
                 + $"Загалом {order.Price} грн.\n"
