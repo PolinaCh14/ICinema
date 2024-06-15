@@ -1,6 +1,8 @@
 using DotNetEnv;
 using ICinema.Data;
 using ICinema.Services;
+using ICinema.Services.Implementation;
+using ICinema.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.EntityFrameworkCore;
@@ -40,6 +42,8 @@ builder.Services.AddDistributedMemoryCache();
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddHostedService<CartResetService>();
+
+builder.Services.AddTransient<IEmailSender, OrderEmailSender>();
 
 builder.Services.AddDbContext<CinemaContext>(options => 
     options.UseSqlServer(Environment.GetEnvironmentVariable("DbConnectionString")));
