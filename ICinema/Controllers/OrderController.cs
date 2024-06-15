@@ -149,24 +149,5 @@ namespace ICinema.Controllers
 
             return RedirectToAction("ManageOrders");
         }
-
-        //[Authorize]
-        //public IActionResult OrdersHistory()
-        //{
-        //    ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
-
-        //    var userId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
-
-        //    if (userId == 0)
-        //        return View();
-
-        //    var orders = _context.Orders
-        //        .Include(o => o.Tickets).ThenInclude(t => t.Seat)
-        //        .Include(o => o.Tickets).ThenInclude(t => t.Session).ThenInclude(s => s.Movie)
-        //        .Include(o => o.Tickets).ThenInclude(t => t.Session).ThenInclude(s => s.Hall)
-        //        .Where(o => o.UserId == userId).ToList();
-
-        //    return View(orders);
-        //}
     }
 }
