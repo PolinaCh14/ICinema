@@ -49,14 +49,14 @@
             <p>Загалом: @Model.Price грн.</p>
             <form class="order-status-select" method="post" asp-controller="order" asp-action="processorder">
                 <span>Статус:</span>
-                <select asp-for="OrderStatus" class="form-control">
+                <select asp-for="OrderStatus" class="form-control set-status" style="color:#fff">
                     <option value="@Model.OrderStatus" selected disabled hidden>@Model.OrderStatus</option>
                     <option value="@OrderStatuses.NEW">@OrderStatuses.NEW</option>
                     <option value="@OrderStatuses.CANCELED">@OrderStatuses.CANCELED</option>
                     <option value="@OrderStatuses.PAID">@OrderStatuses.PAID</option>
                     <option value="@OrderStatuses.COMPLETED">@OrderStatuses.COMPLETED</option>
                 </select>
-                <input type="submit" value="Оновити" class="btn btn-primary" />
+                <input type="submit" value="Оновити" class="btn btn-primary btn-dark" />
 
                 <input type="hidden" class="form-control" asp-for="UserId">
                 <input type="hidden" class="form-control" asp-for="OrderId">
