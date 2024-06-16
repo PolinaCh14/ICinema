@@ -87,7 +87,6 @@ table tr:last-child td {
     }
 
 .set-status {
-    text-align: right;
     font-weight: 600;
     color: var(--text-main-color);
     width: 150px;
@@ -97,14 +96,17 @@ table tr:last-child td {
     border-radius: 0px;
     background-color: transparent;
     text-align: center;
+    text-align-last: center;
 }
 
     .set-status:focus {
-        text-align: right;
         color: var(--text-main-color);
         border: none;
         border-bottom: 1px solid var(--text-main-color);
         border-radius: 0px;
         background-color: transparent;
+        text-align: center;
+    }
+    .set-status option {
         text-align: center;
     }
