@@ -2,19 +2,20 @@
 using ICinema.Infrastructure;
 using ICinema.Infrastructure.Constants;
 using ICinema.Models;
-using System.Linq;
 using ICinema.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System.Security.Claims;
+using ICinema.Services.Interfaces;
 
 namespace ICinema.Controllers
 {
-    public class OrderController(CinemaContext context): Controller
+    public class OrderController(CinemaContext context, IEmailSender emailSender): Controller
     {
         private readonly CinemaContext _context = context;
+        private readonly IEmailSender _emailSender = emailSender;
 
         public IActionResult MakeOrder()
         {
@@ -45,7 +46,7 @@ namespace ICinema.Controllers
         }
 
         [HttpPost]
-        public IActionResult MakeOrder(ContactFormViewModel contactForm)
+        public async Task<IActionResult> MakeOrder(ContactFormViewModel contactForm)
         {
             if (!ModelState.IsValid || !CheckPaymentTypeSelected(contactForm)) 
             {
@@ -100,8 +101,32 @@ namespace ICinema.Controllers
                 .Include(t => t.Session).ThenInclude(t => t.Hall)
                 .Where(o => o.OrderId == order.OrderId)];
 
+            var emailMessage = CreateOrderEmailMessage(order);
+
+            await _emailSender.SendEmail(order.UserEmail, $"Замовлення №{order.OrderId} оформлено!", emailMessage);
+
             ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
             return View("OrderResult", order);
+        }
+
+        private string CreateOrderEmailMessage(Order order)
+        {
+            var ticketsList = "";
+
+            foreach (var ticket in order.Tickets)
+                ticketsList += $"\t{ticket.Seat.RowNumber} ряд    {ticket.Seat.SeatNumber} місце    {ticket.Price} грн\n";
+
+            var emailMessage =
+                $"Ваше замовлення №{order.OrderId} успішно оформлене!\n"
+                + $"Фільм: {order.Tickets.First().Session.Movie.MovieName}.\n"
+                + $"Дата: {order.Tickets.First().Session.Date}.\tЧас: {order.Tickets.First().Session.Time}.\tЗал: {order.Tickets.First().Session.Hall.HallName}.\n"
+                + $"Квитки:\n"
+                + ticketsList
+                + $"Загалом {order.Price} грн.\n"
+                + $"\nЗамовлення має бути викуплене до {order.Tickets.First().Session.Date} {order.Tickets.First().Session.Time.AddHours(-1)}! \n"
+                ;
+
+            return emailMessage;
         }
 
         public bool CheckPaymentTypeSelected(ContactFormViewModel contactForm) => 
