@@ -10,22 +10,22 @@
     font-weight: 600;
 }
 
-    .table th {
-        background-color: #0D105A;
-        color: var(--text-main-color);
-        padding: 20px;
-        text-align: center;
-    }
+.table th {
+    background-color: #0D105A;
+    color: var(--text-main-color);
+    padding: 20px;
+    text-align: center;
+}
 
-    .table td {
-        padding: 20px;
-        text-align: center;
-    }
+.table td {
+    padding: 20px;
+    text-align: center;
+}
 
-        .table td a {
-            color: #0D105A;
-            font-weight: 700;
-        }
+.table td a {
+    color: #0D105A;
+    font-weight: 700;
+}
 
 table tr:last-child td {
     border-bottom: 0;
@@ -42,36 +42,36 @@ table tr:last-child td {
     background-color: transparent;
 }
 
-    .find-order input[type=submit] {
-        color: var(--text-main-color);
-        border-radius: 0px;
-        background-color: #0D105A;
-        border: none;
-        padding: 10px;
-        width: 200px;
-        text-align: center;
-        float: right;
-    }
+.find-order input[type=submit] {
+    color: var(--text-main-color);
+    border-radius: 0px;
+    background-color: #0D105A;
+    border: none;
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+    float: right;
+}
 
-        .find-order input[type=submit]:focus {
-            color: var(--text-main-color);
-            border-radius: 0px;
-            background-color: #4090FF;
-            border: none;
-            padding: 10px;
-            width: 200px;
-            text-align: center;
-            float: right;
-        }
+.find-order input[type=submit]:focus {
+    color: var(--text-main-color);
+    border-radius: 0px;
+    background-color: #4090FF;
+    border: none;
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+    float: right;
+}
 
-    .find-order input:focus {
-        color: var(--text-main-color);
-        border: none;
-        border-bottom: 1px solid var(--text-main-color);
-        border-radius: 0px;
-        background-color: transparent;
-        box-shadow: none;
-    }
+.find-order input:focus {
+    color: var(--text-main-color);
+    border: none;
+    border-bottom: 1px solid var(--text-main-color);
+    border-radius: 0px;
+    background-color: transparent;
+    box-shadow: none;
+}
 
 .btn-dark {
     color: var(--text-main-color);
@@ -82,9 +82,10 @@ table tr:last-child td {
     font-weight: 600;
     text-align: center;
 }
-    .btn-dark:hover {
-        background-color: #4090FF;
-    }
+
+.btn-dark:hover {
+    background-color: #4090FF;
+}
 
 .set-status {
     font-weight: 600;
@@ -99,14 +100,53 @@ table tr:last-child td {
     text-align-last: center;
 }
 
-    .set-status:focus {
-        color: var(--text-main-color);
-        border: none;
-        border-bottom: 1px solid var(--text-main-color);
-        border-radius: 0px;
-        background-color: transparent;
-        text-align: center;
-    }
-    .set-status option {
-        text-align: center;
-    }
+.set-status:focus {
+    color: var(--text-main-color);
+    border: none;
+    border-bottom: 1px solid var(--text-main-color);
+    border-radius: 0px;
+    background-color: transparent;
+    text-align: center;
+}
+
+.set-status option {
+    text-align: center;
+}
+
+.pagination {
+    display: flex;
+    gap: 20px;
+    padding: 10px 0 40px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination__page-numbers{
+    display: flex;
+    gap: 10px;
+}
+
+.pagination__button {
+    max-height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    color: #0d105a;
+    font-weight: 700;
+    width: 30px;
+    aspect-ratio: 1 / 1;
+    border: 3px solid white;
+    border-radius: 3px;
+}
+
+.selected-page-button {
+    background-color: transparent;
+    color: white;
+    color: white;
+}
+
+.pagination__button--arrow img {
+    height: 40px;
+}

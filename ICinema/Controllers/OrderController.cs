@@ -133,9 +133,11 @@ namespace ICinema.Controllers
             contactForm.PaymentType == PaymentTypes.CASH_DESK || contactForm.PaymentType == PaymentTypes.ONLINE;
 
         [Authorize(Roles = "Адміністратор")]
-        public IActionResult ManageOrders(OrdersListViewModel model)
+        public IActionResult ManageOrders(OrdersListViewModel model, int pageToDisplay = 1)
         {
+
             ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
+
             IQueryable<Order> orders = _context.Orders
                 .Include(o => o.Tickets).ThenInclude(t => t.Seat)
                 .Include(o => o.Tickets).ThenInclude(t => t.Session).ThenInclude(s => s.Movie)
@@ -146,7 +148,13 @@ namespace ICinema.Controllers
                 orders = orders.Where(x => x.OrderId == model.Id);
             }
 
-             model.Items = orders.OrderByDescending(x => x.CreateDate).ToList();
+            model.Items = orders.OrderByDescending(x => x.CreateDate).ToList();
+
+            int ordersPerPage = 10;
+            model.PagesAmount = (int)Math.Ceiling(model.Items.Count / (double)ordersPerPage);
+            model.CurrentPage = pageToDisplay;
+            model.StartIndex = ordersPerPage * (pageToDisplay - 1);
+            model.EndIndex = model.StartIndex + ordersPerPage;
 
             return View(model);
         }

@@ -29,6 +29,10 @@ body {
     background: linear-gradient(to right, black 7%, #3797EF);
 }
 
+.container {
+    min-height:78vh;
+}
+
 .nav {
     background: #000000;
     height: 60px;
@@ -93,3 +97,23 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+/*.footer {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 25px;
+    background-color: black;
+    color: white;
+
+}
+
+.footer__copyright {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    font-weight: 600;
+}*/
