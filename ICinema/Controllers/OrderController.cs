@@ -48,6 +48,7 @@ namespace ICinema.Controllers
         [HttpPost]
         public async Task<IActionResult> MakeOrder(ContactFormViewModel contactForm)
         {
+            ViewBag.TicketsAmount = new Cart().TicketsAmount(HttpContext);
             if (!ModelState.IsValid || !CheckPaymentTypeSelected(contactForm)) 
             {
                 if (!CheckPaymentTypeSelected(contactForm)) 
