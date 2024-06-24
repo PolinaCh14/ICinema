@@ -41,7 +41,7 @@ public class CartResetService(IServiceScopeFactory serviceScopeFactory) : IHoste
 
         foreach (var order in orders)
         {
-            if (currenTime >= order.SessionTime)
+            if (currenTime >= order.SessionTime && order.Order.OrderStatus == OrderStatuses.PAID)
                 order.Order.OrderStatus = OrderStatuses.COMPLETED;
 
             if (nowPlusOneHour >= order.SessionTime && order.Order.OrderStatus == OrderStatuses.NEW)
